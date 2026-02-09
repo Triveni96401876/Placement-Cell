@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement Portal Dashboard | SGP Ballari</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/placement-portal.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo-section">
+            <i class="fas fa-briefcase"></i>
+            <h2 style="font-weight: 700; letter-spacing: -0.5px; font-size: 1.2rem;">SGP PLACEMENT</h2>
+        </div>
+
+        <nav class="menu-list">
+            <div class="menu-item"><a href="#" class="menu-link active"><i class="fas fa-th-large"></i> Dashboard</a>
+            </div>
+            <div class="menu-item"><a href="#" class="menu-link"><i class="fas fa-user-graduate"></i> Student
+                    Profile</a></div>
+            <div class="menu-item"><a href="#" class="menu-link"><i class="fas fa-briefcase"></i> Job Openings</a></div>
+            <div class="menu-item"><a href="#" class="menu-link"><i class="fas fa-paper-plane"></i> Apply Jobs</a></div>
+            <div class="menu-item"><a href="#" class="menu-link"><i class="fas fa-building"></i> Company List</a></div>
+            <div class="menu-item"><a href="#" class="menu-link"><i class="fas fa-tasks"></i> My Applications</a></div>
+            <div class="menu-item"><a href="#" class="menu-link"><i class="fas fa-file-upload"></i> Resume Upload</a>
+            </div>
+            <div class="menu-item"><a href="#" class="menu-link"><i class="fas fa-calendar-alt"></i> Interview
+                    Schedule</a></div>
+            <div class="menu-item"><a href="#" class="menu-link"><i class="fas fa-bell"></i> Notifications</a></div>
+        </nav>
+
+        <div class="logout-item">
+            <a href="index.html" class="menu-link" style="color: #FF5B5B;"><i class="fas fa-sign-out-alt"></i>
+                Logout</a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+
+        <header class="top-header">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search companies, jobs, interviews...">
+            </div>
+
+            <div class="user-meta">
+                <div class="user-info">
+                    <h4 id="user-display-name">Loading...</h4>
+                    <p id="user-display-branch">SGP Ballari Student</p>
+                </div>
+                <div class="avatar" id="user-display-avatar">?</div>
+            </div>
+        </header>
+
+        <!-- Welcome Banner Card -->
+        <div class="welcome-banner">
+            <div class="banner-text">
+                <h1 id="welcome-title">Welcome back!</h1>
+                <p>Your journey to a successful career continues. We have detected <strong>12 new job openings</strong>
+                    matching your computer science profile today. Start applying now!</p>
+                <button
+                    style="margin-top: 20px; background: white; color: var(--purple-primary); border: none; padding: 10px 20px; border-radius: 10px; font-weight: 600; cursor: pointer;">Explore
+                    Openings <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></button>
+            </div>
+            <!-- Replacement for missing illustration -->
+            <div style="font-size: 8rem; color: rgba(255,255,255,0.15); transform: rotate(-10deg);">
+                <i class="fas fa-handshake"></i>
+            </div>
+        </div>
+
+        <!-- Metric Statistic Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon"><i class="fas fa-briefcase"></i></div>
+                <h5>Total Openings</h5>
+                <p class="count">48</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon"><i class="fas fa-file-alt"></i></div>
+                <h5>Applied Jobs</h5>
+                <p class="count">15</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon"><i class="fas fa-check-circle"></i></div>
+                <h5>Shortlisted</h5>
+                <p class="count">04</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon"><i class="fas fa-clock"></i></div>
+                <h5>Interviews</h5>
+                <p class="count">02</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon"><i class="fas fa-award"></i></div>
+                <h5>Offers</h5>
+                <p class="count">01</p>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <!-- Latest Job Notifications Section -->
+            <div class="section-card">
+                <div class="section-header">
+                    <h3>Latest Job Notifications</h3>
+                    <a href="#"
+                        style="font-size: 0.8rem; color: var(--purple-primary); text-decoration: none; font-weight: 600;">View
+                        All</a>
+                </div>
+
+                <div class="job-list">
+                    <div class="job-item">
+                        <div class="job-info">
+                            <div class="comp-logo" style="background: #E1F5FE; color: #01579B;">JS</div>
+                            <div class="job-meta">
+                                <h4>JSW Steel Ltd.</h4>
+                                <p>Graduate Engineer Trainee | Ballari | ₹6.5 LPA</p>
+                            </div>
+                        </div>
+                        <button
+                            style="background: var(--purple-light); color: var(--purple-primary); border: none; padding: 6px 15px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; cursor: pointer;">Apply
+                            Now</button>
+                    </div>
+
+                    <div class="job-item">
+                        <div class="job-info">
+                            <div class="comp-logo" style="background: #FFF3E0; color: #E65100;">TM</div>
+                            <div class="job-meta">
+                                <h4>TATA Motors</h4>
+                                <p>System Design Apprentice | Pune | ₹5.2 LPA</p>
+                            </div>
+                        </div>
+                        <button
+                            style="background: var(--purple-light); color: var(--purple-primary); border: none; padding: 6px 15px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; cursor: pointer;">Apply
+                            Now</button>
+                    </div>
+
+                    <div class="job-item">
+                        <div class="job-info">
+                            <div class="comp-logo" style="background: #E8F5E9; color: #2E7D32;">IN</div>
+                            <div class="job-meta">
+                                <h4>Infosys</h4>
+                                <p>Process Associate | Bengaluru | ₹4.8 LPA</p>
+                            </div>
+                        </div>
+                        <button
+                            style="background: var(--purple-light); color: var(--purple-primary); border: none; padding: 6px 15px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; cursor: pointer;">Apply
+                            Now</button>
+                    </div>
+
+                    <div class="job-item">
+                        <div class="job-info">
+                            <div class="comp-logo" style="background: #F3E5F5; color: #7B1FA2;">LT</div>
+                            <div class="job-meta">
+                                <h4>L&T Construction</h4>
+                                <p>Junior Site Engineer | Multiple | ₹5.5 LPA</p>
+                            </div>
+                        </div>
+                        <button
+                            style="background: var(--purple-light); color: var(--purple-primary); border: none; padding: 6px 15px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; cursor: pointer;">Apply
+                            Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Panels -->
+            <div class="side-area">
+                <!-- Upcoming Interviews Panel -->
+                <div class="section-card side-panel">
+                    <div class="section-header">
+                        <h3>Upcoming Interviews</h3>
+                    </div>
+                    <div class="interview-card">
+                        <h5 style="margin-bottom: 5px;">Microsoft Teams Interview</h5>
+                        <p style="font-size: 0.75rem; color: #444; font-weight: 600;">JSW Steel | Feb 08, 10:30 AM</p>
+                        <p style="font-size: 0.7rem; color: #666; margin-top: 5px;">Aptitude + Technical Round 1</p>
+                    </div>
+                    <div class="interview-card" style="border-left-color: #28a745; background: #E8F5E9;">
+                        <h5 style="margin-bottom: 5px;">Final HR Round</h5>
+                        <p style="font-size: 0.75rem; color: #444; font-weight: 600;">TATA Motors | Feb 12, 02:00 PM</p>
+                        <p style="font-size: 0.7rem; color: #666; margin-top: 5px;">Campus Interview Center</p>
+                    </div>
+                </div>
+
+                <!-- Important Notices Panel -->
+                <div class="section-card side-panel">
+                    <div class="section-header">
+                        <h3>Placement Notices</h3>
+                    </div>
+                    <div class="notice-item">
+                        <h5>Resume Verification Deadline</h5>
+                        <p>All final year students must verify their resumes at the TPO office by Monday.</p>
+                    </div>
+                    <div class="notice-item">
+                        <h5>JSW Drive Details</h5>
+                        <p>Detailed eligibility criteria and venue instructions are uploaded to the portal.</p>
+                    </div>
+                    <a href="#"
+                        style="display: block; text-align: center; margin-top: 15px; font-size: 0.8rem; color: var(--purple-primary); text-decoration: none; font-weight: 600;">See
+                        all notices <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i></a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Personalization Script -->
+    <script>
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userName = urlParams.get('username') || "John Doe";
+
+            // Update UI elements
+            document.getElementById('user-display-name').textContent = userName;
+            document.getElementById('user-display-avatar').textContent = userName.charAt(0).toUpperCase();
+            document.getElementById('welcome-title').textContent = `Welcome back, ${userName.split(' ')[0]}!`;
+
+            // Specific branch update if available
+            const branch = urlParams.get('branch');
+            if (branch) {
+                document.getElementById('user-display-branch').textContent = `${branch} | 2024 Batch`;
+            }
+        };
+    </script>
+</body>
+
+</html>

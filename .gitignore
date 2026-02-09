@@ -1,0 +1,37 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+target/
+.mtl.java.h
+
+# Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.backup
+pom.xml.restoreBackup
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# VS Code
+.vscode/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Project specific
+*.rar
+*.zip
+uploads/

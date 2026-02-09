@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGP Enrollment | Student Registration</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00a8ff;
+            --primary-dark: #0097e6;
+            --bg-light: #f5f6fa;
+            --white: #ffffff;
+            --text-dark: #2f3640;
+            --text-muted: #7f8fa6;
+            --border-color: #edeff2;
+            --shadow: 0 8px 32px 0 rgba(0, 168, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--bg-light);
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding-bottom: 3rem;
+        }
+
+        /* Header Area */
+        .register-header {
+            background: var(--white);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-box img {
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+        }
+
+        .logo-box h2 {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 1.4rem;
+        }
+
+        .home-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .home-link:hover {
+            color: var(--primary);
+        }
+
+        /* Form Container */
+        .form-container {
+            max-width: 950px;
+            margin: 2rem auto;
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .form-banner {
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .form-banner h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-banner p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .form-body {
+            padding: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 2rem 0 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--bg-light);
+            padding-bottom: 8px;
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+        }
+
+        .grid-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .sem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px 14px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            color: var(--text-dark);
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            background: #f0faff;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 18px;
+            margin-top: 4px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .required-star {
+            color: #ff4d4d;
+            font-weight: bold;
+            margin-left: 3px;
+        }
+
+        .btn-row {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 15px;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            flex: 2;
+            box-shadow: 0 4px 12px rgba(0, 168, 255, 0.2);
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .resume-gen-btn {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 14px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            flex: 1;
+        }
+
+        .resume-gen-btn:hover {
+            background: #f0faff;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 2% auto;
+            padding: 20px;
+            border: none;
+            width: 90%;
+            max-width: 900px;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 25px;
+            top: 20px;
+            color: #7f8fa6;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 10;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-iframe {
+            width: 100%;
+            height: 80vh;
+            border: none;
+            border-radius: 12px;
+            background: #f1f2f6;
+        }
+
+        @media (max-width: 768px) {
+
+            .grid-row,
+            .sem-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="register-header">
+        <a href="index.html" class="logo-box">
+            <img src="images/sgp1.jpeg" alt="SGP Logo" onerror="this.src='https://via.placeholder.com/45x45?text=SGP'">
+            <h2>SGP PLACEMENT CELL</h2>
+        </a>
+        <a href="index.html" class="home-link"><i class="fas fa-home"></i> Back to Home</a>
+    </header>
+
+    <div class="form-container">
+        <div class="form-banner">
+            <h1 style="font-weight: 700; font-size: 2rem; margin-bottom: 10px;">Student Enrollment Form</h1>
+        </div>
+
+        <form class="form-body" onsubmit="return false;">
+            <input type="hidden" id="fullName">
+
+            <!-- Section 1: Basic Information -->
+            <div class="grid-row">
+                <div class="form-group">
+                    <label>First Name<span class="required-star">*</span></label>
+                    <input type="text" id="firstName" placeholder="Rahul" required>
+                </div>
+                <div class="form-group">
+                    <label>Last Name<span class="required-star">*</span></label>
+                    <input type="text" id="lastName" placeholder="Kumar" required>
+                </div>
+                <div class="form-group">
+                    <label>Register Number (Diploma)<span class="required-star">*</span></label>
+                    <input type="text" name="regNo" placeholder="e.g. 459CS21001" required>
+                </div>
+                <div class="form-group">
+                    <label>Date of Birth (D.O.B)<span class="required-star">*</span></label>
+                    <input type="date" name="dob" required>
+                </div>
+                <div class="form-group">
+                    <label>Gender<span class="required-star">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="gender" value="Male" required>
+                            Male</label>
+                        <label class="radio-option"><input type="radio" name="gender" value="Female"> Female</label>
+                        <label class="radio-option"><input type="radio" name="gender" value="Other"> Other</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Branch (Diploma)<span class="required-star">*</span></label>
+                    <select name="branch" required>
+                        <option value="">Select Branch</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Electronics & Comm">Electronics & Comm</option>
+                        <option value="Mechanical Engg">Mechanical Engg</option>
+                        <option value="Electrical Engg">Electrical Engg</option>
+                        <option value="Civil Engg">Civil Engg</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Mobile Number<span class="required-star">*</span></label>
+                    <input type="tel" name="mobile" placeholder="98XXXXXXXX" maxlength="10" minlength="10"
+                        pattern="[0-9]{10}" required>
+                </div>
+                <div class="form-group">
+                    <label>Alternative Mobile No</label>
+                    <input type="tel" name="altMobile" placeholder="Alternative contact" maxlength="10" minlength="10"
+                        pattern="[0-9]{10}">
+                </div>
+                <div class="form-group full-width">
+                    <label>Email ID<span class="required-star">*</span></label>
+                    <input type="email" name="email" placeholder="student@example.com" required>
+                </div>
+                <div class="form-group full-width">
+                    <label>Permanent Address</label>
+                    <textarea name="address" rows="3" placeholder="Enter your full residential address..."></textarea>
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="form-group">
+                    <label>SSLC Percentage (%)<span class="required-star">*</span></label>
+                    <input type="number" name="sslc" step="0.01" placeholder="e.g. 85.50" required>
+                </div>
+                <div class="form-group">
+                    <label>SSLC Year of Passing<span class="required-star">*</span></label>
+                    <input type="number" name="sslcYear" placeholder="e.g. 2019" min="1990" max="2030" required>
+                </div>
+                <div class="form-group">
+                    <label>PUC Percentage (%) <small>(Optional)</small></label>
+                    <input type="number" name="puc" step="0.01" placeholder="e.g. 75.00">
+                </div>
+                <div class="form-group">
+                    <label>PUC Year of Passing <small>(Optional)</small></label>
+                    <input type="number" name="pucYear" placeholder="e.g. 2021" min="1990" max="2030">
+                </div>
+                <div class="form-group">
+                    <label>ITI Percentage (%) <small>(Optional)</small></label>
+                    <input type="number" name="iti" step="0.01" placeholder="e.g. 80.00">
+                </div>
+                <div class="form-group">
+                    <label>ITI Year of Passing <small>(Optional)</small></label>
+                    <input type="number" name="itiYear" placeholder="e.g. 2022" min="1990" max="2030">
+                </div>
+            </div>
+
+            <div class="sem-grid">
+                <div class="form-group"><label>1st Sem (%)</label><input type="number" name="sem1" step="0.01"></div>
+                <div class="form-group"><label>2nd Sem (%)</label><input type="number" name="sem2" step="0.01"></div>
+                <div class="form-group"><label>3rd Sem (%)</label><input type="number" name="sem3" step="0.01"></div>
+                <div class="form-group"><label>4th Sem (%)</label><input type="number" name="sem4" step="0.01"></div>
+                <div class="form-group"><label>5th Sem (%)</label><input type="number" name="sem5" step="0.01"></div>
+            </div> <!-- Close sem-grid -->
+
+            <div class="grid-row">
+                <div class="form-group">
+                    <label>Aggregate CGPA (Diploma)<span class="required-star">*</span></label>
+                    <input type="number" name="cgpa" step="0.01" placeholder="e.g. 8.5" required>
+                </div>
+                <div class="form-group">
+                    <label>Backlogs</label>
+                    <select name="backlogs" required>
+                        <option value="">Select Number</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>History of Backlogs</label>
+                    <select name="backlogHistory" required>
+                        <option value="">Select Option</option>
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group full-width" style="margin-top: 1rem;">
+                <label>Technical Skills (Comma separated)</label>
+                <input type="text" name="skills" placeholder="e.g. Java, Python, HTML, CSS, SQL" required>
+            </div>
+
+
+            <!-- Security Section -->
+            <div class="form-group full-width">
+                <label>Set Password for Account<span class="required-star">*</span></label>
+                <input type="password" name="password" placeholder="••••••••" required>
+            </div>
+
+            <!-- Upload Section -->
+            <div class="grid-row">
+                <div class="form-group">
+                    <label>Upload SSLC Marks Card<span class="required-star">*</span></label>
+                    <input type="file" name="sslcCard" accept=".pdf,image/*" id="sslcUpload" required>
+                    <small style="color: var(--text-muted); font-size: 0.75rem;">Max 2MB, PDF/JPG/PNG</small>
+                </div>
+                <div class="form-group">
+                    <label>Diploma Marksheet (Latest Sem)<span class="required-star">*</span></label>
+                    <input type="file" name="diplomaCard" accept=".pdf,image/*" id="diplomaUpload" required>
+                    <small style="color: var(--text-muted); font-size: 0.75rem;">Max 2MB, PDF/JPG/PNG</small>
+                </div>
+                <div class="form-group">
+                    <label>Upload Resume (PDF)</label>
+                    <input type="file" name="resume" accept=".pdf" id="resumeUpload">
+                    <small style="color: var(--text-muted); font-size: 0.75rem;">Max 5MB, PDF only</small>
+                </div>
+                <div class="form-group">
+                    <label>Upload Profile Photo</label>
+                    <input type="file" name="photo" accept="image/*" id="photoUpload" onchange="previewPhoto(this)">
+                    <small style="color: var(--text-muted); font-size: 0.75rem;">Max 2MB, JPG/PNG</small>
+                    <div id="photoPreview" style="margin-top: 10px; display: none;">
+                        <img id="photoPreviewImg" src="" alt="Preview"
+                            style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover; border: 2px solid var(--border-color);">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="btn-row">
+                <button type="button" class="resume-gen-btn" onclick="generateResume()">
+                    <i class="fas fa-magic"></i> Auto Resume
+                </button>
+                <button type="button" class="submit-btn" onclick="showSuccess()">Complete
+                    Registration</button>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        function generateResume() {
+            const fName = document.getElementById('firstName').value;
+            const lName = document.getElementById('lastName').value;
+            if (!fName) { alert('Please enter at least your name first!'); return; }
+
+            const data = {
+                fullName: fName + " " + lName,
+                email: document.querySelector('input[name="email"]').value,
+                phone: document.querySelector('input[name="mobile"]').value,
+                branch: document.querySelector('select[name="branch"]').value,
+                id: document.querySelector('input[name="regNo"]').value,
+                sslc: document.querySelector('input[name="sslc"]').value,
+                puc: document.querySelector('input[name="puc"]').value,
+                cgpa: document.querySelector('input[name="cgpa"]').value,
+                skills: document.querySelector('input[name="skills"]').value,
+                dob: document.querySelector('input[name="dob"]').value,
+                address: document.querySelector('textarea[name="address"]').value
+            };
+
+            localStorage.setItem('resumeData', JSON.stringify(data));
+
+            // Open modal and load iframe
+            const modal = document.getElementById('resumeModal');
+            const iframe = document.getElementById('resumeIframe');
+            iframe.src = 'auto-resume.html';
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('resumeModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            const modal = document.getElementById('resumeModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        function showSuccess() {
+            const modal = document.getElementById('successModal');
+            modal.style.display = 'flex';
+
+            // Redirect after 4 seconds
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 4000);
+        }
+
+        function previewPhoto(input) {
+            const preview = document.getElementById('photoPreview');
+            const previewImg = document.getElementById('photoPreviewImg');
+
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+
+                // Validate file size (2MB max)
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('Photo size should not exceed 2MB');
+                    input.value = '';
+                    preview.style.display = 'none';
+                    return;
+                }
+
+                // Validate file type
+                if (!file.type.match('image.*')) {
+                    alert('Please select a valid image file');
+                    input.value = '';
+                    preview.style.display = 'none';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewImg.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        }
+    </script>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="success-overlay">
+        <div class="success-card">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Registration Successful!</h2>
+            <p>Welcome to SGP Placement Cell. Your application has been received and your account is being created.</p>
+            <div class="success-progress">
+                <div class="progress-bar"></div>
+            </div>
+            <p class="redirect-hint">Redirecting to Login Dashboard...</p>
+        </div>
+    </div>
+
+    <style>
+        .success-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 5000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .success-card {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-bottom: 8px solid #27ae60;
+            animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .success-icon {
+            font-size: 80px;
+            color: #27ae60;
+            margin-bottom: 25px;
+            animation: scaleIn 0.5s 0.3s both;
+        }
+
+        .success-card h2 {
+            color: #1a252f;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .success-card p {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .success-progress {
+            height: 6px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: #27ae60;
+            animation: loadingProgress 4s linear forwards;
+        }
+
+        .redirect-hint {
+            font-size: 0.85rem;
+            color: #94a3b8 !important;
+            font-weight: 500;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes loadingProgress {
+            to {
+                width: 100%;
+            }
+        }
+    </style>
+
+    </div>
+
+    <!-- Resume Preview Modal -->
+    <div id="resumeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <iframe id="resumeIframe" class="modal-iframe"></iframe>
+        </div>
+    </div>
+
+</body>
+
+</html>

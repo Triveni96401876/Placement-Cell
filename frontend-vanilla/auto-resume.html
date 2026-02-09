@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGP Professional Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e293b;
+            --secondary: #3b82f6;
+            --text-main: #334155;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --bg-page: #f1f5f9;
+            --sidebar-bg: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg-page);
+            padding: 40px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .resume-container {
+            background: var(--white);
+            width: 210mm;
+            min-height: 297mm;
+            display: flex;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Sidebar Color Accent */
+        .resume-container::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--secondary);
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 32%;
+            background: var(--sidebar-bg);
+            padding: 40px 30px;
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .profile-section {
+            text-align: center;
+        }
+
+        .profile-img-container {
+            width: 140px;
+            height: 140px;
+            border-radius: 18px;
+            background: #e2e8f0;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 4px solid var(--white);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-img-container i {
+            font-size: 50px;
+            color: #94a3b8;
+        }
+
+        .contact-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .contact-item i {
+            width: 32px;
+            height: 32px;
+            background: var(--white);
+            color: var(--secondary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            width: 68%;
+            padding: 50px 45px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-section {
+            margin-bottom: 40px;
+        }
+
+        .header-section h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.1;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .header-section .title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .section-header .line {
+            flex-grow: 1;
+            height: 2px;
+            background: #f1f5f9;
+        }
+
+        .summary-text {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            text-align: justify;
+        }
+
+        .edu-item {
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 20px;
+            border-left: 2px solid #e2e8f0;
+        }
+
+        .edu-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .edu-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .edu-degree {
+            font-weight: 700;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        .edu-year {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .edu-school {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: var(--white);
+            border: 1px solid #e2e8f0;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--secondary);
+            border-radius: 50%;
+        }
+
+        .declaration-box {
+            margin-top: auto;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 30px;
+        }
+
+        .btn-print {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: var(--secondary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            z-index: 100;
+        }
+
+        .btn-print:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.4);
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+
+            .btn-print {
+                display: none;
+            }
+
+            .resume-container {
+                box-shadow: none;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="btn-print" onclick="window.print()">
+        <i class="fas fa-file-pdf"></i> Download PDF
+    </button>
+
+    <div class="resume-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <div class="profile-section">
+                <div class="profile-img-container">
+                    <img id="res-photo" src="" alt="" style="display:none;">
+                    <i id="img-placeholder" class="fas fa-user-graduate"></i>
+                </div>
+                <h3 style="font-weight: 700; color: var(--primary); font-size: 1.1rem;" id="res-sidebar-name">Student
+                    Name</h3>
+            </div>
+
+            <div class="contact-section">
+                <h3
+                    style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-light); margin-bottom: 15px; letter-spacing: 0.1em; font-weight: 800;">
+                    Contact Details</h3>
+                <ul class="contact-list">
+                    <li class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span id="res-email">Email Address</span>
+                    </li>
+                    <li class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span id="res-phone">Phone Number</span>
+                    </li>
+                    <li class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Ballari, Karnataka</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="skills-section">
+                <h3
+                    style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-light); margin-bottom: 15px; letter-spacing: 0.1em; font-weight: 800;">
+                    Technical Skills</h3>
+                <div id="res-skills" class="skills-grid" style="display: flex; flex-direction: column; gap: 8px;">
+                    <!-- Skills will be injected here -->
+                </div>
+            </div>
+
+            <div class="personal-info" style="margin-top: 10px;">
+                <h3
+                    style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-light); margin-bottom: 15px; letter-spacing: 0.1em; font-weight: 800;">
+                    Registration</h3>
+                <p style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);" id="res-id">REG-ID: N/A</p>
+            </div>
+        </aside>
+
+        <!-- Right Main Content -->
+        <main class="main-content">
+            <div class="header-section">
+                <h1 id="res-name">Student <br> Name</h1>
+                <div class="title" id="res-branch-title">Engineering Student</div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2>Professional Summary</h2>
+                    <div class="line"></div>
+                </div>
+                <p class="summary-text">
+                    Highly motivated and technically proficient student from Sanjay Gandhi Polytechnic, Ballari.
+                    Equipped with a solid foundation in engineering principles and a drive for practical excellence.
+                    Eager to contribute academic knowledge and problem-solving skills to a dynamic professional
+                    organization
+                    while continuously advancing technical capabilities.
+                </p>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2>Academic Background</h2>
+                    <div class="line"></div>
+                </div>
+
+                <div class="edu-item">
+                    <div class="edu-header">
+                        <span class="edu-degree">Diploma in <span id="res-branch">Engineering Branch</span></span>
+                        <span class="edu-year">2021 - Present</span>
+                    </div>
+                    <div class="edu-school">Sanjay Gandhi Polytechnic, Ballari</div>
+                    <div style="margin-top: 5px; font-weight: 600; color: var(--text-main); font-size: 0.9rem;">
+                        Aggregate Score: <span id="res-cgpa">0.00</span> %
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2>Higher Secondary / ITI</h2>
+                    <div class="line"></div>
+                </div>
+
+                <div class="edu-item" id="puc-box">
+                    <div class="edu-header">
+                        <span class="edu-degree">PUC / 12th Standard</span>
+                    </div>
+                    <div class="edu-school">Secondary Education Board</div>
+                    <div style="font-weight: 600; color: var(--text-main); font-size: 0.9rem;">
+                        Percentage: <span id="res-puc">0</span>%
+                    </div>
+                </div>
+
+                <div class="edu-item" id="iti-box" style="display:none;">
+                    <div class="edu-header">
+                        <span class="edu-degree">ITI (Industrial Training)</span>
+                    </div>
+                    <div class="edu-school">Vocational Training Institute</div>
+                    <div style="font-weight: 600; color: var(--text-main); font-size: 0.9rem;">
+                        Percentage: <span id="res-iti">0</span>%
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2>Primary Education</h2>
+                    <div class="line"></div>
+                </div>
+                <div class="edu-item">
+                    <div class="edu-header">
+                        <span class="edu-degree">SSLC / 10th Standard</span>
+                    </div>
+                    <div class="edu-school">State Board of Karnataka</div>
+                    <div style="font-weight: 600; color: var(--text-main); font-size: 0.9rem;">
+                        Percentage: <span id="res-sslc">0</span>%
+                    </div>
+                </div>
+            </div>
+
+            <div class="declaration-box">
+                <div class="section-header">
+                    <h2>Declaration</h2>
+                    <div class="line"></div>
+                </div>
+                <p class="summary-text" style="font-size: 0.85rem;">
+                    I hereby declare that the particulars given herein are true and correct to the best of my knowledge
+                    and belief.
+                </p>
+
+                <div style="margin-top: 40px; display: flex; justify-content: space-between; align-items: flex-end;">
+                    <div style="font-size: 0.85rem; color: var(--text-light);">
+                        Date: <span id="res-date"></span><br>
+                        Place: Ballari, Karnataka
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="border-bottom: 2px solid var(--primary); width: 150px; margin-bottom: 5px;"></div>
+                        <span
+                            style="font-weight: 700; font-size: 0.85rem; color: var(--primary); text-transform: uppercase;">Signature</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        window.onload = function () {
+            const data = JSON.parse(localStorage.getItem('resumeData') || '{}');
+
+            document.getElementById('res-name').innerHTML = (data.fullName || 'Student Name').split(' ').join('<br>');
+            document.getElementById('res-sidebar-name').innerText = data.fullName || 'Student Name';
+            document.getElementById('res-email').innerText = data.email || 'student@example.com';
+            document.getElementById('res-phone').innerText = data.phone || '+91 XXXXXXXXXX';
+            document.getElementById('res-branch').innerText = data.branch || 'Engg Branch';
+            document.getElementById('res-branch-title').innerText = (data.branch || 'Diploma') + " Student";
+            document.getElementById('res-cgpa').innerText = data.cgpa || '0.00';
+            document.getElementById('res-id').innerText = "REG-ID: " + (data.id || 'N/A');
+            document.getElementById('res-sslc').innerText = data.sslc || '0';
+            document.getElementById('res-puc').innerText = data.puc || '0';
+            document.getElementById('res-date').innerText = new Date().toLocaleDateString('en-GB');
+
+            // Handle ITI
+            if (data.iti && data.iti !== "0") {
+                document.getElementById('iti-box').style.display = 'block';
+                document.getElementById('res-iti').innerText = data.iti;
+            }
+
+            // Handle Photo
+            if (data.photo && data.photo.startsWith('data:image')) {
+                const img = document.getElementById('res-photo');
+                img.src = data.photo;
+                img.style.display = 'block';
+                document.getElementById('img-placeholder').style.display = 'none';
+            }
+
+            // Handle Skills
+            const skillsContainer = document.getElementById('res-skills');
+            const skills = (data.skills || '').split(',');
+            skills.forEach(skill => {
+                if (skill.trim()) {
+                    const tag = document.createElement('div');
+                    tag.className = 'skill-tag';
+                    tag.innerHTML = `<span>${skill.trim()}</span>`;
+                    skillsContainer.appendChild(tag);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGP Admin Panel | Placement Cell</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/admin-style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header class="admin-header">
+        <div class="logo-area">
+            <img src="images/sgp1.jpeg" alt="SGP Logo" class="admin-logo"
+                onerror="this.src='https://via.placeholder.com/40x40?text=SGP'">
+            <span style="font-size: 1.2rem; font-weight: 700;">SGP ADMIN CENTER</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <span><i class="fas fa-user-shield"></i> System Admin</span>
+            <a href="index.html"
+                style="color: white; text-decoration: none; border: 1px solid white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem;">Logout</a>
+        </div>
+    </header>
+
+    <div class="container" style="display: flex;">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <nav class="admin-nav">
+                <a href="#" class="admin-nav-item active">
+                    <i class="fas fa-chart-line"></i> Dashboard Overview
+                </a>
+                <a href="#" class="admin-nav-item">
+                    <i class="fas fa-users"></i> Student Records
+                </a>
+                <a href="#" class="admin-nav-item">
+                    <i class="fas fa-briefcase"></i> Job Management
+                </a>
+                <a href="#" class="admin-nav-item">
+                    <i class="fas fa-building"></i> Company Database
+                </a>
+                <a href="#" class="admin-nav-item">
+                    <i class="fas fa-broadcast-tower"></i> Circulars & News
+                </a>
+                <a href="#" class="admin-nav-item">
+                    <i class="fas fa-file-alt"></i> Placement Reports
+                </a>
+                <a href="#" class="admin-nav-item">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <h2 style="margin-bottom: 2rem;">Administrator Dashboard</h2>
+
+            <!-- Quick Stats -->
+            <div class="admin-stats-grid">
+                <div class="admin-stat-card" style="border-color: var(--admin-info);">
+                    <span class="label">Total Registered Students</span>
+                    <span class="value">1,245</span>
+                </div>
+                <div class="admin-stat-card" style="border-color: var(--admin-accent);">
+                    <span class="label">Companies Partnered</span>
+                    <span class="value">85</span>
+                </div>
+                <div class="admin-stat-card" style="border-color: var(--admin-warning);">
+                    <span class="label">Active Job Postings</span>
+                    <span class="value">12</span>
+                </div>
+                <div class="admin-stat-card" style="border-color: var(--admin-danger);">
+                    <span class="label">Students Placed (2024)</span>
+                    <span class="value">340</span>
+                </div>
+            </div>
+
+            <div class="dashboard-grid" style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                <div class="left-col">
+                    <!-- Recent Applications -->
+                    <div class="admin-card">
+                        <div class="admin-card-header">
+                            <h3>Recent Student Applications</h3>
+                            <button class="btn-admin-primary">View All</button>
+                        </div>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Branch</th>
+                                    <th>Company</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Smith</td>
+                                    <td>Computer Science</td>
+                                    <td>JSW Steel</td>
+                                    <td><span style="color: var(--admin-warning);">Under Review</span></td>
+                                    <td><button class="btn-admin-action">Details</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Priya Kumari</td>
+                                    <td>Electronics</td>
+                                    <td>TATA Motors</td>
+                                    <td><span style="color: var(--admin-accent);">Shortlisted</span></td>
+                                    <td><button class="btn-admin-action">Details</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Arjun Rao</td>
+                                    <td>Mechanical</td>
+                                    <td>Infosys</td>
+                                    <td><span style="color: var(--admin-info);">Applied</span></td>
+                                    <td><button class="btn-admin-action">Details</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="right-col">
+                    <!-- Quick Actions -->
+                    <div class="admin-card">
+                        <h3>Admin Control Center</h3>
+                        <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 1.5rem;">
+                            <button class="btn-admin-primary pulse-glow"
+                                onclick="window.location.href='admin-post-job.html'">
+                                <i class="fas fa-plus"></i> Launch New Job
+                            </button>
+                            <button class="btn-admin-primary"
+                                style="background: linear-gradient(45deg, #0fbcf9, #48dbfb);"
+                                onclick="window.location.href='admin-push-circular.html'">
+                                <i class="fas fa-bullhorn"></i> Broadcast Notice
+                            </button>
+                            <button class="btn-admin-primary"
+                                style="background: linear-gradient(45deg, #ffa801, #ffc312);">
+                                <i class="fas fa-download"></i> Generate Reports
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- System Logs -->
+                    <div class="admin-card">
+                        <h3>Recent activity</h3>
+                        <ul
+                            style="list-style: none; margin-top: 1rem; font-size: 0.85rem; color: var(--admin-secondary);">
+                            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle"
+                                    style="color: var(--admin-accent);"></i> New circular broadcasted</li>
+                            <li style="margin-bottom: 10px;"><i class="fas fa-plus-circle"
+                                    style="color: var(--admin-info);"></i> 15 Students registered</li>
+                            <li><i class="fas fa-edit" style="color: var(--admin-warning);"></i> Job details updated for
+                                JSW</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+
+</html>

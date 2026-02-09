@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Push Circular | SGP Admin</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/admin-style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--admin-secondary);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            height: 200px;
+            resize: vertical;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="admin-header">
+        <div class="logo-area">
+            <img src="images/sgp1.jpeg" alt="SGP Logo" class="admin-logo"
+                onerror="this.src='https://via.placeholder.com/40x40?text=SGP'">
+            <span style="font-size: 1.2rem; font-weight: 700;">SGP ADMIN CENTER</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="admin-dashboard.html" style="color: white; text-decoration: none;"><i
+                    class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        </div>
+    </header>
+
+    <div class="container" style="display: flex;">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <nav class="admin-nav">
+                <a href="admin-dashboard.html" class="admin-nav-item">
+                    <i class="fas fa-chart-line"></i> Dashboard Overview
+                </a>
+                <a href="admin-post-job.html" class="admin-nav-item">
+                    <i class="fas fa-plus-circle"></i> Post New Job
+                </a>
+                <a href="#" class="admin-nav-item active">
+                    <i class="fas fa-broadcast-tower"></i> Circulars & News
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h2><i class="fas fa-bullhorn"></i> Broadcast New Circular</h2>
+                    <p style="color: var(--admin-secondary);">Send official announcements to all registered students</p>
+                </div>
+
+                <form action="admin-dashboard.html" method="GET" style="margin-top: 2rem;">
+                    <div class="form-group">
+                        <label>Circular Title</label>
+                        <input type="text" placeholder="e.g. Mandatory Pre-Placement Talk - JSW Steel" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select required>
+                                <option value="">Select Category</option>
+                                <option value="Placement">Placement News</option>
+                                <option value="Exam">Exam Notification</option>
+                                <option value="Event">Campus Event</option>
+                                <option value="Urgent">Urgent Warning</option>
+                                <option value="General">General Notice</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Target Audience</label>
+                            <select required>
+                                <option value="All">All Students</option>
+                                <option value="Final Year">Final Year Only</option>
+                                <option value="Specific Branch">Specific Branch Only</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Announcement Details</label>
+                        <textarea placeholder="Write the full message here..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Attach PDF/Image (Optional)</label>
+                        <input type="file" accept=".pdf,image/*" style="padding: 8px;">
+                    </div>
+
+                    <div class="btn-row">
+                        <button type="submit" class="btn-admin-primary" style="background: var(--admin-info);">
+                            <i class="fas fa-paper-plane"></i> Push Broadcast
+                        </button>
+                        <button type="reset" class="btn-admin-primary" style="background: var(--admin-secondary);">
+                            Clear
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+</body>
+
+</html>
