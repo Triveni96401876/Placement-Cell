@@ -140,14 +140,14 @@
                 </p>
             </div>
 
-            <form action="admin-dashboard.html" method="GET">
+            <form id="admin-login-form" action="admin-dashboard.html" method="GET">
                 <div class="form-group">
                     <label>Administrator ID</label>
-                    <input type="text" placeholder="Enter Admin Username" required>
+                    <input type="text" id="admin-user" placeholder="Enter Admin Username" required>
                 </div>
                 <div class="form-group">
                     <label>Secure Password</label>
-                    <input type="password" placeholder="••••••••" required>
+                    <input type="password" id="admin-pass" placeholder="••••••••" required>
                 </div>
                 <button type="submit" class="btn-admin">
                     Access Admin Center
@@ -159,6 +159,21 @@
             </p>
         </div>
     </div>
+
+    <script>
+        document.getElementById('admin-login-form').onsubmit = function (e) {
+            const user = document.getElementById('admin-user').value;
+            const pass = document.getElementById('admin-pass').value;
+
+            if (user === 'nayeembashasir' && pass === 'nayeembashasir') {
+                return true;
+            } else {
+                e.preventDefault();
+                alert("Invalid Admin Credentials. Please try again.");
+                return false;
+            }
+        }
+    </script>
 
 </body>
 
