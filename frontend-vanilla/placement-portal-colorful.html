@@ -22,17 +22,22 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(8px);
+            overflow-y: auto;
+            /* Enable scrolling */
+            padding: 20px 0;
         }
 
         .modal-content {
             background: white;
-            margin: 5% auto;
+            margin: 2rem auto;
+            /* Adjusted margin */
             padding: 2.5rem;
             border-radius: 24px;
             width: 90%;
             max-width: 800px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
             animation: slideIn 0.3s ease-out;
+            position: relative;
         }
 
         @keyframes slideIn {
@@ -105,11 +110,20 @@
             background: var(--primary);
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 14px 40px;
+            /* Bigger button */
             border-radius: 12px;
             font-weight: 700;
+            font-size: 1rem;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0, 168, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 168, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-save-modal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(0, 168, 255, 0.4);
+            filter: brightness(1.1);
         }
 
         #notify {
@@ -187,9 +201,9 @@
                         </div>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                             <p><strong>Name:</strong> <span id="info-name">Triveni</span></p>
-                            <p><strong>ID:</strong> <span id="info-id">459CS230548</span></p>
-                            <p><strong>Branch:</strong> Computer Science</p>
-                            <p><strong>Contact:</strong> +91 90080 66235</p>
+                            <p><strong>Branch:</strong> <span id="info-branch">Computer Science</span></p>
+                            <p><strong>Contact:</strong> <span id="info-phone">+91 90080 66235</span></p>
+                            <p><strong>CGPA:</strong> <span id="info-cgpa">8.5</span></p>
                         </div>
                     </div>
 
@@ -262,21 +276,24 @@
                 <div class="info-card" style="border: 1px solid var(--secondary); text-align: center;">
                     <i class="fas fa-file-pdf fa-3x" style="color: #e74c3c;"></i>
                     <h4 style="margin: 10px 0;">SSLC Marks Card</h4>
-                    <button class="btn-edit" style="width: 100%; border: 1px solid var(--primary);"><i
-                            class="fas fa-eye"></i> View</button>
+                    <button class="btn-edit" style="width: 100%; border: 1px solid var(--primary);"
+                        onclick="window.open('../TriveniReddy_Resume.pdf', '_blank')"><i class="fas fa-eye"></i>
+                        View</button>
                 </div>
                 <div class="info-card" style="border: 1px solid var(--secondary); text-align: center;">
                     <i class="fas fa-file-pdf fa-3x" style="color: #2ecc71;"></i>
                     <h4 style="margin: 10px 0;">Diploma Marksheet</h4>
                     <small>Latest Semester</small>
-                    <button class="btn-edit" style="width: 100%; border: 1px solid var(--primary);"><i
-                            class="fas fa-eye"></i> View</button>
+                    <button class="btn-edit" style="width: 100%; border: 1px solid var(--primary);"
+                        onclick="window.open('../TriveniReddy_Resume.pdf', '_blank')"><i class="fas fa-eye"></i>
+                        View</button>
                 </div>
                 <div class="info-card" style="border: 1px solid var(--secondary); text-align: center;">
                     <i class="fas fa-id-card fa-3x" style="color: var(--primary);"></i>
                     <h4 style="margin: 10px 0;">Latest Resume</h4>
-                    <button class="btn-edit" style="width: 100%; border: 1px solid var(--primary);"><i
-                            class="fas fa-download"></i> Get</button>
+                    <button class="btn-edit" style="width: 100%; border: 1px solid var(--primary);"
+                        onclick="window.open('../TriveniReddy_Resume.pdf', '_blank')"><i class="fas fa-download"></i>
+                        Get</button>
                 </div>
             </div>
         </div>
@@ -435,6 +452,18 @@
 
         function openProfileModal() {
             document.getElementById('profileModal').style.display = 'block';
+            // For demo: Pre-fill modal with current dashboard data
+            document.getElementById('m-name').value = document.getElementById('info-name').textContent;
+            document.getElementById('m-phone').value = document.getElementById('info-phone').textContent;
+            document.getElementById('m-branch').value = document.getElementById('info-branch').textContent;
+            document.getElementById('m-cgpa').value = document.getElementById('info-cgpa').textContent;
+
+            // Default demo values if not already set
+            if (!document.getElementById('m-email').value) document.getElementById('m-email').value = "student@ballari.edu";
+            if (!document.getElementById('m-id').value) document.getElementById('m-id').value = "dolly1234";
+            if (!document.getElementById('m-address').value) document.getElementById('m-address').value = "Ballari, Karnataka";
+
+            // Optional: Still try to fetch real data if API is live
             fetchData();
         }
 
@@ -447,16 +476,16 @@
                 const res = await fetch(`${API_URL}/profile/${studentId}`);
                 if (res.ok) {
                     const data = await res.json();
-                    document.getElementById('m-id').value = data.registerNumber || '';
-                    document.getElementById('m-name').value = data.fullName || '';
-                    document.getElementById('m-email').value = data.email || '';
-                    document.getElementById('m-phone').value = data.phoneNumber || '';
-                    document.getElementById('m-branch').value = data.branch || 'Computer Science';
-                    document.getElementById('m-cgpa').value = data.cgpa || '';
-                    document.getElementById('m-address').value = data.address || '';
+                    if (data.fullName) document.getElementById('m-name').value = data.fullName;
+                    if (data.registerNumber) document.getElementById('m-id').value = data.registerNumber;
+                    if (data.email) document.getElementById('m-email').value = data.email;
+                    if (data.phoneNumber) document.getElementById('m-phone').value = data.phoneNumber;
+                    if (data.branch) document.getElementById('m-branch').value = data.branch;
+                    if (data.cgpa) document.getElementById('m-cgpa').value = data.cgpa;
+                    if (data.address) document.getElementById('m-address').value = data.address;
                 }
             } catch (err) {
-                console.error('Fetch err', err);
+                console.log('API not reachable, using demo data');
             }
         }
 
@@ -482,17 +511,39 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
+
+                // For demo/fallback: Update the dashboard display even if API fails
+                document.getElementById('info-name').textContent = payload.fullName;
+                document.getElementById('info-phone').textContent = payload.phoneNumber;
+                document.getElementById('info-branch').textContent = payload.branch;
+                document.getElementById('info-cgpa').textContent = payload.cgpa;
+                document.getElementById('welcome-header').textContent = "Hello, " + payload.fullName + "!";
+                document.getElementById('user-display').textContent = "Welcome, " + payload.fullName;
+
                 if (res.ok) {
                     showToast('Changes Committed Successfully!', 'success');
-                    setTimeout(() => {
-                        closeProfileModal();
-                        location.reload();
-                    }, 1000);
                 } else {
-                    throw new Error('Commit failed');
+                    showToast('Demo Mode: View Updated Locally', 'success');
                 }
+
+                setTimeout(() => {
+                    closeProfileModal();
+                }, 1000);
+
             } catch (err) {
-                showToast('Error committing changes!', 'error');
+                // Same logic for catch - allow demo to work offline
+                document.getElementById('info-name').textContent = payload.fullName;
+                document.getElementById('info-phone').textContent = payload.phoneNumber;
+                document.getElementById('info-branch').textContent = payload.branch;
+                document.getElementById('info-cgpa').textContent = payload.cgpa;
+                document.getElementById('welcome-header').textContent = "Hello, " + payload.fullName + "!";
+                document.getElementById('user-display').textContent = "Welcome, " + payload.fullName;
+
+                showToast('Demo Mode: Changes Saved Locally', 'success');
+                setTimeout(() => {
+                    closeProfileModal();
+                }, 1000);
+            } finally {
                 saveBtn.innerText = originalText;
                 saveBtn.disabled = false;
             }

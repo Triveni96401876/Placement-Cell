@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
         String role = request.getParameter("role");
 
         if ("admin".equalsIgnoreCase(role)) {
-            if ("admin".equals(email) && "nayeembashasir".equals(password)) {
+            if ("nayeembashasir".equals(email) && "nayeembashasir".equals(password)) {
                 HttpSession session = request.getSession();
                 User adminUser = new User();
                 adminUser.setId(0L); // Set ID to 0 for admin pseudo-account

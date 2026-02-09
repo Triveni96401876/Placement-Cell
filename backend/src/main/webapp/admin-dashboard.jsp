@@ -244,21 +244,21 @@
                                             </td>
                                             <td style="display: flex; gap: 8px;">
                                                 <% if (s.getSslcCardPath() !=null) { %>
-                                                    <a href="uploads/<%= s.getSslcCardPath() %>" target="_blank"
-                                                        title="SSLC Marks Card" style="color: #e67e22;"><i
-                                                            class="fas fa-file-pdf"></i></a>
+                                                    <a href="<%= request.getContextPath() %>/ViewDocument?file=<%= s.getSslcCardPath() %>"
+                                                        target="_blank" title="SSLC Marks Card"
+                                                        style="color: #e67e22;"><i class="fas fa-file-pdf"></i></a>
                                                     <% } %>
                                                         <% if (s.getDiplomaCardPath() !=null) { %>
-                                                            <a href="uploads/<%= s.getDiplomaCardPath() %>"
+                                                            <a href="<%= request.getContextPath() %>/ViewDocument?file=<%= s.getDiplomaCardPath() %>"
                                                                 target="_blank" title="Diploma Marksheet"
                                                                 style="color: #27ae60;"><i
                                                                     class="fas fa-file-invoice"></i></a>
                                                             <% } %>
                                                                 <% if (s.getResumePath() !=null) { %>
-                                                                    <a href="uploads/<%= s.getResumePath() %>"
+                                                                    <a href="<%= request.getContextPath() %>/ViewDocument?file=<%= s.getResumePath() %>"
                                                                         target="_blank" title="Latest Resume"
                                                                         style="color: #3498db;"><i
-                                                                            class="fas fa-id-badge"></i></a>
+                                                                            class="fas fa-file-alt"></i></a>
                                                                     <% } else { %>
                                                                         <a href="ResumeServlet?id=<%= s.getId() %>"
                                                                             target="_blank"

@@ -95,7 +95,8 @@ public class StudentDAO {
     }
 
     public Student getStudentByUserId(Long userId) {
-        String sql = "SELECT s.*, ad.*, r.skills, r.sslc_path, r.diploma_path, r.resume_path, r.resume_description " +
+        String sql = "SELECT s.*, ad.*, r.skills, r.career_objective, r.sslc_path, r.diploma_path, r.resume_path, r.resume_description "
+                +
                 "FROM students s " +
                 "LEFT JOIN academic_details ad ON s.id = ad.student_id " +
                 "LEFT JOIN resumes r ON s.id = r.student_id " +
@@ -152,7 +153,8 @@ public class StudentDAO {
     }
 
     public Student getStudentById(Long studentId) {
-        String sql = "SELECT s.*, ad.*, r.skills, r.sslc_path, r.diploma_path, r.resume_path, r.resume_description " +
+        String sql = "SELECT s.*, ad.*, r.skills, r.career_objective, r.sslc_path, r.diploma_path, r.resume_path, r.resume_description "
+                +
                 "FROM students s " +
                 "LEFT JOIN academic_details ad ON s.id = ad.student_id " +
                 "LEFT JOIN resumes r ON s.id = r.student_id " +
