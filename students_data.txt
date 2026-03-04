@@ -1,0 +1,43 @@
+1	459CE20019	SAI KUMAR		Male	Civil	Job	02-08-2003	67.20%	2020	NA	NA	NA	NA	50.03	73.04	40.02	49.04	212.13	2	Yes	9353830798	8197873959	saikumar21020@gmail.com	Rupanagudi Road Near Akkasaligar street bellary
+2	459CE23002	ABDUL REHMAN		Male	Civil	Job	19-09-2003	50.56	2019-2020					84.7	86	88	87.9	87.65	0	No	9945216039	8217627806	abdulrehman76141@gmail.com	Near society rice mill, millerpet, Ballari 
+3	459CE23003	AFZAL S		Male	Civil	Job	10-09-2006	65%	2023					50.3	24.3	61.7	60.2	49.125	3	Yes	8618490608	6360798819	shaikafzal01290@gmail.com	Cowl bazar sharef street ballari 
+4	459CE23004	AKBAR		Male	Civil	Job	22-06-2005	83.20%	2021					73.6	49.8	51.7	56.3	57.85	0	Yes	9591226837	6362578810	akbaralibennur227@gmail.com	2nd Ward Bennuru, PO Oolenur Sub District Gangavathi  PIN Code : 583229
+5	459CE23006	B M PRAJWAL KUMAR		Male	Civil	Job	07-01-2026	68	2023					53.6	33.4	43.3	57.1	46.85	3	Yes	7676391800	7676391800	pprajawal033@gmail.com	TALU ROAD Renuka Nagar 1st cross 
+6	459CE23007	B REVANTH		Male	Civil	Job	13-01-2007	70.56	2022-23					62.5	56.1	59.4	61	59.75	0	Yes	7022960451	8660198346	revanth4214y.com@gmail.com	RENUKA NAGAR 12TH CROSS TALUR ROAD BALLAR
+7	459CE23008	B SANJU		Female	Civil	Job	21-05-2007	79.60%	2022-2023					88.10%	90.70%	92.50%	92.50%	90.95%	0	No	7338183668	9071841955	bsanju2112@gamil.com	W. No:3, near veerbhadra temple, k belagal
+8	459CE23009	B YASHWANTHA		Male	Civil	Job	26-10-2006	61	2022	No	No	No	No	55.8	25.2	56.3	53.3	47.65	3	Yes	9353151901	9901555795	ywant4632@gmail.com	W .no 35, Siruguppa Road, near canal havambavi, ballari 
+9	459CE23011	BHARATEESH H M		Male	Civil	Higher Education	25-04-2008	81.12	2023					70.3	52.5	62.5	58.7	61	0	No	6366517837	9844854533	bharteeshh@gmail.com	WNO 5.MAIN ROAD,KOLAGALLU POST,BALLARI DIST
+10	459CE23012	C KIRAN		Male	Civil	Job	24-06-2004	64.96%	2020-21					64.7	38.9	68.5	73.3	61.35	2	Yes	7204825674	9743645840	cbkiran741@gmail.com	#4/70 Asraya colony, Ganganagar, Bhuvanahalli 583223
+11	459CE23013	C MAMATHA		Female	Civil	Higher Education	23-11-2007	54.40%	2023					73.60%	68%	80.20%	82.50%	76.08%	0	Yes	8867052522	7899461138	mamathamamatha5521@gmail.com	Hospet road Rajiv Gandhi Nagar cantonment ballari 
+12	459CE23014	CHAITRA S		Female	Civil	Job	16-05-2025	56.80%	2020					83.60%	78.90%	91%	92.50%	86.50%	0	No	9035882926	9035882926	chaitra9035s@gmail.com	House no 10 ward no 11, pattana shetty street near jumma masid Ballari
+13	459CE23015	CHATURVEDI E		Male	Civil	Job	11-12-2005	45.92%	June 2023-24 					40.30%	24.30%	46.30%	53.30%	41.05%	3	Yes	9111400000	9198460000	chaturvedi45king@gmail.com	# 33 ,ward no 29, Kawadi Street ,Kamela Road ,Near Anjiniya Temple ,Cowl Bazar Ballari 583101
+14	459CE23016	DARSHAN		Male	Civil	Job	11-02-2005	374	2023					66.90%	55.20%	67.10%	68.70%	64.47%	0	Yes	7353566901	7892917722	earshancd381@gmail.com	Kudethine
+15	459CE23018	DURGA PRASAD		Male	Civil	Higher Education	12-03-2006	56	2023	No				76	58	79.4	82.5	74.2	0	No	9591649488	6362936126	vd3786715@gmail.com	KC road near Raghavendra theatre ballari 
+16	459CE23019	H MALATHI		Female	Civil	Job	10-01-2007	56	2023					79.6	66.1	86.3	87.9	79.87	0	Yes	9980848030	9980848030	H.Malathi2007@gmail.com	W.NO.10 NEAR BIG MARKET SALESHWARA TEMPLE BELLARY 
+17	459CE23021	K MANJUNATH		Male	Civil	Higher Education	01-06-2007	479 76.64%	2023					65.80%	56.10%	67.10%	66.30%	63.75%	0	Yes	7675316399	9741719669	manjumanjuu690@gmail.com	Thayamma temple , CHITIGINAHALU, ballari 
+18	459CE23023	K VIJAYAKUMARA		Male	Civil	Job	18-09-2006	-55.68%	2022					64.7	57	63.3	64	62.25	0	No	6360831744	6361422700	Vijaykumar7674vk@gmail.com	HAGALURU.HOSALLI
+19	459CE23025	M MADHU		Male	Civil	Job	02-12-2007	69.6	2023					88.1	89.8	91.7	92.5	90.52	0	No	9380004314	9008566582	madhumravi02@gmail.com	Siruguppa sada Shiva Nagar 
+20	459CE23026	M S KHADAR BASHA NIZAMI		Male	Civil	Job	01-05-2007	51	2022	No 	2022, 2023	No	No	42.5	23.3	43.3	44	38.27	3	Yes	9008345209	9008345209	mskhader2007@gmail.com	Ghughurahatti near hanuman bakery ballari 583101
+21	459CE23028	MANIKANTA G		Male	Civil	Higher Education	10-05-2007	71	2022-2023	NO	NO	NO	NO	69.2	54.3	62.5	56.3	60.57	0	Yes	9686491795	9945992099	manikanta44456@gmail.com	Sindigeri 
+22	459CE23030	MOHAMMAD IMRAN P		Male	Civil	Higher Education	26-05-2008	65	2022					68	61	62	62	63.32	0	No	9742315306	9731078994	shehzadaimmu2008@gmail.com	Near new bus stand, near balanjineya temple, bellary
+23	459CE23033	MOHAMMED IBRAHIM KHAN		Male	Civil	Higher Education	09-11-2006	55	23					55.8	49.8	54.8	66.3	56.67	1	Yes	9972505057	6360540962	Md.ibrahim092006@gmail.com 	Guggarahatti Raja Sahab Colony bellari 
+24	459CE23034	MOHAMMED IMRAN		Male	Civil	Higher Education	12-09-2006	59	2023					68.1	53.4	66.3	63.6	62.85	0	Yes	9380702268	9880445669	shaikimran1027@gmail.com	RUPANAGUDI ROAD near grand function hall 
+25	459CE23035	MOHAMMED PEER		Male	Civil	Job	26-12-2005	58.4	2023					66	61.5	62	64.2	64.2	0	No	7483136919	8050387857	Mohammedahmed632313@gmail.com	Sai datta nagar, mg road, ballari
+26	459CE23036	MOHAMMED SHAHID		Male	Civil	Job	05-01-2007	54	2023					63.6	35	67.4	66.3	58.07	1	Yes	7204527864	9916178264	sksshahid598@gmail.com	Abdul salam street
+27	459CE23039	MURARI K M		Male	Civil	Job	17-12-2006	63.36%	2023					74.70%	68%	75.60%	77.90%	74.05%	0	Yes	9353687017	9353687017	murarikm179@gmail.com	Near ramala devi temple bandihatti cowl bazaar ballari
+28	459CE23041	N SHIVARAJ		Male	Civil	Job	15-11-2006	87.68	2022-23	No	No	No	No	88.1	92.5	92.5	92.5	91.4	0	No	9482206149	8951783969	sn755465@gmail.com	Sudha cross, behind nandi Honda showroom, LLC colony, Ballari.
+29	459CE23042	NAGARAJ		Male	Civil	Job	21-08-2007	71.20%	2023					43.60%	52.50%	59.40%	59.40%	53.72%	1	Yes	6360027213	9741949783	Kataginagaraj48@gmail.com	2nd ward BENNUR OOLENUR KOPPAL DIST
+30	459CE23043	NANDISHA C		Male	Civil	Job	11-11-2005	418	2023					50.30%	48.90%	64.80%	64%	57%	1	Yes	7892917722	9880614092	cnandish75@gmail.com	3/152 JANATHA 1ST 2ND WARD Y KAGGAL BALLARI 
+31	459CE23047	S MD JUNAID		Male	Civil	Job	12-11-2005	70	2023					78	75	68	73	72.05	0	No	8217474424	8217674424	mrjunnubrand@gmail.com	Nabi colony Ballari 
+32	459CE23049	SHIVA SHANKAR		Male	Civil	Job	21-05-2007	61.60%	2023					68.10%	65.20%	74.80%	77.90%	71.50%	0	Yes	9972361801	7899439875	varun5kumar001@gmail.com	ESHWARAMMA TEMPLE  BEHIND BASAVANAKUNTA BALLARI
+33	459CE23051	SIDDALINGA G		Male	Civil	Job	01-06-2007	74%	2023	No	No	No	No	72. 5%	72. 5%	81.70%	81%	76.92	0	Yes	8618975907	9740264279	Siddalinga8618@gmail.com 	s/o HULITEPPA, #33,GOUDRA ONI, DAMMUR KAGGALU, BALLARI 
+34	459CE23052	SYED KHWAJA FARIDUDDIN		Male	Civil	Job	06-03-2005	58	2021	No	No	No	No	34.7	19.8	50.2	47.9	38.15	3	Yes	6361352845	7975746607	syedfarid789@gmail.com	16/6 AULIYA MANZIL MOHAMMAD YUSUF SAB STREET BANDIMOTE BALLARI 
+35	459CE23053	SYED TABEAIZ KHADRI		Male	Civil	Job	23-01-2005	57%	PASS							Fail	Fail	57%	2	Yes	8310480098	8310480098	syedtabraiz75@gmail.com	Ghughurahatti jannatul ferdous masjid ballari 
+36	459CE23055	THIPPESWAMY K		Male	Civil	Job	03-08-2005	85.12%	2021					51.40%	36.10%	51%	53.30%	47.75%	2	Yes	7899346801	7899346801	kthippeswamy649@gmail.com	Ward no 3 shankar gudda linga temple toranagallu 
+37	459CE23056	UDAYA SHANKARA		Male	Civil	Job	04-07-2006	77.12%	2023	No	No	No	No	70.3	55.2	64	55.6	61.25	0	No	7259197581	8660527219	udaymuday814@gmail.com	PUNEETH RAJ KUMAR COLONY 3RD WARD KUDATHINI 
+38	459CE23057	V JWALATHI JYOTHIRMAI		Female	Civil	Higher Education	06-06-2007	85.92%	2023					90.30%	91.60%	91.70%	92.50%	91.53%	0	No	9743390937	7204052798	jwalathi06@gmail.com	H.No-EWS33,ward no -39, KHB colony, Netaji Nagar, Ballari 
+39	459CE23059	VINAYA KUMAR M		Male	Civil	Job	26-03-2007	77.44%	2023					71.4	59.8	65.8	65.8	65.7	0	Yes	8150002723	9448977277	am6001762@gmail.com	NEAR DYVAMMA TEMPLE VADDU
+40	459CE23060	VISHWANATHA		Male	Civil	Job	27-03-2004	69.92%	2019					51.4	45.2	54.8	61.7	53.27	2	Yes	6363507098	7975843043	vishwas.klm98@gmail.com	Near sajje hola kalamangi/Raichur 
+41	459CE23061	YATE RAJENDRA		Male	Civil	Job	01-01-2007	51.33	22-23					84.7	88.9	92.5	92.5	89.65	0	No	8867438897	8867438897	yaterajendra0@gmail.com	1-8 kogilathota village  Holagunda mandal alur Thaluk kurnool 
+42	459CE24301	SYED IBRAHIM		Male	Civil	Higher Education	06-04-1989	53.9	2005			81	2018			71	71	71	0	Yes	9738950555	9113242245	royalconstructions55@gmail.com	Ward no 33, door no 180, devi nagar Ballari 
+43	459CE24702	SYED MOHAMMED ANAS	Yazaki India PvT Ltd	Male	Civil	Higher Education	09-07-2005	80.64%	2022	63.33	2024					81.76%	75.60%	75.6	0	No	9448481494	6360926474	syedanassyedanas168@gmail.com	DEVAINAGAR BELLARI

@@ -1,0 +1,15 @@
+ Volume in drive C has no label.
+ Volume Serial Number is F278-B503
+
+ Directory of C:\intern\apache-tomcat-9.0.115\webapps
+
+01-03-2026  07:15    <DIR>          .
+23-02-2026  19:02    <DIR>          ..
+26-01-2026  11:36    <DIR>          docs
+26-01-2026  11:36    <DIR>          examples
+26-01-2026  11:36    <DIR>          host-manager
+26-01-2026  11:36    <DIR>          manager
+01-03-2026  07:15    <DIR>          placement-cell
+26-01-2026  11:36    <DIR>          ROOT
+               0 File(s)              0 bytes
+               8 Dir(s)  30,526,570,496 bytes free

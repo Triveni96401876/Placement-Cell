@@ -255,56 +255,55 @@
             }
         }
 
-        /* Modal Styles */
-        .modal {
+        /* Resume Preview Modal Styles */
+        .resume-modal {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 2000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s ease-out;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.4s ease-out;
         }
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 2% auto;
+        .resume-modal-content {
+            background: white;
             padding: 20px;
-            border: none;
-            width: 90%;
-            max-width: 900px;
             border-radius: 20px;
+            width: 92%;
+            max-width: 950px;
             position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.4);
         }
 
-        .close-modal {
+        .resume-close {
             position: absolute;
             right: 25px;
-            top: 20px;
-            color: #7f8fa6;
-            font-size: 28px;
+            top: 15px;
+            font-size: 32px;
             font-weight: bold;
+            color: #bdc3c7;
             cursor: pointer;
             transition: 0.3s;
-            z-index: 10;
+            z-index: 100;
         }
 
-        .close-modal:hover {
+        .resume-close:hover {
             color: var(--primary);
             transform: rotate(90deg);
         }
 
-        .modal-iframe {
+        .resume-iframe {
             width: 100%;
-            height: 80vh;
+            height: 85vh;
             border: none;
             border-radius: 12px;
-            background: #f1f2f6;
+            background: #f8f9fa;
         }
 
         @media (max-width: 768px) {
@@ -333,11 +332,16 @@
 
     <div class="form-container">
         <div class="form-banner">
-            <h1 style="font-weight: 700; font-size: 2rem; margin-bottom: 10px;">Student Enrollment Form</h1>
+            <h1 style="text-decoration: underline; margin-bottom: 10px;">Sanjay Gandhi Polytechnic</h1>
+            <h2 style="text-decoration: underline; font-weight: 700; font-size: 1.5rem; margin-bottom: 15px;">Placement
+                Cell</h2>
+            <p
+                style="font-weight: 500; background: rgba(255,255,255,0.2); display: inline-block; padding: 5px 20px; border-radius: 50px;">
+                Student Enrollment [Registration]</p>
         </div>
 
-        <form class="form-body" onsubmit="return false;">
-            <input type="hidden" id="fullName">
+        <form class="form-body" action="RegisterServlet" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="fullName" id="fullName">
 
             <!-- Section 1: Basic Information -->
             <div class="grid-row">
@@ -379,13 +383,11 @@
                 </div>
                 <div class="form-group">
                     <label>Mobile Number<span class="required-star">*</span></label>
-                    <input type="tel" name="mobile" placeholder="98XXXXXXXX" maxlength="10" minlength="10"
-                        pattern="[0-9]{10}" required>
+                    <input type="tel" name="mobile" placeholder="98XXXXXXXX" required>
                 </div>
                 <div class="form-group">
                     <label>Alternative Mobile No</label>
-                    <input type="tel" name="altMobile" placeholder="Alternative contact" maxlength="10" minlength="10"
-                        pattern="[0-9]{10}">
+                    <input type="tel" name="altMobile" placeholder="Alternative contact">
                 </div>
                 <div class="form-group full-width">
                     <label>Email ID<span class="required-star">*</span></label>
@@ -396,6 +398,7 @@
                     <textarea name="address" rows="3" placeholder="Enter your full residential address..."></textarea>
                 </div>
             </div>
+
             <div class="grid-row">
                 <div class="form-group">
                     <label>SSLC Percentage (%)<span class="required-star">*</span></label>
@@ -403,7 +406,7 @@
                 </div>
                 <div class="form-group">
                     <label>SSLC Year of Passing<span class="required-star">*</span></label>
-                    <input type="number" name="sslcYear" placeholder="e.g. 2019" min="1990" max="2030" required>
+                    <input type="number" name="sslcYear" placeholder="2019" min="1990" max="2030" required>
                 </div>
                 <div class="form-group">
                     <label>PUC Percentage (%) <small>(Optional)</small></label>
@@ -411,7 +414,7 @@
                 </div>
                 <div class="form-group">
                     <label>PUC Year of Passing <small>(Optional)</small></label>
-                    <input type="number" name="pucYear" placeholder="e.g. 2021" min="1990" max="2030">
+                    <input type="number" name="pucYear" placeholder="2021" min="1990" max="2030">
                 </div>
                 <div class="form-group">
                     <label>ITI Percentage (%) <small>(Optional)</small></label>
@@ -419,22 +422,40 @@
                 </div>
                 <div class="form-group">
                     <label>ITI Year of Passing <small>(Optional)</small></label>
-                    <input type="number" name="itiYear" placeholder="e.g. 2022" min="1990" max="2030">
+                    <input type="number" name="itiYear" placeholder="Year" min="1990" max="2030">
                 </div>
             </div>
 
             <div class="sem-grid">
-                <div class="form-group"><label>1st Sem (%)</label><input type="number" name="sem1" step="0.01"></div>
-                <div class="form-group"><label>2nd Sem (%)</label><input type="number" name="sem2" step="0.01"></div>
-                <div class="form-group"><label>3rd Sem (%)</label><input type="number" name="sem3" step="0.01"></div>
-                <div class="form-group"><label>4th Sem (%)</label><input type="number" name="sem4" step="0.01"></div>
-                <div class="form-group"><label>5th Sem (%)</label><input type="number" name="sem5" step="0.01"></div>
-            </div> <!-- Close sem-grid -->
-
+                <div class="form-group">
+                    <label>1st Sem (%)</label>
+                    <input type="number" name="sem1" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>2nd Sem (%)</label>
+                    <input type="number" name="sem2" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>3rd Sem (%)</label>
+                    <input type="number" name="sem3" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>4th Sem (%)</label>
+                    <input type="number" name="sem4" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>5th Sem (%)</label>
+                    <input type="number" name="sem5" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>6th Sem (%)</label>
+                    <input type="number" name="sem6" step="0.01" placeholder="0.00">
+                </div>
+            </div>
             <div class="grid-row">
                 <div class="form-group">
-                    <label>Aggregate CGPA (Diploma)<span class="required-star">*</span></label>
-                    <input type="number" name="cgpa" step="0.01" placeholder="e.g. 8.5" required>
+                    <label>Aggregate CGPA / Overall %<span class="required-star">*</span></label>
+                    <input type="number" name="cgpa" step="0.01" placeholder="e.g. 8.50" required>
                 </div>
                 <div class="form-group">
                     <label>Backlogs</label>
@@ -457,30 +478,25 @@
                 </div>
             </div>
 
-            <div class="form-group full-width" style="margin-top: 1rem;">
-                <label>Technical Skills (Comma separated)</label>
-                <input type="text" name="skills" placeholder="e.g. Java, Python, HTML, CSS, SQL" required>
+
+            <!-- Section 4: Skills & Profile -->
+            <div class="grid-row">
+                <div class="form-group full-width">
+                    <label>Technical Skills (Comma separated)</label>
+                    <input type="text" name="skills" placeholder="Java, Python, HTML, CSS, SQL..." required>
+                </div>
             </div>
 
-
-            <!-- Security Section -->
-            <div class="form-group full-width">
-                <label>Set Password for Account<span class="required-star">*</span></label>
-                <input type="password" name="password" placeholder="••••••••" required>
+            <!-- Section 5: Security -->
+            <div class="grid-row">
+                <div class="form-group full-width">
+                    <label>Set Account Password<span class="required-star">*</span></label>
+                    <input type="password" name="password" placeholder="••••••••" required>
+                </div>
             </div>
 
             <!-- Upload Section -->
             <div class="grid-row">
-                <div class="form-group">
-                    <label>Upload SSLC Marks Card<span class="required-star">*</span></label>
-                    <input type="file" name="sslcCard" accept=".pdf,image/*" id="sslcUpload" required>
-                    <small style="color: var(--text-muted); font-size: 0.75rem;">Max 2MB, PDF/JPG/PNG</small>
-                </div>
-                <div class="form-group">
-                    <label>Diploma Marksheet (Latest Sem)<span class="required-star">*</span></label>
-                    <input type="file" name="diplomaCard" accept=".pdf,image/*" id="diplomaUpload" required>
-                    <small style="color: var(--text-muted); font-size: 0.75rem;">Max 2MB, PDF/JPG/PNG</small>
-                </div>
                 <div class="form-group">
                     <label>Upload Resume (PDF)</label>
                     <input type="file" name="resume" accept=".pdf" id="resumeUpload">
@@ -488,7 +504,7 @@
                 </div>
                 <div class="form-group">
                     <label>Upload Profile Photo</label>
-                    <input type="file" name="photo" accept="image/*" id="photoUpload" onchange="previewPhoto(this)">
+                    <input type="file" name="photo" accept="image/*" id="photoUpload" onchange="previewImage(this)">
                     <small style="color: var(--text-muted); font-size: 0.75rem;">Max 2MB, JPG/PNG</small>
                     <div id="photoPreview" style="margin-top: 10px; display: none;">
                         <img id="photoPreviewImg" src="" alt="Preview"
@@ -499,122 +515,35 @@
 
             <!-- Action Buttons -->
             <div class="btn-row">
-                <button type="button" class="resume-gen-btn" onclick="generateResume()">
+                <button type="button" class="resume-gen-btn" id="autoResumeBtn">
                     <i class="fas fa-magic"></i> Auto Resume
                 </button>
-                <button type="button" class="submit-btn" onclick="showSuccess()">Complete
-                    Registration</button>
+                <button type="submit" class="submit-btn" id="submitBtn">Complete Registration</button>
             </div>
 
         </form>
     </div>
 
-    <script>
-        function generateResume() {
-            const fName = document.getElementById('firstName').value;
-            const lName = document.getElementById('lastName').value;
-            if (!fName) { alert('Please enter at least your name first!'); return; }
-
-            const data = {
-                fullName: fName + " " + lName,
-                email: document.querySelector('input[name="email"]').value,
-                phone: document.querySelector('input[name="mobile"]').value,
-                branch: document.querySelector('select[name="branch"]').value,
-                id: document.querySelector('input[name="regNo"]').value,
-                sslc: document.querySelector('input[name="sslc"]').value,
-                puc: document.querySelector('input[name="puc"]').value,
-                cgpa: document.querySelector('input[name="cgpa"]').value,
-                skills: document.querySelector('input[name="skills"]').value,
-                dob: document.querySelector('input[name="dob"]').value,
-                address: document.querySelector('textarea[name="address"]').value
-            };
-
-            localStorage.setItem('resumeData', JSON.stringify(data));
-
-            // Open modal and load iframe
-            const modal = document.getElementById('resumeModal');
-            const iframe = document.getElementById('resumeIframe');
-            iframe.src = 'auto-resume.html';
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('resumeModal');
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function (event) {
-            const modal = document.getElementById('resumeModal');
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-
-        function showSuccess() {
-            const modal = document.getElementById('successModal');
-            modal.style.display = 'flex';
-
-            // Redirect after 4 seconds
-            setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 4000);
-        }
-
-        function previewPhoto(input) {
-            const preview = document.getElementById('photoPreview');
-            const previewImg = document.getElementById('photoPreviewImg');
-
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-
-                // Validate file size (2MB max)
-                if (file.size > 2 * 1024 * 1024) {
-                    alert('Photo size should not exceed 2MB');
-                    input.value = '';
-                    preview.style.display = 'none';
-                    return;
-                }
-
-                // Validate file type
-                if (!file.type.match('image.*')) {
-                    alert('Please select a valid image file');
-                    input.value = '';
-                    preview.style.display = 'none';
-                    return;
-                }
-
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    previewImg.src = e.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                preview.style.display = 'none';
-            }
-        }
-    </script>
-
     <!-- Success Modal -->
-    <div id="successModal" class="success-overlay">
-        <div class="success-card">
-            <div class="success-icon">
-                <i class="fas fa-check-circle"></i>
+    <div id="successModal" class="success-modal-overlay">
+        <div class="success-modal">
+            <div class="icon-container">
+                <svg class="checkmark" viewBox="0 0 52 52">
+                    <path d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                </svg>
             </div>
-            <h2>Registration Successful!</h2>
-            <p>Welcome to SGP Placement Cell. Your application has been received and your account is being created.</p>
-            <div class="success-progress">
-                <div class="progress-bar"></div>
+            <h1>Successfully Registered!</h1>
+            <p>Your account has been created successfully. Welcome to the Placement Cell.</p>
+
+            <div class="loader">
+                <div class="loader-bar"></div>
             </div>
-            <p class="redirect-hint">Redirecting to Login Dashboard...</p>
+            <p class="redirect-text">Redirecting to login page...</p>
         </div>
     </div>
 
     <style>
-        .success-overlay {
+        .success-modal-overlay {
             display: none;
             position: fixed;
             top: 0;
@@ -622,102 +551,287 @@
             width: 100%;
             height: 100%;
             background: rgba(30, 41, 59, 0.95);
-            backdrop-filter: blur(10px);
             z-index: 5000;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(10px);
             animation: fadeIn 0.5s ease-out;
         }
 
-        .success-card {
+        /* Updated Success Theme */
+        .success-modal {
             background: white;
-            padding: 50px 40px;
-            border-radius: 30px;
+            padding: 60px 40px;
+            border-radius: 40px;
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.3);
             text-align: center;
             max-width: 500px;
             width: 90%;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            border-bottom: 8px solid #27ae60;
-            animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: premiumPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-bottom: 10px solid #2ecc71;
+            position: relative;
+            overflow: hidden;
         }
 
-        .success-icon {
-            font-size: 80px;
-            color: #27ae60;
-            margin-bottom: 25px;
-            animation: scaleIn 0.5s 0.3s both;
+        .success-modal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
         }
 
-        .success-card h2 {
-            color: #1a252f;
-            font-size: 2rem;
-            font-weight: 800;
+        @keyframes premiumPop {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .icon-container {
+            width: 120px;
+            height: 120px;
+            background: #f0fff4;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 30px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(46, 204, 113, 0.1);
+        }
+
+        .icon-container::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid #2ecc71;
+            animation: pulseSuccess 2s infinite;
+        }
+
+        @keyframes pulseSuccess {
+            0% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .checkmark {
+            width: 60px;
+            height: 60px;
+            stroke: #27ae60;
+            stroke-width: 5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            animation: drawCheck 0.8s 0.4s ease forwards;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+        }
+
+        @keyframes drawCheck {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .success-modal h1 {
+            color: #1b5e20;
             margin-bottom: 15px;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
         }
 
-        .success-card p {
-            color: #64748b;
-            line-height: 1.6;
-            margin-bottom: 30px;
+        .success-modal p {
+            color: #546e7a;
+            margin-bottom: 35px;
+            line-height: 1.7;
+            font-size: 1.1rem;
         }
 
-        .success-progress {
-            height: 6px;
+        .loader {
+            height: 8px;
             background: #f1f5f9;
             border-radius: 10px;
             overflow: hidden;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            width: 100%;
         }
 
-        .progress-bar {
+        .loader-bar {
             height: 100%;
-            width: 0;
-            background: #27ae60;
-            animation: loadingProgress 4s linear forwards;
+            width: 0%;
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            border-radius: 10px;
+            animation: loadProgress 3.5s linear forwards;
         }
 
-        .redirect-hint {
-            font-size: 0.85rem;
-            color: #94a3b8 !important;
-            font-weight: 500;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                transform: scale(0);
-            }
-
-            to {
-                transform: scale(1);
-            }
-        }
-
-        @keyframes loadingProgress {
+        @keyframes loadProgress {
             to {
                 width: 100%;
             }
         }
+
+        .redirect-text {
+            margin-top: 15px;
+            font-size: 15px;
+            color: #90a4ae;
+            font-weight: 600;
+        }
     </style>
 
-    </div>
+    <script>
+        function previewImage(input) {
+            const container = document.getElementById('photoPreview');
+            const img = document.getElementById('photoPreviewImg');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    img.src = e.target.result;
+                    container.style.display = 'block';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Preview Photo Binding
+        document.getElementById('photoUpload').addEventListener('change', function () {
+            previewImage(this);
+        });
+
+        document.querySelector('form').onsubmit = function (e) {
+            const fName = document.getElementById('firstName').value;
+            const lName = document.getElementById('lastName').value;
+            document.getElementById('fullName').value = fName + " " + lName;
+
+            // Check if we are running on the common python server port (8000)
+            if (window.location.port === "8000") {
+                e.preventDefault();
+
+                // Show the premium success modal immediately for UI demonstration
+                const modal = document.getElementById('successModal');
+                modal.style.display = 'flex';
+
+                // Simulate the redirection after the animation
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 3500);
+
+                return false;
+            }
+
+            return true;
+        };
+
+        // Dedicated Resume Generator Logic
+        const resumeBtn = document.getElementById('autoResumeBtn');
+        if (resumeBtn) {
+            resumeBtn.addEventListener('click', function () {
+                console.log("Auto Resume Button Clicked!");
+                generateResume();
+            });
+        }
+
+        function generateResume() {
+            try {
+                // Get values with fallback
+                const firstNameVal = document.getElementById('firstName')?.value || "";
+                const lastNameVal = document.getElementById('lastName')?.value || "";
+
+                if (!firstNameVal.trim()) {
+                    alert("Please enter your First Name before generating a resume.");
+                    document.getElementById('firstName').focus();
+                    return;
+                }
+
+                const getSafeParam = (name) => {
+                    const el = document.getElementsByName(name)[0];
+                    return el ? el.value : "";
+                };
+
+                const resumeData = {
+                    fullName: (firstNameVal + " " + lastNameVal).trim(),
+                    email: getSafeParam('email'),
+                    phone: getSafeParam('mobile'),
+                    branch: getSafeParam('branch'),
+                    id: getSafeParam('regNo'),
+                    sslc: getSafeParam('sslc'),
+                    puc: getSafeParam('puc'),
+                    iti: getSafeParam('iti'),
+                    cgpa: getSafeParam('cgpa'),
+                    skills: getSafeParam('skills'),
+                    dob: getSafeParam('dob'),
+                    address: getSafeParam('address'),
+                    photo: document.getElementById('photoPreviewImg')?.src || ""
+                };
+
+                console.log("Saving data and opening preview modal:", resumeData);
+                localStorage.setItem('resumeData', JSON.stringify(resumeData));
+
+                // Open Modal
+                const modal = document.getElementById('resumePreviewModal');
+                const iframe = document.getElementById('resumeIframe');
+                iframe.src = 'auto-resume.html';
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+
+            } catch (error) {
+                console.error("Resume Generation Error:", error);
+                alert("Error: " + error.message);
+            }
+        }
+
+        function closeResumeModal() {
+            const modal = document.getElementById('resumePreviewModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close on outside click
+        window.addEventListener('click', function (event) {
+            const modal = document.getElementById('resumePreviewModal');
+            if (event.target == modal) {
+                closeResumeModal();
+            }
+        });
+
+        // Check for success parameter
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('status') === 'success') {
+                const modal = document.getElementById('successModal');
+                modal.style.display = 'flex';
+
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 4000);
+            } else if (urlParams.get('error')) {
+                alert('Registration Failed: ' + urlParams.get('error'));
+            }
+        };
+    </script>
 
     <!-- Resume Preview Modal -->
-    <div id="resumeModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <iframe id="resumeIframe" class="modal-iframe"></iframe>
+    <div id="resumePreviewModal" class="resume-modal">
+        <div class="resume-modal-content">
+            <span class="resume-close" onclick="closeResumeModal()">&times;</span>
+            <iframe id="resumeIframe" class="resume-iframe"></iframe>
         </div>
     </div>
 

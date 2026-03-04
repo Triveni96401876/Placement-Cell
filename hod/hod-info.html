@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOD Information | SGP Placement Cell</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #818cf8;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --accent: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background: var(--white);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-box {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 12px;
+            padding: 2px;
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 60px 20px;
+        }
+
+        .selection-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .selection-section h2 {
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .select-wrapper {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        select {
+            width: 100%;
+            padding: 15px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            appearance: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: var(--white);
+            color: var(--text-dark);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(79, 70, 229, 0.1);
+        }
+
+        .select-wrapper::after {
+            content: '\f107';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .hod-card {
+            background: var(--white);
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+            display: none;
+            /* Initially hidden */
+            animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            padding: 40px;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .hod-image-wrapper {
+            width: 140px;
+            height: 140px;
+            background: white;
+            border-radius: 50%;
+            padding: 5px;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .hod-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #f1f5f9;
+        }
+
+        .branch-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hod-name {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .hod-designation {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .card-body {
+            padding: 40px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .info-icon {
+            width: 45px;
+            height: 45px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .info-content h4 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .info-content p {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .placeholder-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 60px;
+            text-align: center;
+            border: 2px dashed #e2e8f0;
+            color: var(--text-muted);
+        }
+
+        .placeholder-card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hod-name {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-area">
+            <div class="logo-box">
+                <img src="images/sgp1.jpeg?v=5.0" alt="SGP Logo"
+                    onerror="this.src='https://via.placeholder.com/45?text=SGP'">
+            </div>
+            <span class="header-title">SGP PLACEMENT CELL</span>
+        </div>
+        <a href="index.html" style="text-decoration: none; font-weight: 600; color: var(--primary);"><i
+                class="fas fa-home"></i> Home</a>
+    </header>
+
+    <div class="container">
+        <div class="selection-section">
+            <h2>Select Branch</h2>
+            <div class="select-wrapper">
+                <select id="branchSelect" onchange="showHOD()">
+                    <option value="" disabled selected>Choose a department...</option>
+                    <option value="cs">Computer Science & Engg.</option>
+                    <option value="it">Information Technology</option>
+                    <option value="ec">Electronics & Communication</option>
+                    <option value="me">Mechanical Engineering</option>
+                    <option value="ce">Civil Engineering</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="placeholder" class="placeholder-card">
+            <i class="fas fa-id-card"></i>
+            <h3>Select a branch to view HOD details</h3>
+            <p>Choose a department from the dropdown menu above.</p>
+        </div>
+
+        <div id="hodCard" class="hod-card">
+            <div class="card-header">
+                <div class="branch-badge" id="displayBranch">Computer Science</div>
+                <div class="hod-image-wrapper">
+                    <img src="" alt="HOD Photo" class="hod-image" id="hodPhoto">
+                </div>
+                <h3 class="hod-name" id="hodName">Dr. Anand Kumar</h3>
+                <p class="hod-designation">Professor & Head of Department</p>
+            </div>
+            <div class="card-body">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="info-content">
+                            <h4>Qualification</h4>
+                            <p id="hodQual">Ph.D. in Artificial Intelligence</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-briefcase"></i></div>
+                        <div class="info-content">
+                            <h4>Experience</h4>
+                            <p id="hodExp">22 Years</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="info-content">
+                            <h4>Email Address</h4>
+                            <p id="hodEmail">hod.cs@sgp.edu</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-microscope"></i></div>
+                        <div class="info-content">
+                            <h4>Research Area</h4>
+                            <p id="hodResearch">Neural Networks & Deep Learning</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 SGP Placement Cell - Excellence in Education
+    </footer>
+
+    <script>
+        const hodData = {
+            'cs': {
+                branch: 'Computer Science & Engg.',
+                name: 'Dr. Anand Kumar',
+                qual: 'Ph.D. in Artificial Intelligence (IIT Bombay)',
+                exp: '22 Years of Academic Excellence',
+                email: 'hod.cs@sgp.edu',
+                research: 'Neural Networks & Machine Learning',
+                photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop'
+            },
+            'it': {
+                branch: 'Information Technology',
+                name: 'Dr. Megha Sharma',
+                qual: 'Ph.D. in Cyber Security & Network Ethics',
+                exp: '18 Years of Teaching & Research',
+                email: 'hod.it@sgp.edu',
+                research: 'Blockchain Technology & Data Cryptography',
+                photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop'
+            },
+            'ec': {
+                branch: 'Electronics & Communication',
+                name: 'Dr. Vikram Sethi',
+                qual: 'Ph.D. in VLSI & Embedded Systems',
+                exp: '20 Years of Industry and Academia',
+                email: 'hod.ec@sgp.edu',
+                research: 'IOT Systems & 5G Communication',
+                photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop'
+            },
+            'me': {
+                branch: 'Mechanical Engineering',
+                name: 'Dr. Rajesh Iyer',
+                qual: 'Ph.D. in Robotics & Automation',
+                exp: '25 Years of Mentorship',
+                email: 'hod.me@sgp.edu',
+                research: 'Renewable Energy & Thermal Dynamics',
+                photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop'
+            },
+            'ce': {
+                branch: 'Civil Engineering',
+                name: 'Dr. Sneha Patil',
+                qual: 'Ph.D. in Structural Engineering',
+                exp: '16 Years of Professional Practice',
+                email: 'hod.ce@sgp.edu',
+                research: 'Smart Cities & Sustainable Infrastructure',
+                photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop'
+            }
+        };
+
+        function showHOD() {
+            const select = document.getElementById('branchSelect');
+            const branchKey = select.value;
+            const data = hodData[branchKey];
+
+            if (data) {
+                // Hide placeholder and show card
+                document.getElementById('placeholder').style.display = 'none';
+                const card = document.getElementById('hodCard');
+                card.style.display = 'block';
+
+                // Update data
+                document.getElementById('displayBranch').textContent = data.branch;
+                document.getElementById('hodName').textContent = data.name;
+                document.getElementById('hodQual').textContent = data.qual;
+                document.getElementById('hodExp').textContent = data.exp;
+                document.getElementById('hodEmail').textContent = data.email;
+                document.getElementById('hodResearch').textContent = data.research;
+                document.getElementById('hodPhoto').src = data.photo;
+
+                // Re-trigger animation
+                card.style.animation = 'none';
+                card.offsetHeight; /* trigger reflow */
+                card.style.animation = null;
+            }
+        }
+    </script>
+</body>
+
+</html>
