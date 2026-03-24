@@ -8,9 +8,11 @@ SKIP_KEYWORDS = [
     '\\test\\'
 ]
 
-BACKEND_DIR = r'c:\placementcell\backend'
+# Dynamic directory discovery
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+BACKEND_DIR = os.path.join(SCRIPT_DIR, 'backend')
 TOMCAT_LIB  = r'C:\intern\apache-tomcat-9.0.115\lib\*'
-PROJECT_LIB = r'c:\placementcell\config\lib\*'
+PROJECT_LIB = os.path.join(SCRIPT_DIR, 'config', 'lib', '*')
 DEPLOY_DIR  = r'C:\intern\apache-tomcat-9.0.115\webapps\ROOT\WEB-INF\classes'
 
 java_files = []

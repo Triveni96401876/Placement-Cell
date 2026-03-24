@@ -419,7 +419,7 @@
                                     <input type="text" id="regSearch" class="search-input"
                                         placeholder="Filter by name, USN, or job...">
                                 </div>
-                                <a href="AdminDashboardServlet" class="btn-back">
+                                <a href="<%=request.getContextPath()%>/AdminDashboardServlet" class="btn-back">
                                     <i class="fas fa-arrow-left"></i> Dashboard
                                 </a>
                             </div>

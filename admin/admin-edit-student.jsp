@@ -2,42 +2,77 @@
     <%@ page import="com.placementcell.model.Student" %>
         <%@ page import="com.placementcell.util.DBConnection" %>
             <%@ page import="java.sql.*" %>
-                <% // Security check Object userObj=session.getAttribute("user"); if (userObj==null) {
-                    response.sendRedirect("login.html"); return; } com.placementcell.model.User
-                    user=(com.placementcell.model.User) userObj; if (!"ADMIN".equals(user.getRole())) {
-                    response.sendRedirect("AdminDashboardServlet"); return; } String idParam=request.getParameter("id");
-                    if (idParam==null || idParam.isEmpty()) { response.sendRedirect("AdminDashboardServlet"); return; }
-                    long studentId=Long.parseLong(idParam); // Load student data String regNo="" , fullName="" ,
-                    gender="" , dob="" , mobile="" , altMobile="" , emailVal="" , address="" , placedCompany="" ,
-                    preference="" , backlogHistory="NO" ; double sslcPct=0, pucPct=0, itiPct=0, diplomaPct=0, sem1=0,
-                    sem2=0, sem3=0, sem4=0; int sslcYear=0, pucYear=0, itiYear=0, backlogs=0; String branch="Civil Engg"
-                    ; try (Connection conn=DBConnection.getConnection()) { String
-                    sql="SELECT s.id, s.register_number, s.full_name, s.date_of_birth, s.gender, s.branch, "
-                    + "s.mobile_number, s.alternate_number, s.address, s.placed_company, "
-                    + "ad.sslc_percentage, ad.sslc_year, ad.puc_percentage, ad.puc_year, "
-                    + "ad.iti_percentage, ad.iti_year, ad.diploma_percentage, "
-                    + "ad.sem1, ad.sem2, ad.sem3, ad.sem4, ad.current_backlog_count, "
-                    + "ad.history_of_backlogs, ad.preference, u.email " + "FROM students s "
-                    + "LEFT JOIN academic_details ad ON s.id = ad.student_id " + "JOIN users u ON s.user_id = u.id "
-                    + "WHERE s.id = ?" ; try (PreparedStatement ps=conn.prepareStatement(sql)) { ps.setLong(1,
-                    studentId); ResultSet rs=ps.executeQuery(); if (rs.next()) { regNo=rs.getString("register_number")
-                    !=null ? rs.getString("register_number") : "" ; fullName=rs.getString("full_name") !=null ?
-                    rs.getString("full_name") : "" ; gender=rs.getString("gender") !=null ? rs.getString("gender") : ""
-                    ; dob=rs.getDate("date_of_birth") !=null ? rs.getDate("date_of_birth").toString() : "" ;
-                    mobile=rs.getString("mobile_number") !=null ? rs.getString("mobile_number") : "" ;
-                    altMobile=rs.getString("alternate_number") !=null ? rs.getString("alternate_number") : "" ;
-                    emailVal=rs.getString("email") !=null ? rs.getString("email") : "" ; address=rs.getString("address")
-                    !=null ? rs.getString("address") : "" ; placedCompany=rs.getString("placed_company") !=null ?
-                    rs.getString("placed_company") : "" ; preference=rs.getString("preference") !=null ?
-                    rs.getString("preference") : "" ; backlogHistory=rs.getString("history_of_backlogs") !=null ?
-                    rs.getString("history_of_backlogs") : "NO" ; sslcPct=rs.getDouble("sslc_percentage");
-                    sslcYear=rs.getInt("sslc_year"); pucPct=rs.getDouble("puc_percentage");
-                    pucYear=rs.getInt("puc_year"); itiPct=rs.getDouble("iti_percentage"); itiYear=rs.getInt("iti_year");
-                    diplomaPct=rs.getDouble("diploma_percentage"); sem1=rs.getDouble("sem1"); sem2=rs.getDouble("sem2");
-                    sem3=rs.getDouble("sem3"); sem4=rs.getDouble("sem4"); backlogs=rs.getInt("current_backlog_count");
-                    branch=rs.getString("branch") !=null ? rs.getString("branch") : "Civil Engg" ; } else {
-                    response.sendRedirect("AdminDashboardServlet?error=notfound"); return; } } } catch (Exception e) {
-                    e.printStackTrace(); response.sendRedirect("AdminDashboardServlet?error=db"); return; } %>
+                <%
+    // Security check
+    Object userObj = session.getAttribute("user");
+    if (userObj == null) {
+        response.sendRedirect(request.getContextPath() + "/student/login.jsp");
+        return;
+    }
+    com.placementcell.model.User user = (com.placementcell.model.User) userObj;
+    if (!"ADMIN".equals(user.getRole())) {
+        response.sendRedirect(request.getContextPath() + "/admin/AdminDashboardServlet");
+        return;
+    }
+    String idParam = request.getParameter("id");
+    if (idParam == null || idParam.isEmpty()) {
+        response.sendRedirect(request.getContextPath() + "/admin/AdminDashboardServlet");
+        return;
+    }
+    long studentId = Long.parseLong(idParam);
+    // Load student data
+    String regNo = "", fullName = "", gender = "", dob = "", mobile = "", altMobile = "", emailVal = "", address = "", placedCompany = "", preference = "", backlogHistory = "NO";
+    double sslcPct = 0, pucPct = 0, itiPct = 0, diplomaPct = 0, sem1 = 0, sem2 = 0, sem3 = 0, sem4 = 0;
+    int sslcYear = 0, pucYear = 0, itiYear = 0, backlogs = 0;
+    String branch = "Civil Engg";
+    try (Connection conn = DBConnection.getConnection()) {
+        String sql = "SELECT s.id, s.register_number, s.full_name, s.date_of_birth, s.gender, s.branch, "
+                   + "s.mobile_number, s.alternate_number, s.address, s.placed_company, "
+                   + "ad.sslc_percentage, ad.sslc_year, ad.puc_percentage, ad.puc_year, "
+                   + "ad.iti_percentage, ad.iti_year, ad.diploma_percentage, "
+                   + "ad.sem1, ad.sem2, ad.sem3, ad.sem4, ad.current_backlog_count, "
+                   + "ad.history_of_backlogs, ad.preference, u.email " + "FROM students s "
+                   + "LEFT JOIN academic_details ad ON s.id = ad.student_id " + "JOIN users u ON s.user_id = u.id "
+                   + "WHERE s.id = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, studentId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                regNo = rs.getString("register_number") != null ? rs.getString("register_number") : "";
+                fullName = rs.getString("full_name") != null ? rs.getString("full_name") : "";
+                gender = rs.getString("gender") != null ? rs.getString("gender") : "";
+                dob = rs.getDate("date_of_birth") != null ? rs.getDate("date_of_birth").toString() : "";
+                mobile = rs.getString("mobile_number") != null ? rs.getString("mobile_number") : "";
+                altMobile = rs.getString("alternate_number") != null ? rs.getString("alternate_number") : "";
+                emailVal = rs.getString("email") != null ? rs.getString("email") : "";
+                address = rs.getString("address") != null ? rs.getString("address") : "";
+                placedCompany = rs.getString("placed_company") != null ? rs.getString("placed_company") : "";
+                preference = rs.getString("preference") != null ? rs.getString("preference") : "";
+                backlogHistory = rs.getString("history_of_backlogs") != null ? rs.getString("history_of_backlogs") : "NO";
+                sslcPct = rs.getDouble("sslc_percentage");
+                sslcYear = rs.getInt("sslc_year");
+                pucPct = rs.getDouble("puc_percentage");
+                pucYear = rs.getInt("puc_year");
+                itiPct = rs.getDouble("iti_percentage");
+                itiYear = rs.getInt("iti_year");
+                diplomaPct = rs.getDouble("diploma_percentage");
+                sem1 = rs.getDouble("sem1");
+                sem2 = rs.getDouble("sem2");
+                sem3 = rs.getDouble("sem3");
+                sem4 = rs.getDouble("sem4");
+                backlogs = rs.getInt("current_backlog_count");
+                branch = rs.getString("branch") != null ? rs.getString("branch") : "Civil Engg";
+            } else {
+                response.sendRedirect(request.getContextPath() + "/admin/AdminDashboardServlet?error=notfound");
+                return;
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        response.sendRedirect(request.getContextPath() + "/admin/AdminDashboardServlet?error=db");
+        return;
+    }
+%>
                     <!DOCTYPE html>
                     <html lang="en">
 

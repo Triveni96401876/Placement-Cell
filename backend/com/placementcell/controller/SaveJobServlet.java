@@ -13,21 +13,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/saveJobServlet")
+@WebServlet({ "/saveJobServlet", "/admin/saveJobServlet" })
 public class SaveJobServlet extends HttpServlet {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.sendRedirect(request.getContextPath() + "/admin/AdminDashboardServlet?msg=direct_access_not_allowed");
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect("login.html");
+            response.sendRedirect(request.getContextPath() + "/student/login.jsp");
             return;
         }
 
         User user = (User) session.getAttribute("user");
         if (!"ADMIN".equals(user.getRole())) {
-            response.sendRedirect("DashboardServlet");
+            response.sendRedirect(request.getContextPath() + "/DashboardServlet");
             return;
         }
 
@@ -58,14 +63,14 @@ public class SaveJobServlet extends HttpServlet {
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {
-                response.sendRedirect("AdminDashboardServlet?status=job_posted");
+                response.sendRedirect(request.getContextPath() + "/admin/AdminDashboardServlet?status=job_posted");
             } else {
-                response.sendRedirect("AdminDashboardServlet?error=job_post_failed");
+                response.sendRedirect(request.getContextPath() + "/admin/AdminDashboardServlet?error=job_post_failed");
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("AdminDashboardServlet?error=server_error");
+            response.sendRedirect(request.getContextPath() + "/admin/AdminDashboardServlet?error=server_error");
         }
     }
 }

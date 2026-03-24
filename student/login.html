@@ -143,12 +143,12 @@
         <div class="navbar"
             style="max-width: 1200px; margin: 0 auto; padding: 0 2rem; height: 75px; display: flex; align-items: center; justify-content: space-between;">
             <div class="logo-container">
-                <a href="index.jsp" style="display:flex; align-items:center; gap:1rem; text-decoration: none;">
+                <a href="../index.jsp" style="display:flex; align-items:center; gap:1rem; text-decoration: none;">
                     <img src="images/sgp1.jpeg" alt="SGP Logo" style="width: 45px; height: 45px; border-radius: 8px;">
                     <h2 style="color: var(--skyblue-main); font-weight: 800; margin: 0;">SGP</h2>
                 </a>
             </div>
-            <a href="index.jsp" style="color: #6c757d; text-decoration: none; font-weight: 600;"><i
+            <a href="../index.jsp" style="color: #6c757d; text-decoration: none; font-weight: 600;"><i
                     class="fas fa-home"></i> Back to Home</a>
         </div>
     </header>
@@ -169,7 +169,7 @@
                 <div class="role-option" onclick="switchRole('admin')">Admin</div>
             </div>
 
-            <form id="login-form" action="LoginServlet" method="POST">
+            <form id="login-form" action="../LoginServlet" method="POST">
                 <input type="hidden" name="role" id="role-input" value="student">
                 <div class="form-group">
                     <label id="user-label">Email Address</label>
@@ -183,7 +183,7 @@
             </form>
 
             <p id="signup-prompt" style="margin-top: 2rem; font-size: 0.9rem; color: #6c757d;">
-                Don't have an account? <a href="register.html">Sign Up</a>
+                Don't have an account? <a href="register.jsp">Sign Up</a>
             </p>
         </div>
     </main>
@@ -232,6 +232,21 @@
                 signup.style.display = "block";
             }
         }
+
+        // Add Local testing support (without Tomcat)
+        document.getElementById('login-form').addEventListener('submit', function (e) {
+            if (window.location.protocol === 'file:') {
+                e.preventDefault();
+                const role = document.getElementById('role-input').value;
+                if (role === 'admin') {
+                    window.location.href = '../admin/admin-dashboard.jsp';
+                } else if (role === 'hod') {
+                    window.location.href = '../hod/hod_dashboard.jsp';
+                } else {
+                    window.location.href = 'dashboard.jsp';
+                }
+            }
+        });
     </script>
 </body>
 

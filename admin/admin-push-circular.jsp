@@ -273,7 +273,7 @@
                     documents to dashboards</p>
             </div>
 
-            <form action="saveCircularServlet" method="POST" enctype="multipart/form-data" id="circularForm">
+            <form action="<%=request.getContextPath()%>/saveCircularServlet" method="POST" enctype="multipart/form-data" id="circularForm">
                 <div class="form-group">
                     <label>Circular Title <span style="color: #e74c3c;">*</span></label>
                     <input type="text" name="title" id="circularTitle" class="form-input"
@@ -330,7 +330,7 @@
                 </div>
             </form>
 
-            <a href="AdminDashboardServlet" class="btn-back">
+            <a href="<%=request.getContextPath()%>/AdminDashboardServlet" class="btn-back">
                 <i class="fas fa-arrow-left"></i> Back to Dashboard
             </a>
         </div>

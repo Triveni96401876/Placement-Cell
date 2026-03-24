@@ -1,0 +1,11 @@
+HOD: hod@sgp.edu | Name: MD Jaffar | Branch: CSE
+HOD: jaffar@sgp.com | Name: MD Jaffar | Branch: CSE
+HOD: irfan@sgp.com | Name: Mr. Irfan Basha | Branch: EEE
+HOD: tanusha@sgp.com | Name: Mrs. Tanusha S.M | Branch: CIVIL
+HOD: nagraj@sgp.com | Name: Mr. Nagraj Hugar | Branch: ECE
+HOD: sayed@sgp.com | Name: Mr. Sayed Assad Basha | Branch: MECH
+HOD: csehod@sgp.com | Name: MD Jaffar | Branch: CSE
+HOD: metallurgyhod@sgp.com | Name: Mr. Nagraj Hugar | Branch: ECE
+HOD: mechhod@sgp.com | Name: Mr. Sayed Assad Basha | Branch: MECH
+HOD: civilhod@sgp.com | Name: Mrs. Tanusha S.M | Branch: CIVIL
+HOD: eeehod@sgp.com | Name: Mr. Irfan Basha | Branch: EEE

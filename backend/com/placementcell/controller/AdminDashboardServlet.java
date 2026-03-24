@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/AdminDashboardServlet")
+@WebServlet({ "/AdminDashboardServlet", "/admin/AdminDashboardServlet" })
 public class AdminDashboardServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -26,58 +26,59 @@ public class AdminDashboardServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect("login.html");
+            response.sendRedirect(request.getContextPath() + "/admin/admin-login.jsp");
             return;
         }
 
         User user = (User) session.getAttribute("user");
         if (!"ADMIN".equals(user.getRole())) {
-            response.sendRedirect("DashboardServlet");
+            response.sendRedirect(request.getContextPath() + "/DashboardServlet");
             return;
         }
 
+        com.placementcell.dao.JobDAO jobDAO = new com.placementcell.dao.JobDAO();
+        List<String[]> activeJobs = jobDAO.getAllJobs();
+        request.setAttribute("activeJobs", activeJobs);
+        request.setAttribute("totalJobsCount", activeJobs.size());
+
         // Filtering criteria
         String branch = request.getParameter("branch");
-        String minCgpa = request.getParameter("minCgpa");
-        String minSslc = request.getParameter("minSslc");
-        String minPuc = request.getParameter("minPuc");
         String placementStatus = request.getParameter("placementStatus");
         String preference = request.getParameter("preference");
         String backlogs = request.getParameter("backlogs");
+        String eligibility = request.getParameter("eligibility");
         String regNo = request.getParameter("regNo");
-        String emailFilter = request.getParameter("email");
 
         List<Student> students = new ArrayList<>();
         StringBuilder sql = new StringBuilder(
-                "SELECT s.*, ad.*, u.email, r.sslc_path, r.diploma_path, r.resume_path, r.resume_description " +
+                "SELECT s.*, ad.*, u.email " +
                         "FROM students s " +
                         "JOIN users u ON s.user_id = u.id " +
                         "JOIN academic_details ad ON s.id = ad.student_id " +
-                        "LEFT JOIN resumes r ON s.id = r.student_id " +
                         "WHERE 1=1 ");
 
-        // Finalize query after all filters are added
-        // (Wait, I need to append this at the end of the query string construction)
-
         if (branch != null && !branch.isEmpty()) {
-            String bLow = branch.toLowerCase();
-            if (bLow.contains("electrical") || bLow.contains("electronics") || bLow.contains("eee")) {
-                sql.append(
-                        " AND (LOWER(s.branch) LIKE '%electrical%' OR LOWER(s.branch) LIKE '%electronics%' OR LOWER(s.branch) LIKE '%eee%') ");
+            if ("Computer Science".equalsIgnoreCase(branch)) {
+                sql.append(" AND s.branch = 'CSE' ");
+            } else if ("Mechanical".equalsIgnoreCase(branch)) {
+                sql.append(" AND s.branch = 'MECH' ");
+            } else if ("Civil".equalsIgnoreCase(branch)) {
+                sql.append(" AND s.branch = 'CIVIL' ");
+            } else if ("Metallurgy".equalsIgnoreCase(branch)) {
+                sql.append(" AND (s.branch = 'MT' OR s.branch = 'ECE' OR s.branch LIKE '%Metallurgy%') ");
+            } else if (branch.toLowerCase().contains("electrical") || branch.toLowerCase().contains("eee")) {
+                sql.append(" AND s.branch = 'EEE' ");
             } else {
                 sql.append(" AND s.branch = ? ");
             }
         }
-        if (minCgpa != null && !minCgpa.isEmpty())
-            sql.append(" AND ad.cgpa >= ? ");
-        if (minSslc != null && !minSslc.isEmpty())
-            sql.append(" AND ad.sslc_percentage >= ? ");
-        if (minPuc != null && !minPuc.isEmpty())
-            sql.append(" AND ad.puc_percentage >= ? ");
-        if (placementStatus != null && !placementStatus.isEmpty())
+
+        if (placementStatus != null && !placementStatus.isEmpty()) {
             sql.append(" AND s.placement_status = ? ");
-        if (preference != null && !preference.isEmpty())
+        }
+        if (preference != null && !preference.isEmpty()) {
             sql.append(" AND s.preference = ? ");
+        }
         if (backlogs != null && !backlogs.isEmpty()) {
             if ("0".equals(backlogs)) {
                 sql.append(" AND (ad.current_backlog_count = 0 OR ad.current_backlog_count IS NULL) ");
@@ -85,72 +86,65 @@ public class AdminDashboardServlet extends HttpServlet {
                 sql.append(" AND ad.current_backlog_count > 0 ");
             }
         }
-        if (regNo != null && !regNo.isEmpty())
+        if (eligibility != null && !eligibility.isEmpty()) {
+            if ("eligible".equals(eligibility)) {
+                sql.append(" AND ad.sslc_percentage >= 60 AND ad.diploma_percentage >= 60 ");
+            } else if ("not_eligible".equals(eligibility)) {
+                sql.append(
+                        " AND (ad.sslc_percentage < 60 OR ad.diploma_percentage < 60 OR ad.sslc_percentage IS NULL OR ad.diploma_percentage IS NULL) ");
+            }
+        }
+        if (regNo != null && !regNo.isEmpty()) {
             sql.append(" AND s.register_number LIKE ? ");
-        if (emailFilter != null && !emailFilter.isEmpty())
-            sql.append(" AND u.email LIKE ? ");
+        }
 
         sql.append(" ORDER BY s.id DESC");
 
         try (Connection conn = DBConnection.getConnection()) {
-            // 1. Fetch Dashboard Stats first (Independent of filters)
-            int totalStudents = 0;
-            int placedStudents = 0;
-            int totalCirculars = 0;
-
-            try (PreparedStatement statStmt = conn.prepareStatement("SELECT COUNT(*) FROM students")) {
-                ResultSet res = statStmt.executeQuery();
-                if (res.next())
-                    totalStudents = res.getInt(1);
-            } catch (Exception e) {
-                System.err.println("Error fetching totalStudents: " + e.getMessage());
+            // Stats (Total, Placed, Circulars)
+            int totalS = 0, placedS = 0, totalC = 0;
+            try (PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM students")) {
+                ResultSet rs = ps.executeQuery();
+                if (rs.next())
+                    totalS = rs.getInt(1);
             }
-
-            try (PreparedStatement statStmt = conn
+            try (PreparedStatement ps = conn
                     .prepareStatement("SELECT COUNT(*) FROM students WHERE placement_status = 'PLACED'")) {
-                ResultSet res = statStmt.executeQuery();
-                if (res.next())
-                    placedStudents = res.getInt(1);
-            } catch (Exception e) {
-                System.err.println("Error fetching placedStudents: " + e.getMessage());
+                ResultSet rs = ps.executeQuery();
+                if (rs.next())
+                    placedS = rs.getInt(1);
             }
-
-            try (PreparedStatement statStmt = conn
+            try (PreparedStatement ps = conn
                     .prepareStatement("SELECT COUNT(*) FROM circulars WHERE is_active = TRUE")) {
-                ResultSet res = statStmt.executeQuery();
-                if (res.next())
-                    totalCirculars = res.getInt(1);
-            } catch (Exception e) {
-                System.err.println("Error fetching totalCirculars: " + e.getMessage());
+                ResultSet rs = ps.executeQuery();
+                if (rs.next())
+                    totalC = rs.getInt(1);
             }
-
-            request.setAttribute("totalStudents", totalStudents);
-            request.setAttribute("placedStudents", placedStudents);
-            request.setAttribute("totalCirculars", totalCirculars);
+            request.setAttribute("totalStudents", totalS);
+            request.setAttribute("placedStudents", placedS);
+            request.setAttribute("totalCirculars", totalC);
 
             // 2. Fetch Student List (Affected by filters)
+            System.out.println("DEBUG: Executing Admin SQL: " + sql.toString());
             try (PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
                 int paramIndex = 1;
                 if (branch != null && !branch.isEmpty()) {
-                    String bLow = branch.toLowerCase();
-                    if (!(bLow.contains("electrical") || bLow.contains("electronics") || bLow.contains("eee"))) {
+                    boolean isPreDefined = branch.equalsIgnoreCase("Computer Science") ||
+                            branch.equalsIgnoreCase("Mechanical") ||
+                            branch.equalsIgnoreCase("Civil") ||
+                            branch.equalsIgnoreCase("Metallurgy") ||
+                            branch.toLowerCase().contains("electrical") ||
+                            branch.toLowerCase().contains("eee");
+                    if (!isPreDefined) {
                         stmt.setString(paramIndex++, branch);
                     }
                 }
-                if (minCgpa != null && !minCgpa.isEmpty())
-                    stmt.setDouble(paramIndex++, Double.parseDouble(minCgpa));
-                if (minSslc != null && !minSslc.isEmpty())
-                    stmt.setDouble(paramIndex++, Double.parseDouble(minSslc));
-                if (minPuc != null && !minPuc.isEmpty())
-                    stmt.setDouble(paramIndex++, Double.parseDouble(minPuc));
                 if (placementStatus != null && !placementStatus.isEmpty())
                     stmt.setString(paramIndex++, placementStatus);
                 if (preference != null && !preference.isEmpty())
                     stmt.setString(paramIndex++, preference);
                 if (regNo != null && !regNo.isEmpty())
                     stmt.setString(paramIndex++, "%" + regNo + "%");
-                if (emailFilter != null && !emailFilter.isEmpty())
-                    stmt.setString(paramIndex++, "%" + emailFilter + "%");
 
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
@@ -159,28 +153,38 @@ public class AdminDashboardServlet extends HttpServlet {
                     s.setFullName(rs.getString("full_name"));
                     s.setRegisterNumber(rs.getString("register_number"));
                     s.setBranch(rs.getString("branch"));
-                    s.setMobileNumber(rs.getString("mobile_number"));
-                    s.setAlternativeMobileNumber(rs.getString("alternate_number"));
-                    // Safe double/int retrieval
-                    s.setCgpa(rs.getDouble("cgpa"));
-                    s.setSslcPercentage(rs.getDouble("sslc_percentage"));
-                    s.setPucPercentage(rs.getDouble("puc_percentage"));
-                    s.setPlacementStatus(rs.getString("placement_status"));
-                    s.setPlacedCompany(rs.getString("placed_company"));
-                    s.setPreference(rs.getString("preference"));
-                    s.setEmail(rs.getString("email"));
-                    s.setAddress(rs.getString("address"));
                     s.setGender(rs.getString("gender"));
                     s.setDateOfBirth(rs.getDate("date_of_birth"));
-                    s.setBacklogCount(rs.getInt("current_backlog_count"));
-                    s.setBacklogHistory(rs.getString("history_of_backlogs"));
-                    s.setSem1(rs.getDouble("sem1"));
-                    s.setSem2(rs.getDouble("sem2"));
-                    s.setSem3(rs.getDouble("sem3"));
-                    s.setSem4(rs.getDouble("sem4"));
-                    s.setSem5(rs.getDouble("sem5"));
-                    s.setSem6(rs.getDouble("sem6"));
+                    s.setMobileNumber(rs.getString("mobile_number"));
+                    s.setAlternativeMobileNumber(rs.getString("alternate_number"));
+                    s.setAddress(rs.getString("address"));
+                    s.setEmail(rs.getString("email"));
+                    s.setPlacementStatus(rs.getString("placement_status"));
+                    s.setPlacedCompany(rs.getString("placed_company"));
                     s.setInternship(rs.getString("internship"));
+                    s.setPreference(rs.getString("preference"));
+
+                    // Academic details
+                    s.setSslcPercentage(
+                            rs.getObject("sslc_percentage") != null ? rs.getDouble("sslc_percentage") : null);
+                    s.setSslcYear(rs.getObject("sslc_year") != null ? rs.getInt("sslc_year") : null);
+                    s.setPucPercentage(rs.getObject("puc_percentage") != null ? rs.getDouble("puc_percentage") : null);
+                    s.setPucYear(rs.getObject("puc_year") != null ? rs.getInt("puc_year") : null);
+                    s.setItiPercentage(rs.getObject("iti_percentage") != null ? rs.getDouble("iti_percentage") : null);
+                    s.setItiYear(rs.getObject("iti_year") != null ? rs.getInt("iti_year") : null);
+                    s.setDiplomaPercentage(
+                            rs.getObject("diploma_percentage") != null ? rs.getDouble("diploma_percentage") : null);
+                    s.setDiplomaYear(rs.getObject("diploma_year") != null ? rs.getInt("diploma_year") : null);
+                    s.setSem1(rs.getObject("sem1") != null ? rs.getDouble("sem1") : 0.0);
+                    s.setSem2(rs.getObject("sem2") != null ? rs.getDouble("sem2") : 0.0);
+                    s.setSem3(rs.getObject("sem3") != null ? rs.getDouble("sem3") : 0.0);
+                    s.setSem4(rs.getObject("sem4") != null ? rs.getDouble("sem4") : 0.0);
+                    s.setSem5(rs.getObject("sem5") != null ? rs.getDouble("sem5") : 0.0);
+                    s.setSem6(rs.getObject("sem6") != null ? rs.getDouble("sem6") : 0.0);
+                    s.setCgpa(rs.getObject("cgpa") != null ? rs.getDouble("cgpa") : null);
+                    s.setBacklogCount(
+                            rs.getObject("current_backlog_count") != null ? rs.getInt("current_backlog_count") : null);
+                    s.setBacklogHistory(rs.getString("history_of_backlogs"));
                     students.add(s);
                 }
             } catch (SQLException e) {
@@ -194,6 +198,11 @@ public class AdminDashboardServlet extends HttpServlet {
         }
 
         request.setAttribute("studentList", students);
-        request.getRequestDispatcher("admin-dashboard.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/admin-dashboard.jsp").forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
     }
 }

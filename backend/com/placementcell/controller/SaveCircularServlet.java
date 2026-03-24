@@ -14,11 +14,16 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.Part;
 import java.io.File;
 
-@WebServlet({ "/SaveCircularServlet", "/saveCircularServlet" })
+@WebServlet({ "/SaveCircularServlet", "/saveCircularServlet", "/admin/saveCircularServlet" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
         maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class SaveCircularServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.sendRedirect(request.getContextPath() + "/admin/admin-push-circular.jsp");
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -28,7 +33,7 @@ public class SaveCircularServlet extends HttpServlet {
         String sendTo = request.getParameter("sendTo"); // Values: STUDENT, HOD, BOTH
 
         if (title == null || title.isEmpty() || message == null || message.trim().isEmpty()) {
-            response.sendRedirect("admin-dashboard.jsp?status=error&msg=missing_fields");
+            response.sendRedirect(request.getContextPath() + "/admin/admin-dashboard.jsp?status=error&msg=missing_fields");
             return;
         }
 
@@ -59,10 +64,10 @@ public class SaveCircularServlet extends HttpServlet {
             com.placementcell.dao.CircularDAO dao = new com.placementcell.dao.CircularDAO();
             dao.addCircular(title, message, targetRole, filePath);
 
-            response.sendRedirect("admin-dashboard.jsp?status=success&msg=circular_posted");
+            response.sendRedirect(request.getContextPath() + "/admin/admin-dashboard.jsp?status=success&msg=circular_posted");
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("admin-dashboard.jsp?status=error&msg=" + e.getMessage());
+            response.sendRedirect(request.getContextPath() + "/admin/admin-dashboard.jsp?status=error&msg=" + e.getMessage());
         }
     }
 

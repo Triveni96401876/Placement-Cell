@@ -25,7 +25,7 @@ public class StudentViewServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect("login.html");
+            response.sendRedirect(request.getContextPath() + "/student/login.jsp");
             return;
         }
 
@@ -38,7 +38,7 @@ public class StudentViewServlet extends HttpServlet {
             // unless the user is an admin without an ID param
             if ("ADMIN".equals(user.getRole())) {
                 request.setAttribute("errorMessage", "Error: No student ID provided for viewing.");
-                request.getRequestDispatcher("login-dashboard.jsp").forward(request, response);
+                request.getRequestDispatcher("/student/login-dashboard.jsp").forward(request, response);
                 return;
             } else {
                 // For students, fetch their own record if ID is omitted
@@ -47,7 +47,7 @@ public class StudentViewServlet extends HttpServlet {
                     s = studentDAO.getStudentByUserId(user.getId());
                 }
                 request.setAttribute("studentData", s);
-                request.getRequestDispatcher("view-details.jsp").forward(request, response);
+                request.getRequestDispatcher("/student/view-details.jsp").forward(request, response);
                 return;
             }
         }
@@ -62,18 +62,18 @@ public class StudentViewServlet extends HttpServlet {
                 if ("ADMIN".equals(user.getRole()) || "HOD".equals(user.getRole())
                         || student.getUserId().equals(user.getId())) {
                     request.setAttribute("studentData", student);
-                    request.getRequestDispatcher("view-details.jsp").forward(request, response);
+                    request.getRequestDispatcher("/student/view-details.jsp").forward(request, response);
                 } else {
                     response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access denied to this student's profile.");
                 }
             } else {
                 request.setAttribute("errorMessage", "Student record not found in the database.");
-                request.getRequestDispatcher("login-dashboard.jsp").forward(request, response);
+                request.getRequestDispatcher("/student/login-dashboard.jsp").forward(request, response);
             }
         } catch (NumberFormatException e) {
             // Robust error handling to prevent 400 Bad Request
             request.setAttribute("errorMessage", "Invalid Student ID format. Please provide a numeric ID.");
-            request.getRequestDispatcher("login-dashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("/student/login-dashboard.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An unexpected error occurred.");

@@ -23,7 +23,7 @@ public class AdminRegistrationsServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect("login.html");
+            response.sendRedirect("login.jsp");
             return;
         }
 
@@ -96,6 +96,6 @@ public class AdminRegistrationsServlet extends HttpServlet {
 
         request.setAttribute("registrations", registrations);
         request.setAttribute("filteredJobTitle", filteredJobTitle);
-        request.getRequestDispatcher("admin-view-registrations.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/admin-view-registrations.jsp").forward(request, response);
     }
 }

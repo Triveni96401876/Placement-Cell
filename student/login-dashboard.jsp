@@ -432,7 +432,7 @@
                     </div>
                     <div class="user-area">
                         <span>Welcome, <%= student.getWelcomeName().toUpperCase() %></span>
-                        <a href="LogoutServlet" class="btn-logout">Logout</a>
+                        <a href="<%= request.getContextPath() %>/LogoutServlet" class="btn-logout">Logout</a>
                     </div>
                 </header>
 
@@ -441,24 +441,40 @@
                     <!-- Sidebar -->
                     <aside class="sidebar">
                         <div class="sidebar-brand">
-                            <img src="../assets/images/sgp1.jpeg" alt="SGP Logo" onerror="this.src='images/sgp1.jpeg'">
+                            <img src="<%= request.getContextPath() %>/assets/images/sgp1.jpeg" alt="SGP Logo"
+                                onerror="this.src='images/sgp1.jpeg'">
                             <span>SGP<br>PLACEMENT<br>CELL</span>
                         </div>
                         <ul class="nav-links">
                             <li class="active">
-                                <a href="DashboardServlet"><i class="fas fa-th-large"></i> Dashboard</a>
+                                <a href="<%= request.getContextPath() %>/DashboardServlet"><i
+                                        class="fas fa-th-large"></i> Dashboard</a>
                             </li>
                             <li>
-                                <a href="profile.jsp"><i class="fas fa-user-circle"></i> Account</a>
+                                <a href="<%= request.getContextPath() %>/JobPortalServlet"><i
+                                        class="fas fa-briefcase"></i> Job Portal</a>
                             </li>
                             <li>
-                                <a href="about-sgp.jsp"><i class="fas fa-university"></i> About SGP</a>
+                                <a href="<%= request.getContextPath() %>/studentViewServlet"><i
+                                        class="fas fa-user-circle"></i> Profile</a>
                             </li>
-                            <li style="margin-top: 20px;">
-                                <a href="javascript:void(0)" onclick="checkCirculars(true)"
-                                    style="background: rgba(92, 103, 242, 0.05); color: #5c67f2; border: 1.5px solid rgba(92, 103, 242, 0.1);">
-                                    <i class="fas fa-bullhorn"></i> View Circulars
-                                </a>
+                            <li>
+                                <a href="<%= request.getContextPath() %>/student/about-sgp.jsp"><i
+                                        class="fas fa-university"></i> About SGP</a>
+                            </li>
+                            <li style="margin-top: 30px;">
+                                <div id="circularDropdownBtn" onclick="toggleSidebarCirculars()"
+                                    style="background: #f8faff; color: #5c67f2; border: 1.5px solid #edf2f7; border-radius: 16px; padding: 14px 20px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: 0.3s; font-weight: 700; font-size: 0.95rem;">
+                                    <div style="display: flex; align-items: center; gap: 15px;">
+                                        <i class="fas fa-bullhorn" style="font-size: 1.1rem;"></i>
+                                        <span>View Circulars</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down" id="circChevron" style="font-size: 0.8rem; transition: transform 0.3s;"></i>
+                                </div>
+                                <!-- Sidebar Circulars List -->
+                                <div id="sidebarCircularsList" style="display: none; padding: 15px 5px; max-height: 350px; overflow-y: auto;">
+                                    <div id="sidebarCircularsContent" style="font-size: 0.85rem;"></div>
+                                </div>
                             </li>
                         </ul>
                     </aside>
@@ -467,8 +483,9 @@
                     <main class="content-area">
                         <h1 class="greeting">Hello, <%= student.getWelcomeName().toUpperCase() %> !</h1>
 
-                        <div class="cards-container">
-                            <a href="profile.jsp" class="action-card">
+                        <div class="cards-container" style="grid-template-columns: repeat(2, 1fr); max-width: 800px;">
+
+                            <a href="<%= request.getContextPath() %>/studentViewServlet" class="action-card">
                                 <i class="fas fa-id-card"></i>
                                 <span>View Profile</span>
                             </a>
@@ -479,91 +496,6 @@
                             </a>
 
                         </div>
-
-                        <!-- Inline About SGP Content -->
-                        <div class="content-card">
-                            <h2 class="section-title">About Sanjay Gandhi Polytechnic</h2>
-                            <div style="display: flex; gap: 30px; align-items: flex-start;">
-                                <img src="../assets/images/sgp1.jpeg" alt="SGP Logo"
-                                    style="width: 150px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);"
-                                    onerror="this.src='images/sgp1.jpeg'">
-                                <div>
-                                    <p>Sanjay Gandhi Polytechnic (SGP), Ballari, was established in 1991 as the first
-                                        premier private co-educational polytechnic.</p>
-                                    <p>The institute is recognized by the Government of Karnataka, approved by AICTE,
-                                        New Delhi, and affiliated with the Directorate of Technical Education (DTE),
-                                        Bengaluru.</p>
-                                    <p>SGP focuses on academic excellence, practical exposure, and overall student
-                                        development.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="content-card">
-                            <h2 class="section-title">Our Technical Courses</h2>
-                            <div class="courses-grid">
-                                <div class="course-card">
-                                    <i class="fas fa-microchip fa-3x"
-                                        style="color:var(--primary-blue); margin-bottom:1rem;"></i>
-                                    <h3>Electronics & Communication</h3>
-                                    <p>Advanced circuitry and communication systems.</p>
-                                </div>
-                                <div class="course-card">
-                                    <i class="fas fa-laptop-code fa-3x"
-                                        style="color:var(--primary-blue); margin-bottom:1rem;"></i>
-                                    <h3>Computer Science</h3>
-                                    <p>Software development, coding, and algorithms.</p>
-                                </div>
-                                <div class="course-card">
-                                    <i class="fas fa-cogs fa-3x"
-                                        style="color:var(--primary-blue); margin-bottom:1rem;"></i>
-                                    <h3>Mechanical Engineering</h3>
-                                    <p>Design, manufacturing, and mechanics.</p>
-                                </div>
-                                <div class="course-card">
-                                    <i class="fas fa-bolt fa-3x"
-                                        style="color:var(--primary-blue); margin-bottom:1rem;"></i>
-                                    <h3>Electrical & Electronics</h3>
-                                    <p>Power systems and electrical innovations.</p>
-                                </div>
-                                <div class="course-card">
-                                    <i class="fas fa-building fa-3x"
-                                        style="color:var(--primary-blue); margin-bottom:1rem;"></i>
-                                    <h3>Civil Engineering</h3>
-                                    <p>Infrastructure, construction, and design.</p>
-                                </div>
-                                <div class="course-card">
-                                    <i class="fas fa-hammer fa-3x"
-                                        style="color:var(--primary-blue); margin-bottom:1rem;"></i>
-                                    <h3>Metallurgy</h3>
-                                    <p>Material science and metal processing.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="content-card">
-                            <h2 class="section-title">Training & Placements</h2>
-                            <p>SGP has a strong placement record with students placed in reputed MNCs across Karnataka.
-                                Career guidance and placement training are provided to all students.</p>
-                            <div
-                                style="background: #f8fafc; padding: 25px; border-radius: 15px; margin-top: 20px; border-left: 5px solid var(--primary-blue);">
-                                <h3 style="color: var(--text-dark); margin-bottom: 15px;"><i
-                                        class="fas fa-briefcase"></i> Training & Placement Cell</h3>
-                                <p style="margin-bottom: 10px;">The Centre provides pre-placement training in soft
-                                    skills, CV Writing, Aptitude Assessment, Mock interviews, and Group Discussion.</p>
-                                <p style="margin-bottom: 10px;"><strong>Top Recruiters:</strong> JSW, L&T, TATA Motors,
-                                    TVS Upasana etc.</p>
-                                <p><strong>Impact:</strong> Over 250+ students placed every year in successful careers.
-                                </p>
-                                <div style="margin-top: 20px; font-weight: 500; color: #1e293b;">
-                                    <p><i class="fas fa-user-tie"></i> Mr. K. Nayeem Basha (Placement Officer)</p>
-                                    <p><i class="fas fa-envelope"></i> sgpplacement@gmail.com | <i
-                                            class="fas fa-phone"></i> 9742815857</p>
-                                </div>
-                            </div>
-                        </div>
-
-
 
                     </main>
                 </div>
@@ -585,36 +517,85 @@
                 </div>
 
                 <script>
+                    function toggleSidebarCirculars() {
+                        const list = document.getElementById('sidebarCircularsList');
+                        const icon = document.getElementById('circChevron');
+                        if (list.style.display === 'none') {
+                            list.style.display = 'block';
+                            icon.style.transform = 'rotate(180deg)';
+                            checkCirculars(true);
+                        } else {
+                            list.style.display = 'none';
+                            icon.style.transform = 'rotate(0deg)';
+                        }
+                    }
+
                     function checkCirculars(isManual = false) {
                         fetch('GetCircularServlet')
                             .then(response => response.json())
                             .then(data => {
-                                if (data.status === 'success') {
-                                    document.getElementById('circularTitle').innerText = data.title || 'Important Update';
-                                    document.getElementById('circularText').innerHTML = data.message ? data.message.replace(/\n/g, '<br>') : '';
-                                    const fileSection = document.getElementById('circularFileSection');
-                                    const fileLink = document.getElementById('circularFileLink');
+                                const content = document.getElementById('sidebarCircularsContent');
+                                if (data.status === 'success' && data.circulars && data.circulars.length > 0) {
+                                    // 1. Populate Sidebar (All circulars)
+                                    let sidebarHtml = '';
+                                    data.circulars.forEach((circ, index) => {
+                                        const dateDisp = circ.date ? new Date(circ.date).toLocaleDateString('en-IN', {day: 'numeric', month: 'short'}) : '';
+                                        sidebarHtml += `
+                                            <div style="margin-bottom: 12px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;">
+                                                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 4px;">
+                                                    <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">\${circ.title}</span>
+                                                    <span style="font-size: 0.7rem; color: #94a3b8; font-weight: 700;">\${dateDisp}</span>
+                                                </div>
+                                                <p style="color: #64748b; font-size: 0.78rem; line-height: 1.4; margin-bottom: 8px;">\${circ.message}</p>
+                                        `;
+                                        if (circ.filePath) {
+                                            sidebarHtml += `
+                                                <a href="\${circ.filePath}" target="_blank" style="color: #5c67f2; text-decoration: none; font-weight: 700; font-size: 0.72rem; display: flex; align-items: center; gap: 5px;">
+                                                    <i class="fas fa-file-pdf"></i> View File
+                                                </a>
+                                            `;
+                                        }
+                                        sidebarHtml += `</div>`;
+                                    });
+                                    content.innerHTML = sidebarHtml;
 
-                                    if (data.filePath && data.filePath.trim() !== '') {
-                                        fileLink.href = data.filePath;
-                                        fileSection.style.display = 'block';
-
-                                        const ext = data.filePath.split('.').pop().toLowerCase();
-                                        const icon = fileLink.querySelector('i');
-                                        if (ext === 'pdf') icon.className = 'fas fa-file-pdf';
-                                        else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) icon.className = 'fas fa-file-image';
-                                        else icon.className = 'fas fa-file-alt';
-                                    } else {
-                                        fileSection.style.display = 'none';
+                                    // 2. If it's the initial page load, show ONLY the latest in a modal
+                                    if (!isManual) {
+                                        const latest = data.circulars[0];
+                                        const modal = document.getElementById('circularModal');
+                                        const card = modal.querySelector('.circular-card');
+                                        
+                                        let modalHtml = `
+                                            <div class="circular-icon-box" style="width:60px; height:60px; font-size:1.8rem; margin-bottom:16px;"><i class="fas fa-bullhorn"></i></div>
+                                            <h3 style="margin-bottom: 10px; font-weight: 800; color: #1e293b;">New Announcement</h3>
+                                            <div style="text-align: left; padding: 10px 15px; background: #f8fafc; border-radius: 16px; margin-bottom: 20px;">
+                                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                                    <strong style="color: #1e293b; font-size: 1rem;">\${latest.title}</strong>
+                                                    <span style="font-size: 0.75rem; color: #94a3b8; font-weight: 700;">\${new Date(latest.date).toLocaleDateString('en-IN', {day: 'numeric', month: 'short', year: 'numeric'})}</span>
+                                                </div>
+                                                <p style="color: #475569; font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px;">\${latest.message.replace(/\n/g, '<br>')}</p>
+                                        `;
+                                        
+                                        if (latest.filePath) {
+                                            modalHtml += `
+                                                <a href="\${latest.filePath}" target="_blank" class="btn-attachment" style="padding: 10px 20px; font-size: 0.85rem; width: auto; border: 1.5px solid #5c67f2;">
+                                                    <i class="fas fa-file-pdf"></i> View Attachment
+                                                </a>
+                                            `;
+                                        }
+                                        modalHtml += `</div>
+                                            <button class="btn-got-it" onclick="closeCircular()">I've Read It</button>
+                                        `;
+                                        
+                                        card.innerHTML = modalHtml;
+                                        modal.style.display = 'flex';
                                     }
-                                    document.getElementById('circularModal').style.display = 'flex';
                                 } else if (isManual) {
-                                    alert('No active circulars at the moment.');
+                                    content.innerHTML = '<p style="color: #94a3b8; font-style: italic; padding: 10px;">No active circulars.</p>';
                                 }
                             })
                             .catch(err => {
                                 console.error('Error fetching circulars:', err);
-                                if (isManual) alert('Could not fetch circulars.');
                             });
                     }
 
@@ -622,10 +603,10 @@
                         document.getElementById('circularModal').style.display = 'none';
                     }
 
-                    // On page load
-                    window.onload = function () {
-                        // Small delay for better UX
-                        setTimeout(() => checkCirculars(false), 800);
+                    window.onload = function() {
+                        setTimeout(function() {
+                            checkCirculars(false);
+                        }, 500);
                     };
                 </script>
 

@@ -5,149 +5,817 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Register | SGP Placement Cell</title>
-        <!-- CSS -->
-        <link rel="stylesheet" href="css/style.css">
+        <title>SGP Enrollment | Student Registration</title>
+        <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
             rel="stylesheet">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
+            :root {
+                --primary: #00a8ff;
+                --primary-dark: #0097e6;
+                --bg-light: #f5f6fa;
+                --white: #ffffff;
+                --text-dark: #2f3640;
+                --text-muted: #7f8fa6;
+                --border-color: #edeff2;
+                --shadow: 0 8px 32px 0 rgba(0, 168, 255, 0.08);
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+            }
+
             body {
-                background: #f0f4f8;
+                background: var(--bg-light);
+                background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                color: var(--text-dark);
                 min-height: 100vh;
+                padding-bottom: 3rem;
+            }
+
+            /* Header Area */
+            .register-header {
+                background: var(--white);
+                height: 80px;
                 display: flex;
                 align-items: center;
-                justify-content: center;
+                justify-content: space-between;
+                padding: 0 5%;
+                box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+
+            .logo-box {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                text-decoration: none;
+            }
+
+            .logo-box img {
+                width: 45px;
+                height: 45px;
+                border-radius: 8px;
+            }
+
+            .logo-box h2 {
+                color: var(--primary);
+                font-weight: 800;
+                font-size: 1.4rem;
+            }
+
+            .home-link {
+                text-decoration: none;
+                color: var(--text-muted);
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                transition: 0.3s;
+            }
+
+            .home-link:hover {
+                color: var(--primary);
+            }
+
+            /* Form Container */
+            .form-container {
+                max-width: 950px;
+                margin: 2rem auto;
+                background: var(--white);
+                border-radius: 24px;
+                box-shadow: var(--shadow);
+                overflow: hidden;
+                animation: fadeIn 0.8s ease-out;
+            }
+
+            .form-banner {
+                background: var(--primary);
+                color: white;
                 padding: 2rem;
-            }
-
-            .reg-card {
-                background: white;
-                padding: 2.5rem;
-                border-radius: 20px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-                width: 100%;
-                max-width: 600px;
-            }
-
-            .reg-card h2 {
-                color: #003366;
                 text-align: center;
-                margin-bottom: 2rem;
             }
 
-            .grid-form {
+            .form-banner h1 {
+                font-size: 1.8rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
+
+            .form-banner p {
+                opacity: 0.9;
+                font-size: 0.95rem;
+            }
+
+            .form-body {
+                padding: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: var(--primary);
+                margin: 2rem 0 1.2rem;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                border-bottom: 2px solid var(--bg-light);
+                padding-bottom: 8px;
+            }
+
+            .section-title:first-child {
+                margin-top: 0;
+            }
+
+            .grid-row {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.2rem;
+                margin-bottom: 1rem;
+            }
+
+            .sem-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
                 gap: 1rem;
+                margin-bottom: 1rem;
             }
 
             .form-group {
-                margin-bottom: 1.2rem;
-            }
-
-            .form-group.full {
-                grid-column: span 2;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
             }
 
             .form-group label {
-                display: block;
-                margin-bottom: 0.5rem;
-                font-weight: 500;
-                font-size: 0.9rem;
+                font-weight: 600;
+                font-size: 0.85rem;
+                color: var(--text-muted);
             }
 
-            .form-control {
-                width: 100%;
-                padding: 0.8rem;
-                border: 2px solid #eee;
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 10px 14px;
+                border: 2px solid var(--border-color);
                 border-radius: 10px;
+                font-size: 0.9rem;
                 transition: 0.3s;
-            }
-
-            .form-control:focus {
-                border-color: #003366;
+                color: var(--text-dark);
                 outline: none;
             }
 
-            .btn-reg {
-                grid-column: span 2;
-                background: #003366;
-                color: white;
-                border: none;
-                padding: 1rem;
-                border-radius: 10px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: 0.3s;
-                margin-top: 1rem;
+            .form-group input:focus,
+            .form-group select:focus,
+            .form-group textarea:focus {
+                border-color: var(--primary);
+                background: #f0faff;
             }
 
-            .btn-reg:hover {
-                background: #0056b3;
+            .radio-group {
+                display: flex;
+                gap: 18px;
+                margin-top: 4px;
+            }
+
+            .radio-option {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                cursor: pointer;
+                font-size: 0.9rem;
+            }
+
+            .full-width {
+                grid-column: span 2;
+            }
+
+            .required-star {
+                color: #ff4d4d;
+                font-weight: bold;
+                margin-left: 3px;
+            }
+
+            .btn-row {
+                margin-top: 2.5rem;
+                display: flex;
+                gap: 15px;
+            }
+
+            .submit-btn {
+                background: var(--primary);
+                color: white;
+                padding: 14px 35px;
+                border-radius: 50px;
+                border: none;
+                font-size: 1rem;
+                font-weight: 700;
+                cursor: pointer;
+                transition: 0.3s;
+                flex: 2;
+                box-shadow: 0 4px 12px rgba(0, 168, 255, 0.2);
+            }
+
+            .submit-btn:hover {
+                background: var(--primary-dark);
+                transform: translateY(-2px);
+            }
+
+            .resume-gen-btn {
+                background: white;
+                color: var(--primary);
+                border: 2px solid var(--primary);
+                padding: 14px 25px;
+                border-radius: 50px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: 0.3s;
+                flex: 1;
+            }
+
+            .resume-gen-btn:hover {
+                background: #f0faff;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Resume Preview Modal Styles */
+            .resume-modal {
+                display: none;
+                position: fixed;
+                z-index: 2000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                backdrop-filter: blur(8px);
+                justify-content: center;
+                align-items: center;
+                animation: fadeIn 0.4s ease-out;
+            }
+
+            .resume-modal-content {
+                background: white;
+                padding: 20px;
+                border-radius: 20px;
+                width: 92%;
+                max-width: 950px;
+                position: relative;
+                box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.4);
+            }
+
+            .resume-close {
+                position: absolute;
+                right: 25px;
+                top: 15px;
+                font-size: 32px;
+                font-weight: bold;
+                color: #bdc3c7;
+                cursor: pointer;
+                transition: 0.3s;
+                z-index: 100;
+            }
+
+            .resume-close:hover {
+                color: var(--primary);
+                transform: rotate(90deg);
+            }
+
+            .resume-iframe {
+                width: 100%;
+                height: 85vh;
+                border: none;
+                border-radius: 12px;
+                background: #f8f9fa;
+            }
+
+            @media (max-width: 768px) {
+
+                .grid-row,
+                .sem-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .full-width {
+                    grid-column: span 1;
+                }
             }
         </style>
     </head>
 
     <body>
 
-        <div class="reg-card">
-            <h2>Student Registration</h2>
-            <form action="RegisterServlet" method="POST" enctype="multipart/form-data">
-                <div class="grid-form">
-                    <div class="form-group full">
-                        <label>Full Name</label>
-                        <input type="text" name="fullName" class="form-control" required placeholder="John Doe">
+        <header class="register-header">
+            <a href="../index.jsp" class="logo-box">
+                <img src="../images/sgp1.jpeg" alt="SGP Logo"
+                    onerror="this.src='https://via.placeholder.com/45x45?text=SGP'">
+                <h2>SGP PLACEMENT CELL</h2>
+            </a>
+            <a href="../index.jsp" class="home-link"><i class="fas fa-home"></i> Back to Home</a>
+        </header>
+
+        <div class="form-container">
+            <div class="form-banner">
+                <h1 style="text-decoration: underline; margin-bottom: 10px;">Sanjay Gandhi Polytechnic</h1>
+                <h2 style="text-decoration: underline; font-weight: 700; font-size: 1.5rem; margin-bottom: 15px;">
+                    Placement
+                    Cell</h2>
+                <p
+                    style="font-weight: 500; background: rgba(255,255,255,0.2); display: inline-block; padding: 5px 20px; border-radius: 50px;">
+                    Student Enrollment [Registration]</p>
+            </div>
+
+            <form class="form-body" action="../RegisterServlet" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="fullName" id="fullName">
+
+                <!-- Section 1: Basic Information -->
+                <div class="grid-row">
+                    <div class="form-group">
+                        <label>First Name<span class="required-star">*</span></label>
+                        <input type="text" id="firstName" placeholder="Rahul" required>
                     </div>
                     <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" name="email" class="form-control" required placeholder="john@example.com">
+                        <label>Last Name<span class="required-star">*</span></label>
+                        <input type="text" id="lastName" placeholder="Kumar" required>
                     </div>
                     <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password" class="form-control" required placeholder="••••••••">
+                        <label>Register Number (Diploma)<span class="required-star">*</span></label>
+                        <input type="text" name="regNo" placeholder="e.g. 459CS21001" required>
                     </div>
                     <div class="form-group">
-                        <label>Register Number</label>
-                        <input type="text" name="regNo" class="form-control" required placeholder="SGP2024001">
+                        <label>Date of Birth (D.O.B)<span class="required-star">*</span></label>
+                        <input type="date" name="dob" required>
                     </div>
                     <div class="form-group">
-                        <label>Mobile Number</label>
-                        <input type="tel" name="mobile" class="form-control" required placeholder="9876543210"
-                            maxlength="10" minlength="10" pattern="[0-9]{10}">
+                        <label>Gender<span class="required-star">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="gender" value="Male" required>
+                                Male</label>
+                            <label class="radio-option"><input type="radio" name="gender" value="Female"> Female</label>
+                            <label class="radio-option"><input type="radio" name="gender" value="Other"> Other</label>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>Branch</label>
-                        <select name="branch" class="form-control" required>
+                        <label>Branch (Diploma)<span class="required-star">*</span></label>
+                        <select name="branch" required>
                             <option value="">Select Branch</option>
                             <option value="Computer Science">Computer Science</option>
-                            <option value="Mechanical">Mechanical</option>
-                            <option value="Electronics">Electronics</option>
-                            <option value="Civil">Civil</option>
+                            <option value="Electronics & Comm">Electronics & Comm</option>
+                            <option value="Mechanical Engg">Mechanical Engg</option>
+                            <option value="Electrical Engg">Electrical Engg</option>
+                            <option value="Civil Engg">Civil Engg</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Gender</label>
-                        <select name="gender" class="form-control" required>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
+                        <label>Mobile Number<span class="required-star">*</span></label>
+                        <input type="tel" name="mobile" placeholder="98XXXXXXXX" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Alternative Mobile No</label>
+                        <input type="tel" name="altMobile" placeholder="Alternative contact">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Email ID<span class="required-star">*</span></label>
+                        <input type="email" name="email" placeholder="student@example.com" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Permanent Address</label>
+                        <textarea name="address" rows="3"
+                            placeholder="Enter your full residential address..."></textarea>
+                    </div>
+                </div>
+
+                <div class="grid-row">
+                    <div class="form-group">
+                        <label>SSLC Percentage (%)<span class="required-star">*</span></label>
+                        <input type="number" name="sslc" step="0.01" placeholder="e.g. 85.50" required>
+                    </div>
+                    <div class="form-group">
+                        <label>SSLC Year of Passing<span class="required-star">*</span></label>
+                        <input type="number" name="sslcYear" placeholder="2019" min="1990" max="2030" required>
+                    </div>
+                    <div class="form-group">
+                        <label>PUC Percentage (%) <small>(Optional)</small></label>
+                        <input type="number" name="puc" step="0.01" placeholder="e.g. 75.00">
+                    </div>
+                    <div class="form-group">
+                        <label>PUC Year of Passing <small>(Optional)</small></label>
+                        <input type="number" name="pucYear" placeholder="2021" min="1990" max="2030">
+                    </div>
+                    <div class="form-group">
+                        <label>ITI Percentage (%) <small>(Optional)</small></label>
+                        <input type="number" name="iti" step="0.01" placeholder="e.g. 80.00">
+                    </div>
+                    <div class="form-group">
+                        <label>ITI Year of Passing <small>(Optional)</small></label>
+                        <input type="number" name="itiYear" placeholder="Year" min="1990" max="2030">
+                    </div>
+                </div>
+
+                <div class="sem-grid">
+                    <div class="form-group">
+                        <label>1st Sem (%)</label>
+                        <input type="number" name="sem1" step="0.01" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>2nd Sem (%)</label>
+                        <input type="number" name="sem2" step="0.01" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>3rd Sem (%)</label>
+                        <input type="number" name="sem3" step="0.01" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>4th Sem (%)</label>
+                        <input type="number" name="sem4" step="0.01" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>5th Sem (%)</label>
+                        <input type="number" name="sem5" step="0.01" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>6th Sem (%)</label>
+                        <input type="number" name="sem6" step="0.01" placeholder="0.00">
+                    </div>
+                </div>
+                <div class="grid-row">
+                    <div class="form-group">
+                        <label>Aggregate CGPA / Overall %<span class="required-star">*</span></label>
+                        <input type="number" name="cgpa" step="0.01" placeholder="e.g. 8.50" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Backlogs</label>
+                        <select name="backlogs" required>
+                            <option value="">Select Number</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
                         </select>
                     </div>
-                    <!-- Upload Section -->
-                    <div class="form-group full">
-                        <label>Upload SSLC Marks Card (PDF/Image)</label>
-                        <input type="file" name="sslcCard" class="form-control" required>
+                    <div class="form-group">
+                        <label>History of Backlogs</label>
+                        <select name="backlogHistory" required>
+                            <option value="">Select Option</option>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
                     </div>
-                    <div class="form-group full">
-                        <label>Upload Diploma Marksheet (Latest Sem)</label>
-                        <input type="file" name="diplomaCard" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn-reg">Create Account & Login</button>
                 </div>
-                <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem;">
-                    Already registered? <a href="login.jsp" style="color: #003366; font-weight: 600;">Login here</a>
-                </p>
+
+
+                <!-- Section 4: Skills & Profile -->
+                <div class="grid-row">
+                    <div class="form-group full-width">
+                        <label>Technical Skills (Comma separated)</label>
+                        <input type="text" name="skills" placeholder="Java, Python, HTML, CSS, SQL..." required>
+                    </div>
+                </div>
+
+                <!-- Section 5: Security -->
+                <div class="grid-row">
+                    <div class="form-group full-width">
+                        <label>Set Account Password<span class="required-star">*</span></label>
+                        <input type="password" name="password" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <!-- Upload Section -->
+                <div class="grid-row">
+                    <div class="form-group">
+                        <label>Upload Resume (PDF)</label>
+                        <input type="file" name="resume" accept=".pdf" id="resumeUpload">
+                        <small style="color: var(--text-muted); font-size: 0.75rem;">Max 5MB, PDF only</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Upload Profile Photo</label>
+                        <input type="file" name="photo" accept="image/*" id="photoUpload" onchange="previewImage(this)">
+                        <small style="color: var(--text-muted); font-size: 0.75rem;">Max 2MB, JPG/PNG</small>
+                        <div id="photoPreview" style="margin-top: 10px; display: none;">
+                            <img id="photoPreviewImg" src="" alt="Preview"
+                                style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover; border: 2px solid var(--border-color);">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="btn-row">
+                    <button type="button" class="resume-gen-btn" id="autoResumeBtn">
+                        <i class="fas fa-magic"></i> Auto Resume
+                    </button>
+                    <button type="submit" class="submit-btn" id="submitBtn">Complete Registration</button>
+                </div>
+
             </form>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="successModal" class="success-modal-overlay">
+            <div class="success-modal">
+                <div class="icon-container">
+                    <svg class="checkmark" viewBox="0 0 52 52">
+                        <path d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                    </svg>
+                </div>
+                <h1>Successfully Registered!</h1>
+                <p>Your account has been created successfully. Welcome to the Placement Cell.</p>
+
+                <div class="loader">
+                    <div class="loader-bar"></div>
+                </div>
+                <p class="redirect-text">Redirecting to login page...</p>
+            </div>
+        </div>
+
+        <style>
+            .success-modal-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(30, 41, 59, 0.95);
+                z-index: 5000;
+                justify-content: center;
+                align-items: center;
+                backdrop-filter: blur(10px);
+                animation: fadeIn 0.5s ease-out;
+            }
+
+            .success-modal {
+                background: white;
+                padding: 60px 40px;
+                border-radius: 40px;
+                box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.3);
+                text-align: center;
+                max-width: 500px;
+                width: 90%;
+                animation: premiumPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+                border-bottom: 10px solid #2ecc71;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .success-modal::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 8px;
+                background: linear-gradient(90deg, #2ecc71, #27ae60);
+            }
+
+            @keyframes premiumPop {
+                from {
+                    opacity: 0;
+                    transform: scale(0.8) translateY(60px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: scale(1) translateY(0);
+                }
+            }
+
+            .icon-container {
+                width: 120px;
+                height: 120px;
+                background: #f0fff4;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 auto 30px;
+                position: relative;
+                box-shadow: 0 10px 25px rgba(46, 204, 113, 0.1);
+            }
+
+            .icon-container::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                border: 4px solid #2ecc71;
+                animation: pulseSuccess 2s infinite;
+            }
+
+            @keyframes pulseSuccess {
+                0% {
+                    transform: scale(1);
+                    opacity: 0.6;
+                }
+
+                100% {
+                    transform: scale(1.5);
+                    opacity: 0;
+                }
+            }
+
+            .checkmark {
+                width: 60px;
+                height: 60px;
+                stroke: #27ae60;
+                stroke-width: 5;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                fill: none;
+                animation: drawCheck 0.8s 0.4s ease forwards;
+                stroke-dasharray: 100;
+                stroke-dashoffset: 100;
+            }
+
+            @keyframes drawCheck {
+                to {
+                    stroke-dashoffset: 0;
+                }
+            }
+
+            .success-modal h1 {
+                color: #1b5e20;
+                margin-bottom: 15px;
+                font-size: 32px;
+                font-weight: 800;
+                letter-spacing: -0.02em;
+            }
+
+            .success-modal p {
+                color: #546e7a;
+                margin-bottom: 35px;
+                line-height: 1.7;
+                font-size: 1.1rem;
+            }
+
+            .loader {
+                height: 8px;
+                background: #f1f5f9;
+                border-radius: 10px;
+                overflow: hidden;
+                margin-bottom: 20px;
+                width: 100%;
+            }
+
+            .loader-bar {
+                height: 100%;
+                width: 0%;
+                background: linear-gradient(90deg, #2ecc71, #27ae60);
+                border-radius: 10px;
+                animation: loadProgress 3.5s linear forwards;
+            }
+
+            @keyframes loadProgress {
+                to {
+                    width: 100%;
+                }
+            }
+
+            .redirect-text {
+                margin-top: 15px;
+                font-size: 15px;
+                color: #90a4ae;
+                font-weight: 600;
+            }
+        </style>
+
+        <script>
+            function previewImage(input) {
+                const container = document.getElementById('photoPreview');
+                const img = document.getElementById('photoPreviewImg');
+
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        img.src = e.target.result;
+                        container.style.display = 'block';
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            // Preview Photo Binding
+            document.getElementById('photoUpload').addEventListener('change', function () {
+                previewImage(this);
+            });
+
+            document.querySelector('form').onsubmit = function (e) {
+                const fName = document.getElementById('firstName').value;
+                const lName = document.getElementById('lastName').value;
+                document.getElementById('fullName').value = fName + " " + lName;
+                return true;
+            };
+
+            // Dedicated Resume Generator Logic
+            const resumeBtn = document.getElementById('autoResumeBtn');
+            if (resumeBtn) {
+                resumeBtn.addEventListener('click', function () {
+                    generateResume();
+                });
+            }
+
+            function generateResume() {
+                try {
+                    // Get values with fallback
+                    const firstNameVal = document.getElementById('firstName')?.value || "";
+                    const lastNameVal = document.getElementById('lastName')?.value || "";
+
+                    if (!firstNameVal.trim()) {
+                        alert("Please enter your First Name before generating a resume.");
+                        document.getElementById('firstName').focus();
+                        return;
+                    }
+
+                    const getSafeParam = (name) => {
+                        const el = document.getElementsByName(name)[0];
+                        return el ? el.value : "";
+                    };
+
+                    const resumeData = {
+                        fullName: (firstNameVal + " " + lastNameVal).trim(),
+                        email: getSafeParam('email'),
+                        phone: getSafeParam('mobile'),
+                        branch: getSafeParam('branch'),
+                        id: getSafeParam('regNo'),
+                        sslc: getSafeParam('sslc'),
+                        puc: getSafeParam('puc'),
+                        iti: getSafeParam('iti'),
+                        cgpa: getSafeParam('cgpa'),
+                        skills: getSafeParam('skills'),
+                        dob: getSafeParam('dob'),
+                        address: getSafeParam('address'),
+                        photo: document.getElementById('photoPreviewImg')?.src || ""
+                    };
+
+                    localStorage.setItem('resumeData', JSON.stringify(resumeData));
+
+                    const modal = document.getElementById('resumePreviewModal');
+                    const iframe = document.getElementById('resumeIframe');
+                    iframe.src = 'auto-resume.html';
+                    modal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+
+                } catch (error) {
+                    console.error("Resume Generation Error:", error);
+                    alert("Error: " + error.message);
+                }
+            }
+
+            function closeResumeModal() {
+                const modal = document.getElementById('resumePreviewModal');
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+
+            // Close on outside click
+            window.addEventListener('click', function (event) {
+                const modal = document.getElementById('resumePreviewModal');
+                if (event.target == modal) {
+                    closeResumeModal();
+                }
+            });
+
+            // Check for success parameter
+            window.onload = function () {
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('status') === 'success') {
+                    const modal = document.getElementById('successModal');
+                    modal.style.display = 'flex';
+
+                    setTimeout(() => {
+                        window.location.href = 'login.jsp';
+                    }, 4000);
+                } else if (urlParams.get('error')) {
+                    alert('Registration Failed: ' + urlParams.get('error'));
+                }
+            };
+        </script>
+
+        <!-- Resume Preview Modal -->
+        <div id="resumePreviewModal" class="resume-modal">
+            <div class="resume-modal-content">
+                <span class="resume-close" onclick="closeResumeModal()">&times;</span>
+                <iframe id="resumeIframe" class="resume-iframe"></iframe>
+            </div>
         </div>
 
     </body>

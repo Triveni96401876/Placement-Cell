@@ -276,7 +276,7 @@
                     <div class="form-card">
                         <h3><i class="fas fa-file-signature"></i> Finalize Application</h3>
 
-                        <form action="ApplyJobServlet" method="POST">
+                        <form action="ApplyJobServlet" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="jobId" value="<%= job[0] %>">
                             <input type="hidden" name="studentId" value="<%= student.getId() %>">
 
@@ -342,7 +342,7 @@
                                 </div>
                                 <div class="form-group input-full">
                                     <label>Resume / Portfolio Link (PDF Cloud Link)</label>
-                                    <input type="url" name="resume"
+                                    <input type="url" name="resumeLink"
                                         value="<%= student.getResumePath() != null ? student.getResumePath() : "" %>"
                                         placeholder="Drop your Google Drive/Dropbox PDF Link here" required>
                                 </div>

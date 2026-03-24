@@ -15,8 +15,13 @@ import javax.servlet.http.HttpServletResponse;
  * Handles admin-created student records with all Civil Dept fields.
  * Inserts into users, students, and academic_details tables.
  */
-@WebServlet("/AdminAddStudentServlet")
+@WebServlet({ "/AdminAddStudentServlet", "/admin/AdminAddStudentServlet" })
 public class AdminAddStudentServlet extends HttpServlet {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.sendRedirect(request.getContextPath() + "/admin/admin-add-student.jsp");
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -154,16 +159,16 @@ public class AdminAddStudentServlet extends HttpServlet {
                 }
 
                 conn.commit();
-                response.sendRedirect("AdminDashboardServlet?msg=added");
+                response.sendRedirect(request.getContextPath() + "/admin/AdminDashboardServlet?msg=added");
 
             } catch (Exception e) {
                 conn.rollback();
                 e.printStackTrace();
-                response.sendRedirect("admin-add-student.jsp?error=1");
+                response.sendRedirect(request.getContextPath() + "/admin/admin-add-student.jsp?error=1");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("admin-add-student.jsp?error=db");
+            response.sendRedirect(request.getContextPath() + "/admin/admin-add-student.jsp?error=db");
         }
     }
 

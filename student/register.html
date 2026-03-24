@@ -340,7 +340,7 @@
                 Student Enrollment [Registration]</p>
         </div>
 
-        <form class="form-body" action="RegisterServlet" method="POST" enctype="multipart/form-data">
+        <form class="form-body" action="../RegisterServlet" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="fullName" id="fullName">
 
             <!-- Section 1: Basic Information -->
@@ -730,7 +730,7 @@
 
                 // Simulate the redirection after the animation
                 setTimeout(() => {
-                    window.location.href = 'login.html';
+                    window.location.href = 'login.jsp';
                 }, 3500);
 
                 return false;
@@ -819,7 +819,7 @@
                 modal.style.display = 'flex';
 
                 setTimeout(() => {
-                    window.location.href = 'login.html';
+                    window.location.href = 'login.jsp';
                 }, 4000);
             } else if (urlParams.get('error')) {
                 alert('Registration Failed: ' + urlParams.get('error'));

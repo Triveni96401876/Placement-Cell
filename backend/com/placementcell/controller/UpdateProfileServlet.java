@@ -24,7 +24,7 @@ public class UpdateProfileServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("student") == null) {
-            response.sendRedirect("login.html");
+            response.sendRedirect(request.getContextPath() + "/student/login.jsp");
             return;
         }
 
@@ -124,7 +124,7 @@ public class UpdateProfileServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("profile.jsp?error=update_failed");
+            response.sendRedirect(request.getContextPath() + "/student/profile.jsp?error=update_failed");
         }
     }
 

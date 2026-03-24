@@ -21,6 +21,18 @@ public class UserDAO {
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
                 user.setRole(rs.getString("role"));
+                // Try full_name first (snake_case), fall back to fullName
+                try {
+                    user.setFullName(rs.getString("full_name"));
+                } catch (SQLException ex) {
+                    try {
+                        user.setFullName(rs.getString("fullName"));
+                    } catch (SQLException ex2) {
+                        /* ignore */ }
+                }
+                user.setBranch(rs.getString("branch"));
+                System.out.println("DEBUG LOGIN: user=" + user.getEmail() + " role=" + user.getRole() + " branch="
+                        + user.getBranch());
                 return user;
             }
         } catch (SQLException e) {

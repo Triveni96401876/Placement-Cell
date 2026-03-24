@@ -29,6 +29,6 @@ You can view the design of the pages directly by opening this file in your brows
 
 ## 4. URLs
 Once the server is running, your pages will be available at:
-*   **Home/Welcome**: `http://localhost:8080/placement-scms/index.html`
-*   **Register**: `http://localhost:8080/placement-scms/register.html`
-*   **Login**: `http://localhost:8080/placement-scms/login.html`
+*   **Home/Welcome**: `http://localhost:8080/sgpians/index.jsp`
+*   **Register**: `http://localhost:8080/sgpians/student/register.jsp`
+*   **Login**: `http://localhost:8080/sgpians/student/login.jsp`

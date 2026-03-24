@@ -1,6 +1,7 @@
 @echo off
 set "CATALINA_HOME=C:\intern\apache-tomcat-9.0.115"
-set "PROJECT_ROOT=c:\placementcell"
+set "PROJECT_ROOT=%~dp0"
+if "%PROJECT_ROOT:~-1%"=="\" set "PROJECT_ROOT=%PROJECT_ROOT:~0,-1%"
 set "DEPLOY_DIR=%CATALINA_HOME%\webapps\ROOT"
 
 echo [1/5] Stopping Tomcat...
@@ -22,10 +23,13 @@ copy /y "%PROJECT_ROOT%\index.jsp" "%DEPLOY_DIR%\" >nul 2>nul
 copy /y "%PROJECT_ROOT%\config\web.xml" "%DEPLOY_DIR%\WEB-INF\" >nul
 copy /y "%PROJECT_ROOT%\config\lib\*.jar" "%DEPLOY_DIR%\WEB-INF\lib\" >nul
 
-xcopy /y /s /q "%PROJECT_ROOT%\admin\*" "%DEPLOY_DIR%\" >nul
-xcopy /y /s /q "%PROJECT_ROOT%\student\*" "%DEPLOY_DIR%\" >nul
-xcopy /y /s /q "%PROJECT_ROOT%\hod\*" "%DEPLOY_DIR%\" >nul
-xcopy /y /s /e /q "%PROJECT_ROOT%\assets\*" "%DEPLOY_DIR%\" >nul
+:: Sync web folders (preserving directory structure)
+xcopy /y /s /e /q "%PROJECT_ROOT%\admin\*" "%DEPLOY_DIR%\admin\" >nul
+xcopy /y /s /e /q "%PROJECT_ROOT%\student\*" "%DEPLOY_DIR%\student\" >nul
+xcopy /y /s /e /q "%PROJECT_ROOT%\hod\*" "%DEPLOY_DIR%\hod\" >nul
+xcopy /y /s /e /q "%PROJECT_ROOT%\assets\*" "%DEPLOY_DIR%\assets\" >nul
+xcopy /y /s /e /q "%PROJECT_ROOT%\images\*" "%DEPLOY_DIR%\images\" >nul
+xcopy /y /s /e /q "%PROJECT_ROOT%\frontend-vanilla\*" "%DEPLOY_DIR%\frontend-vanilla\" >nul
 
 echo [4/5] Compiling Java via Python...
 python "%PROJECT_ROOT%\compile.py"

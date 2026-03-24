@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/JobRegistrationServlet")
+@WebServlet({ "/JobRegistrationServlet", "/admin/JobRegistrationServlet", "/student/JobRegistrationServlet" })
 public class JobRegistrationServlet extends HttpServlet {
     private StudentDAO studentDAO = new StudentDAO();
 
@@ -24,7 +24,7 @@ public class JobRegistrationServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect("login.html");
+            response.sendRedirect("login.jsp");
             return;
         }
 
@@ -62,6 +62,11 @@ public class JobRegistrationServlet extends HttpServlet {
 
         request.setAttribute("job", jobDetails);
         request.setAttribute("student", student);
-        request.getRequestDispatcher("job-registration.jsp").forward(request, response);
+        request.getRequestDispatcher("/student/job-registration.jsp").forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
     }
 }

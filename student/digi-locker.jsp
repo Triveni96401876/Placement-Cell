@@ -2,7 +2,7 @@
     <%@ page import="com.placementcell.model.Student" %>
         <%@ page import="com.placementcell.model.User" %>
             <% Student student=(Student) request.getAttribute("studentData"); User user=(User)
-                session.getAttribute("user"); if (student==null || user==null) { response.sendRedirect("login.html");
+                session.getAttribute("user"); if (student==null || user==null) { response.sendRedirect("login.jsp");
                 return; } String fullName=student.getFullName() !=null ? student.getFullName() : "Student" ; String
                 regNo=student.getRegisterNumber() !=null ? student.getRegisterNumber() : "N/A" ; %>
                 <!DOCTYPE html>

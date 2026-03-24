@@ -12,10 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private UserDAO userDAO = new UserDAO();
     private StudentDAO studentDAO = new StudentDAO();
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.getWriter().println("LoginServlet is alive! Context Path: " + request.getContextPath());
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -24,8 +28,8 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         String role = request.getParameter("role");
 
-        if ("admin".equalsIgnoreCase(role)) {
-            if ("nayeembashasir".equals(email) && "nayeembashasir".equals(password)) {
+        if ("admin".equalsIgnoreCase(role) && "nayeembashasir".equals(email)) {
+            if ("nayeembashasir".equals(password)) {
                 HttpSession session = request.getSession();
                 User adminUser = new User();
                 adminUser.setId(0L); // Set ID to 0 for admin pseudo-account
@@ -34,10 +38,10 @@ public class LoginServlet extends HttpServlet {
                 adminUser.setFullName("Nayeem Basha");
                 session.setAttribute("user", adminUser);
                 session.setAttribute("userRole", "ADMIN");
-                response.sendRedirect("AdminDashboardServlet");
+                response.sendRedirect(request.getContextPath() + "/AdminDashboardServlet");
                 return;
             } else {
-                response.sendRedirect("login.html?error=invalid_admin");
+                response.sendRedirect(request.getContextPath() + "/admin/admin-login.jsp?error=invalid_credentials");
                 return;
             }
         }
@@ -57,19 +61,27 @@ public class LoginServlet extends HttpServlet {
 
                 if ("STUDENT".equals(user.getRole())) {
                     Student student = studentDAO.getStudentByUserId(user.getId());
-                    session.setAttribute("student", student);
-                    response.sendRedirect("DashboardServlet");
+                    if (student != null) {
+                        session.setAttribute("student", student);
+                    }
+                    response.sendRedirect(request.getContextPath() + "/DashboardServlet");
                 } else if ("HOD".equals(user.getRole())) {
-                    response.sendRedirect("HODDashboardServlet");
+                    response.sendRedirect(request.getContextPath() + "/HODDashboardServlet");
                 } else {
-                    response.sendRedirect("AdminDashboardServlet");
+                    response.sendRedirect(request.getContextPath() + "/AdminDashboardServlet");
                 }
             } else {
-                response.sendRedirect("login.html?error=invalid_credentials");
+                String errorUrl = "/student/login.jsp";
+                if ("admin".equalsIgnoreCase(role)) errorUrl = "/admin/admin-login.jsp";
+                else if ("HOD".equalsIgnoreCase(role)) errorUrl = "/hod/hod-login.jsp";
+                response.sendRedirect(request.getContextPath() + errorUrl + "?error=invalid_credentials");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("login.html?error=server_error");
+            String errorUrl = "/student/login.jsp";
+            if ("admin".equalsIgnoreCase(role)) errorUrl = "/admin/admin-login.jsp";
+            else if ("HOD".equalsIgnoreCase(role)) errorUrl = "/hod/hod-login.jsp";
+            response.sendRedirect(request.getContextPath() + errorUrl + "?error=server_error");
         }
     }
 }

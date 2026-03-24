@@ -27,19 +27,32 @@ public class HODDashboardServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect(request.getContextPath() + "/hod/hod-login.jsp");
             return;
         }
 
         User user = (User) session.getAttribute("user");
         if (!"HOD".equals(user.getRole()) && !"ADMIN".equals(user.getRole())) {
-            response.sendRedirect("index.html");
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
 
         String branch = request.getParameter("branch");
-        if (branch != null)
+        if (branch != null) {
             branch = branch.trim();
+        }
+
+        // Enforce branch filtering for HODs
+        if ("HOD".equals(user.getRole())) {
+            if (user.getBranch() != null && !user.getBranch().isEmpty()) {
+                // HOD can only see their own branch
+                branch = user.getBranch();
+            }
+        }
+
+        // Normalize branch to match DB codes
+        branch = normalizeBranch(branch);
+
         String statusFilter = request.getParameter("status");
         List<Student> students = new ArrayList<>();
         String name = request.getParameter("name");
@@ -69,13 +82,7 @@ public class HODDashboardServlet extends HttpServlet {
                         "WHERE 1=1 ");
 
         if (branch != null && !branch.isEmpty()) {
-            String bLow = branch.toLowerCase();
-            if (bLow.contains("electrical") || bLow.contains("electronics") || bLow.contains("eee")) {
-                sql.append(
-                        " AND (LOWER(s.branch) LIKE '%electrical%' OR LOWER(s.branch) LIKE '%electronics%' OR LOWER(s.branch) LIKE '%eee%') ");
-            } else {
-                sql.append(" AND s.branch = ? ");
-            }
+            sql.append(" AND s.branch = ? ");
         }
 
         if (name != null && !name.isEmpty()) {
@@ -89,10 +96,7 @@ public class HODDashboardServlet extends HttpServlet {
 
             int paramIndex = 1;
             if (branch != null && !branch.isEmpty()) {
-                String bLow = branch.toLowerCase();
-                if (!(bLow.contains("electrical") || bLow.contains("electronics") || bLow.contains("eee"))) {
-                    stmt.setString(paramIndex++, branch);
-                }
+                stmt.setString(paramIndex++, branch);
             }
             if (name != null && !name.isEmpty()) {
                 String searchPattern = "%" + name.toLowerCase() + "%";
@@ -208,11 +212,25 @@ public class HODDashboardServlet extends HttpServlet {
             e.printStackTrace();
         }
 
+        // Fetch Job Applications
+        com.placementcell.dao.JobDAO jobDAO = new com.placementcell.dao.JobDAO();
+        List<String[]> jobApplicationsList;
+        if (branch != null && !branch.isEmpty()) {
+            jobApplicationsList = jobDAO.getApplicantsByBranch(branch);
+        } else if (user.getBranch() != null && !user.getBranch().isEmpty()) {
+            jobApplicationsList = jobDAO.getApplicantsByBranch(user.getBranch());
+        } else {
+            jobApplicationsList = jobDAO.getAllApplicants();
+        }
+
         // Fetch circulars
         com.placementcell.dao.CircularDAO circularDAO = new com.placementcell.dao.CircularDAO();
         List<String[]> circularsList = circularDAO.getActiveCirculars("HOD");
 
         // Set attributes
+        request.setAttribute("jobApplicationsList", jobApplicationsList);
+        request.setAttribute("circularsList", circularsList);
+        request.setAttribute("circularsCount", circularsList.size());
         request.setAttribute("totalReg", totalReg);
         request.setAttribute("approvedCount", approved);
         request.setAttribute("pendingCount", pending);
@@ -220,13 +238,30 @@ public class HODDashboardServlet extends HttpServlet {
         request.setAttribute("placedCount", placed);
         request.setAttribute("avgCgpa", avgCgpa);
         request.setAttribute("activeJobsCount", activeJobsCount);
-        request.setAttribute("circularsList", circularsList);
-        request.setAttribute("circularsCount", circularsList.size());
         request.setAttribute("userName", user.getFullName() != null ? user.getFullName() : "HOD");
         request.setAttribute("userBranch", user.getBranch() != null ? user.getBranch() : "ALL");
         request.setAttribute("announcementsList", announcementsList);
         request.setAttribute("studentList", students);
         request.setAttribute("selectedBranch", branch != null ? branch : "");
-        request.getRequestDispatcher("hod_dashboard.jsp").forward(request, response);
+        request.getRequestDispatcher("/hod/hod_dashboard.jsp").forward(request, response);
+    }
+
+    private String normalizeBranch(String branch) {
+        if (branch == null || branch.isEmpty())
+            return branch;
+        String b = branch.toUpperCase().trim();
+        if (b.contains("COMPUTER") || b.equals("CSE"))
+            return "CSE";
+        if (b.contains("MECHANICAL") || b.equals("MECH"))
+            return "MECH";
+        if (b.contains("CIVIL"))
+            return "CIVIL";
+        if (b.contains("METALLURGY") || b.equals("MT"))
+            return "MT";
+        if (b.contains("ELECTRICAL") || b.equals("EEE") || (b.contains("ELECTRONICS") && b.contains("ELECTRICAL")))
+            return "EEE";
+        if (b.contains("INFORMATION") || b.equals("IT"))
+            return "IT";
+        return branch;
     }
 }

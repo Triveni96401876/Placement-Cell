@@ -21,7 +21,7 @@ public class ResumeServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || (session.getAttribute("user") == null && session.getAttribute("student") == null)) {
-            response.sendRedirect("login.html");
+            response.sendRedirect("login.jsp");
             return;
         }
 
@@ -42,7 +42,7 @@ public class ResumeServlet extends HttpServlet {
 
         if (student != null) {
             request.setAttribute("studentResume", student);
-            request.getRequestDispatcher("resume-view.jsp").forward(request, response);
+            request.getRequestDispatcher("/student/resume-view.jsp").forward(request, response);
         } else {
             response.sendRedirect("DashboardServlet?error=student_not_found");
         }

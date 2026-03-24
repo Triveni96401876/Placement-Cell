@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ page import="com.placementcell.model.Student" %>
         <% Student student=(Student) session.getAttribute("student"); if (student==null) {
-            response.sendRedirect("login.html"); return; } %>
+            response.sendRedirect("login.jsp"); return; } %>
             <!DOCTYPE html>
             <html lang="en">
 
@@ -168,8 +168,8 @@
 
             <body>
                 <header class="header">
-                    <a href="DashboardServlet" class="logo">
-                        <img src="images/sgp1.jpeg" width="40" height="40" style="border-radius: 5px;">
+                    <a href="<%= request.getContextPath() %>/DashboardServlet" class="logo">
+                        <img src="../images/sgp1.jpeg" width="40" height="40" style="border-radius: 5px;">
                         SGP PLACEMENT CELL
                     </a>
                     <div class="user-info">
@@ -178,7 +178,7 @@
                 </header>
 
                 <div class="container">
-                    <a href="DashboardServlet" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+                    <a href="<%= request.getContextPath() %>/DashboardServlet" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
 
                     <div class="profile-card">
                         <div class="card-header">
@@ -186,7 +186,7 @@
                             <p>Ensure your academic database details are correct</p>
                         </div>
 
-                        <form action="UpdateProfileServlet" method="POST" class="form-body">
+                        <form action="<%= request.getContextPath() %>/UpdateProfileServlet" method="POST" class="form-body">
                             <!-- Personal -->
                             <div class="section-title"><i class="fas fa-user-edit"></i> 1. Personal Info</div>
                             <div class="grid">

@@ -25,7 +25,7 @@ public class DigiLockerServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect("login.html");
+            response.sendRedirect(request.getContextPath() + "/student/login.jsp");
             return;
         }
 
@@ -39,9 +39,9 @@ public class DigiLockerServlet extends HttpServlet {
         if (student != null) {
             loadDocumentPaths(student);
             request.setAttribute("studentData", student);
-            request.getRequestDispatcher("digi-locker.jsp").forward(request, response);
+            request.getRequestDispatcher("/student/digi-locker.jsp").forward(request, response);
         } else {
-            response.sendRedirect("DashboardServlet?error=student_not_found");
+            response.sendRedirect(request.getContextPath() + "/DashboardServlet?error=student_not_found");
         }
     }
 

@@ -19,7 +19,7 @@ echo.
 echo ======================================
 echo  Tomcat is starting!
 echo  Wait 15 seconds, then visit:
-echo  http://localhost:8080/placement-cell/
+echo  http://localhost:8080/sgpians/
 echo ======================================
 timeout /t 15 /nobreak
 echo.

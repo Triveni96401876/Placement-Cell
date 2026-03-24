@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/AdminViewCircularsServlet")
+@WebServlet({ "/AdminViewCircularsServlet", "/admin/AdminViewCircularsServlet" })
 public class AdminViewCircularsServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -23,7 +23,7 @@ public class AdminViewCircularsServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect("login.html");
+            response.sendRedirect("login.jsp");
             return;
         }
 
@@ -47,6 +47,11 @@ public class AdminViewCircularsServlet extends HttpServlet {
         }
 
         request.setAttribute("circulars", circulars);
-        request.getRequestDispatcher("admin-view-circulars.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/admin-view-circulars.jsp").forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
     }
 }

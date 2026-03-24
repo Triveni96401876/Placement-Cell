@@ -12,7 +12,7 @@ import java.sql.*;
  * Deactivates a single circular (soft-delete: sets is_active = FALSE).
  * Admin-only endpoint.
  */
-@WebServlet("/DeleteCircularServlet")
+@WebServlet({ "/DeleteCircularServlet", "/admin/DeleteCircularServlet" })
 public class DeleteCircularServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

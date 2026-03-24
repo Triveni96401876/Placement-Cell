@@ -159,7 +159,7 @@
                 <div class="role-option" onclick="switchRole('admin')">Admin</div>
             </div>
 
-            <form id="login-form" action="login-dashboard.html" method="GET">
+            <form id="login-form" action="login-dashboard.jsp" method="GET">
                 <input type="hidden" name="role" id="role-input" value="student">
                 <div class="form-group">
                     <label id="user-label">Email Address</label>
@@ -173,7 +173,7 @@
             </form>
 
             <p id="signup-prompt" style="margin-top: 2rem; font-size: 0.9rem; color: #7f8fa6;">
-                Don't have an account? <a href="register.html"
+                Don't have an account? <a href="register.jsp"
                     style="color: var(--skyblue-main); font-weight: 700; text-decoration: none;">Sign Up</a>
             </p>
         </div>
@@ -204,7 +204,7 @@
             const signup = document.getElementById('signup-prompt');
 
             if (role === 'admin') {
-                form.action = "admin-dashboard.html";
+                form.action = "admin-dashboard.jsp";
                 title.innerText = "Admin Login";
                 subtitle.innerText = "Official Administrator Access";
                 icon.className = "fas fa-user-shield fa-4x";
@@ -222,7 +222,7 @@
                 btn.innerText = "Login to HOD Portal";
                 signup.style.display = "none";
             } else {
-                form.action = "login-dashboard.html";
+                form.action = "login-dashboard.jsp";
                 title.innerText = "Student Login";
                 subtitle.innerText = "Access your placement dashboard";
                 icon.className = "fas fa-user-circle fa-4x";
@@ -240,7 +240,7 @@
                 const pass = document.querySelector('input[type="password"]').value;
 
                 if (user === 'nayeembashasir' && pass === 'nayeembashasir') {
-                    // Success - form will submit to admin-dashboard.html
+                    // Success - form will submit to admin-dashboard.jsp
                     return true;
                 } else {
                     e.preventDefault();

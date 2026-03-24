@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ page import="java.util.List" %>
         <% List<String[]> jobs = (List<String[]>) request.getAttribute("activeJobs");
+                int totalJobs = (jobs != null) ? jobs.size() : 0;
                 %>
                 <!DOCTYPE html>
                 <html lang="en">
@@ -8,184 +9,311 @@
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Job Portal | SGP Admin</title>
-                    <link
-                        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+                    <title>Manage Job Portal | Admin Dashboard</title>
+                    <!-- Bootstrap 5 CSS -->
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
                         rel="stylesheet">
+                    <!-- Font Awesome -->
                     <link rel="stylesheet"
                         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                    <!-- Google Fonts -->
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+                        rel="stylesheet">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
                     <style>
                         :root {
-                            --primary: #4834d4;
-                            --bg: #f8fafc;
-                            --text: #2d3436;
-                            --muted: #636e72;
-                        }
-
-                        * {
-                            margin: 0;
-                            padding: 0;
-                            box-sizing: border-box;
-                            font-family: 'Outfit', sans-serif;
+                            --primary: #4361ee;
+                            --secondary: #3f37c9;
+                            --bg: #f8f9fe;
+                            --sidebar-width: 260px;
+                            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                         }
 
                         body {
-                            background: var(--bg);
-                            color: var(--text);
-                            padding-bottom: 50px;
+                            background-color: var(--bg);
+                            font-family: 'Plus Jakarta Sans', sans-serif;
+                            color: #1a1c2d;
                         }
 
-                        .container {
-                            max-width: 900px;
-                            margin: 40px auto;
-                            padding: 0 20px;
+                        .sidebar {
+                            width: var(--sidebar-width);
+                            background: #fff;
+                            height: 100vh;
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            z-index: 1000;
+                            border-right: 1px solid #edf2f7;
+                            padding: 1.5rem;
                         }
 
-                        .nav-back {
-                            display: inline-flex;
-                            align-items: center;
-                            gap: 8px;
-                            color: var(--muted);
-                            text-decoration: none;
-                            margin-bottom: 20px;
-                            font-weight: 600;
-                        }
-
-                        .header {
+                        .sidebar-brand {
                             display: flex;
                             align-items: center;
-                            gap: 15px;
-                            margin-bottom: 30px;
+                            gap: 12px;
+                            margin-bottom: 2rem;
+                            text-decoration: none;
+                            color: #1a1c2d;
                         }
 
-                        .header i {
-                            font-size: 1.5rem;
-                            color: #00a8ff;
+                        .sidebar-brand img {
+                            width: 45px;
+                            height: 45px;
+                            border-radius: 12px;
                         }
 
-                        .header h1 {
-                            font-size: 1.6rem;
-                            font-weight: 700;
-                        }
-
-                        .card {
-                            background: #fff;
-                            border-radius: 16px;
-                            padding: 30px;
-                            margin-bottom: 25px;
-                            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-                            position: relative;
-                            border-left: 6px solid #4895ef;
-                        }
-
-                        .badge {
-                            position: absolute;
-                            top: 25px;
-                            right: 25px;
-                            background: #f1f2f6;
-                            color: var(--primary);
-                            padding: 6px 14px;
-                            border-radius: 20px;
-                            font-size: 0.75rem;
-                            font-weight: 700;
-                            text-transform: uppercase;
-                        }
-
-                        .title {
+                        .sidebar-brand span {
+                            font-weight: 800;
                             font-size: 1.4rem;
-                            font-weight: 700;
-                            margin-bottom: 15px;
-                            text-transform: lowercase;
                         }
 
-                        .row {
-                            font-size: 1rem;
-                            margin-bottom: 4px;
-                            color: var(--muted);
-                        }
-
-                        .label {
+                        .nav-link {
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            padding: 0.8rem 1rem;
+                            color: #718096;
                             font-weight: 600;
-                            color: #555;
-                            text-transform: capitalize;
-                        }
-
-                        .desc {
-                            font-size: 0.95rem;
-                            line-height: 1.6;
-                            margin: 15px 0;
-                        }
-
-                        .date {
-                            font-size: 0.8rem;
-                            color: #95a5a6;
-                            margin-bottom: 20px;
-                        }
-
-                        .btn {
-                            display: inline-flex;
-                            background: var(--primary);
-                            color: #fff;
-                            padding: 10px 24px;
                             border-radius: 12px;
                             text-decoration: none;
-                            font-weight: 600;
-                            box-shadow: 0 4px 15px rgba(72, 52, 212, 0.2);
-                            transition: 0.3s;
+                            margin-bottom: 0.5rem;
+                            transition: var(--transition);
                         }
 
-                        .btn:hover {
-                            transform: scale(1.05);
+                        .nav-link:hover,
+                        .nav-link.active {
+                            background: #eef2ff;
+                            color: var(--primary);
+                        }
+
+                        .main-content {
+                            margin-left: var(--sidebar-width);
+                            padding: 2rem;
+                        }
+
+                        .stat-card {
+                            background: #fff;
+                            border-radius: 20px;
+                            padding: 1.5rem;
+                            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+                            border: 1px solid #f1f5f9;
+                        }
+
+                        .card-table {
+                            background: #fff;
+                            border-radius: 24px;
+                            padding: 2rem;
+                            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+                            border: 1px solid #f1f5f9;
+                        }
+
+                        .table thead th {
+                            background: #f8fafc;
+                            border: none;
+                            padding: 1rem;
+                            font-weight: 700;
+                            color: #64748b;
+                            text-transform: uppercase;
+                            font-size: 0.8rem;
+                        }
+
+                        .table tbody td {
+                            padding: 1rem;
+                            vertical-align: middle;
+                            font-weight: 600;
+                            color: #1e293b;
+                        }
+
+                        .btn-post {
+                            background: var(--primary);
+                            color: white;
+                            font-weight: 700;
+                            padding: 0.6rem 1.5rem;
+                            border-radius: 12px;
+                            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+                        }
+
+                        .btn-post:hover {
+                            background: var(--secondary);
+                            color: white;
+                        }
+
+                        .action-btn {
+                            width: 38px;
+                            height: 38px;
+                            border-radius: 10px;
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin-right: 5px;
+                            transition: 0.2s;
+                        }
+
+                        .btn-edit {
+                            background: #e0e7ff;
+                            color: #4361ee;
+                        }
+
+                        .btn-delete {
+                            background: #fee2e2;
+                            color: #ef4444;
+                        }
+
+                        .btn-view {
+                            background: #dcfce7;
+                            color: #10b981;
+                        }
+
+                        .action-btn:hover {
+                            transform: translateY(-2px);
+                            opacity: 0.9;
                         }
                     </style>
                 </head>
 
                 <body>
-                    <div class="container">
-                        <a href="AdminDashboardServlet" class="nav-back"><i class="fas fa-chevron-left"></i> Back to
-                            Dashboard</a>
-                        <div class="header"><i class="fas fa-bullhorn"></i>
-                            <h1>Job Portal Updates & Announcements</h1>
+
+                    <!-- Sidebar -->
+                    <aside class="sidebar">
+                        <a href="<%=request.getContextPath()%>/AdminDashboardServlet" class="sidebar-brand">
+                            <img src="<%=request.getContextPath()%>/images/sgp1.jpeg" alt="Logo">
+                            <span>SGP ADMIN</span>
+                        </a>
+                        <nav class="nav flex-column">
+                            <a href="<%=request.getContextPath()%>/AdminDashboardServlet" class="nav-link"><i
+                                    class="fas fa-th-large"></i>
+                                Dashboard</a>
+                            <a href="<%=request.getContextPath()%>/AdminDashboardServlet" class="nav-link"><i
+                                    class="fas fa-user-graduate"></i>
+                                Students</a>
+                            <a href="<%=request.getContextPath()%>/AdminJobPortalServlet" class="nav-link active"><i
+                                    class="fas fa-briefcase"></i> Job
+                                Portal</a>
+                            <a href="<%=request.getContextPath()%>/AdminViewApplicantsServlet" class="nav-link"><i
+                                    class="fas fa-file-alt"></i> Job
+                                Applications</a>
+                            <a href="<%=request.getContextPath()%>/admin/admin-push-circular.jsp" class="nav-link"><i
+                                    class="fas fa-bullhorn"></i>
+                                Announcements</a>
+                            <a href="<%=request.getContextPath()%>/LogoutServlet"
+                                class="nav-link text-danger mt-auto"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </nav>
+                    </aside>
+
+                    <!-- Main Content -->
+                    <main class="main-content">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div>
+                                <h1 class="fw-bold h2 mb-1">Job Portal Dashboard</h1>
+                                <p class="text-muted fw-medium">Manage and monitor job opportunities</p>
+                            </div>
+                            <a href="<%=request.getContextPath()%>/admin/admin-post-job.jsp" class="btn btn-post"><i
+                                    class="fas fa-plus me-2"></i> Post New
+                                Job</a>
                         </div>
-                        <% if(jobs !=null) { for(int i=0; i < jobs.size(); i++) { String[] job=jobs.get(i); String
-                            title=job[1]; String raw=job[2]; String time=job[4]; String co="SGP" ; String lo="Bengaluru"
-                            ; String sa="4.5LPA" ; String dl="2026-02-25" ; String ds=raw; try { if(raw !=null &&
-                            raw.contains("<b>")) {
-                            co = raw.split("<b>Company:</b>")[1].split("<br>")[0].trim();
-                            lo = raw.split("<b>Location:</b>")[1].split("<br>")[0].trim();
-                            sa = raw.split("<b>Salary:</b>")[1].split("<br>")[0].trim();
-                            dl = raw.split("<b>Deadline:</b>")[1].split("<br>")[0].trim();
-                            ds = raw.split("<br><br>")[1].replace("<br>", "\n").replaceAll("<[^>]*>", "");
-                                }
-                                } catch(Exception e) {}
-                                %>
-                                <div class="card">
-                                    <span class="badge">Job Opportunity</span>
-                                    <h2 class="title">
-                                        <%= title %>
-                                    </h2>
-                                    <div class="row"><span class="label">company:</span>
-                                        <%= co %>
+
+                        <!-- Stats Row -->
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-4">
+                                <div class="stat-card">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary bg-opacity-10 p-3 rounded-4 me-3">
+                                            <i class="fas fa-briefcase text-primary fs-3"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="fw-bold mb-0">
+                                                <%= totalJobs %>
+                                            </h3>
+                                            <p class="text-muted fw-bold small mb-0 uppercase">TOTAL JOBS POSTED</p>
+                                        </div>
                                     </div>
-                                    <div class="row"><span class="label">location:</span>
-                                        <%= lo %>
-                                    </div>
-                                    <div class="row"><span class="label">salary:</span>
-                                        <%= sa %>
-                                    </div>
-                                    <div class="row"><span class="label">deadline:</span>
-                                        <%= dl %>
-                                    </div>
-                                    <div class="desc">
-                                        <%= ds %>
-                                    </div>
-                                    <div class="date">Posted on: <%= time %>
-                                    </div>
-                                    <a href="AdminRegistrationsServlet?jobId=<%= job[0] %>" class="btn">View Applicants
-                                        ></a>
                                 </div>
-                                <% } } %>
-                    </div>
+                            </div>
+                            <!-- Add more stats if needed -->
+                        </div>
+
+                        <!-- Filter & Table -->
+                        <div class="card-table">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2 class="fw-bold h4 mb-0">Manage Jobs</h2>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-success fw-bold px-4 rounded-3"
+                                        onclick="exportJobsToExcel()">
+                                        <i class="fas fa-file-excel me-2"></i> Export Job List
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table" id="jobTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Company</th>
+                                            <th>Job Role</th>
+                                            <th>Branch</th>
+                                            <th>Salary</th>
+                                            <th>Location</th>
+                                            <th>Last Date</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (jobs !=null) { for (String[] job : jobs) { %>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <% if (job[8] !=null && !job[8].isEmpty()) { %>
+                                                            <img src="<%= job[8] %>" alt="Logo"
+                                                                class="rounded-circle me-2"
+                                                                style="width: 32px; height: 32px; object-fit: contain; background: #eee;">
+                                                            <% } %>
+                                                                <%= job[1] %>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <%= job[2] %>
+                                                </td>
+                                                <td><span
+                                                        class="badge bg-light text-primary border border-primary-subtle">
+                                                        <%= job[6] %>
+                                                    </span></td>
+                                                <td>
+                                                    <%= job[4] %>
+                                                </td>
+                                                <td><i class="fas fa-map-marker-alt text-muted me-1"></i>
+                                                    <%= job[5] %>
+                                                </td>
+                                                <td>
+                                                    <%= job[7] %>
+                                                </td>
+                                                <td>
+                                                    <a href="<%=request.getContextPath()%>/EditJobServlet?id=<%= job[0] %>"
+                                                        class="action-btn btn-edit" title="Edit"><i
+                                                            class="fas fa-edit"></i></a>
+                                                    <a href="<%=request.getContextPath()%>/DeleteJobServlet?id=<%= job[0] %>"
+                                                        class="action-btn btn-delete" title="Delete"
+                                                        onclick="return confirm('Are you sure you want to delete this job?')"><i
+                                                            class="fas fa-trash"></i></a>
+                                                    <a href="<%=request.getContextPath()%>/AdminViewApplicantsServlet?jobId=<%= job[0] %>"
+                                                        class="action-btn btn-view" title="View Applicants"><i
+                                                            class="fas fa-users"></i></a>
+                                                </td>
+                                            </tr>
+                                            <% } } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </main>
+
+                    <script>
+                        function exportJobsToExcel() {
+                            var table = document.getElementById("jobTable");
+                            var wb = XLSX.utils.table_to_book(table, { sheet: "Jobs" });
+                            XLSX.writeFile(wb, "SGP_Job_List.xlsx");
+                        }
+                    </script>
                 </body>
 
                 </html>

@@ -2,7 +2,7 @@
     <%@ page import="java.util.List" %>
         <%@ page import="com.placementcell.model.User" %>
             <% User user=(User) session.getAttribute("user"); if (user==null || !"ADMIN".equals(user.getRole())) {
-                response.sendRedirect("login.html"); return; } List<String[]> circulars = (List<String[]>)
+                response.sendRedirect("login.jsp"); return; } List<String[]> circulars = (List<String[]>)
                     request.getAttribute("circulars");
                     %>
                     <!DOCTYPE html>
@@ -323,29 +323,30 @@
                         <!-- Sidebar -->
                         <aside class="sidebar">
                             <div class="sidebar-brand">
-                                <img src="images/sgp1.jpeg" alt="Logo">
+                                <img src="<%=request.getContextPath()%>/images/sgp1.jpeg" alt="Logo">
                                 <span>SGP ADMIN</span>
                             </div>
 
                             <ul class="nav-menu">
                                 <li class="nav-item">
-                                    <a href="AdminDashboardServlet" class="nav-link">
+                                    <a href="<%=request.getContextPath()%>/AdminDashboardServlet" class="nav-link">
                                         <i class="fas fa-th-large"></i> Dashboard
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="AdminDashboardServlet" class="nav-link">
+                                    <a href="<%=request.getContextPath()%>/AdminDashboardServlet" class="nav-link">
                                         <i class="fas fa-database"></i> Student Records
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="admin-push-circular.jsp" class="nav-link">
+                                    <a href="<%=request.getContextPath()%>/admin/admin-push-circular.jsp"
+                                        class="nav-link">
                                         <i class="fas fa-bullhorn"></i> Push Circular
                                     </a>
                                 </li>
                             </ul>
 
-                            <a href="LogoutServlet" class="btn-signout">
+                            <a href="<%=request.getContextPath()%>/LogoutServlet" class="btn-signout">
                                 <i class="fas fa-sign-out-alt"></i> Sign Out
                             </a>
                         </aside>
@@ -357,7 +358,7 @@
                                     <h1>Circulars History</h1>
                                     <p>View and manage all announcements sent to Students and HODs</p>
                                 </div>
-                                <a href="admin-push-circular.jsp" class="btn-add">
+                                <a href="<%=request.getContextPath()%>/admin/admin-push-circular.jsp" class="btn-add">
                                     <i class="fas fa-plus"></i> New Circular
                                 </a>
                             </div>
@@ -393,8 +394,8 @@
                                                 <% } else { %>
                                                     <span></span>
                                                     <% } %>
-                                                        <a href="DeleteCircularServlet?id=<%= id %>" class="btn-delete"
-                                                            title="Delete Circular"
+                                                        <a href="<%=request.getContextPath()%>/DeleteCircularServlet?id=<%= id %>"
+                                                            class="btn-delete" title="Delete Circular"
                                                             onclick="return confirm('Are you sure you want to delete this circular?')">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </a>

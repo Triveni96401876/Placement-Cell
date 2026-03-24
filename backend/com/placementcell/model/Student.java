@@ -49,6 +49,7 @@ public class Student implements Serializable {
     private String placedCompany;
     private String internship;
     private Double diplomaPercentage;
+    private Integer diplomaYear;
     private String preference;
 
     public Student() {
@@ -100,6 +101,14 @@ public class Student implements Serializable {
 
     public void setDiplomaPercentage(Double diplomaPercentage) {
         this.diplomaPercentage = diplomaPercentage;
+    }
+
+    public Integer getDiplomaYear() {
+        return diplomaYear;
+    }
+
+    public void setDiplomaYear(Integer diplomaYear) {
+        this.diplomaYear = diplomaYear;
     }
 
     public String getPreference() {

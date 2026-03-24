@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ page import="com.placementcell.model.Student" %>
         <% Student student=(Student) request.getAttribute("studentResume"); if (student==null) {
-            response.sendRedirect("login.html"); return; } %>
+            response.sendRedirect("login.jsp"); return; } %>
             <!DOCTYPE html>
             <html lang="en">
 

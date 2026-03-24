@@ -325,7 +325,7 @@
                     </div>
                     <div class="user-area">
                         <span>Welcome, <%= student.getWelcomeName().toUpperCase() %></span>
-                        <a href="LogoutServlet" class="btn-logout">Logout</a>
+                        <a href="<%= request.getContextPath() %>/LogoutServlet" class="btn-logout">Logout</a>
                     </div>
                 </header>
 
@@ -334,18 +334,26 @@
                     <!-- Sidebar -->
                     <aside class="sidebar">
                         <div class="sidebar-brand">
-                            <img src="../assets/images/sgp1.jpeg" alt="SGP Logo" onerror="this.src='images/sgp1.jpeg'">
+                            <img src="<%= request.getContextPath() %>/assets/images/sgp1.jpeg" alt="SGP Logo"
+                                onerror="this.src='images/sgp1.jpeg'">
                             <span>SGP<br>PLACEMENT<br>CELL</span>
                         </div>
                         <ul class="nav-links">
                             <li class="active">
-                                <a href="DashboardServlet"><i class="fas fa-th-large"></i> Dashboard</a>
+                                <a href="<%= request.getContextPath() %>/DashboardServlet"><i
+                                        class="fas fa-th-large"></i> Dashboard</a>
                             </li>
                             <li>
-                                <a href="profile.jsp"><i class="fas fa-user-circle"></i> Account</a>
+                                <a href="<%= request.getContextPath() %>/JobPortalServlet"><i
+                                        class="fas fa-briefcase"></i> Job Portal</a>
                             </li>
                             <li>
-                                <a href="about-sgp.jsp"><i class="fas fa-university"></i> About SGP</a>
+                                <a href="<%= request.getContextPath() %>/studentViewServlet"><i
+                                        class="fas fa-user-circle"></i> Profile</a>
+                            </li>
+                            <li>
+                                <a href="<%= request.getContextPath() %>/student/about-sgp.jsp"><i
+                                        class="fas fa-university"></i> About SGP</a>
                             </li>
                         </ul>
                     </aside>
@@ -354,8 +362,9 @@
                     <main class="content-area">
                         <h1 class="greeting">Hello, <%= student.getWelcomeName().toUpperCase() %> !</h1>
 
-                        <div class="cards-container">
-                            <a href="profile.jsp" class="action-card">
+                        <div class="cards-container" style="grid-template-columns: repeat(2, 1fr); max-width: 800px;">
+
+                            <a href="<%= request.getContextPath() %>/studentViewServlet" class="action-card">
                                 <i class="fas fa-id-card"></i>
                                 <span>View Profile</span>
                             </a>
@@ -366,91 +375,6 @@
                             </a>
 
                         </div>
-
-                        <!-- Inline About SGP Content -->
-                        <div class="content-card">
-                            <h2 class="section-title">About Sanjay Gandhi Polytechnic</h2>
-                            <div style="display: flex; gap: 30px; align-items: flex-start;">
-                                <img src="../assets/images/sgp1.jpeg" alt="SGP Logo"
-                                    style="width: 150px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);"
-                                    onerror="this.src='images/sgp1.jpeg'">
-                                <div>
-                                    <p>Sanjay Gandhi Polytechnic (SGP), Ballari, was established in 1991 as the first
-                                        premier private co-educational polytechnic.</p>
-                                    <p>The institute is recognized by the Government of Karnataka, approved by AICTE,
-                                        New Delhi, and affiliated with the Directorate of Technical Education (DTE),
-                                        Bengaluru.</p>
-                                    <p>SGP focuses on academic excellence, practical exposure, and overall student
-                                        development.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="content-card">
-                            <h2 class="section-title">Our Technical Courses</h2>
-                            <div class="courses-grid">
-                                <div class="course-card">
-                                    <i class="fas fa-microchip fa-3x"
-                                        style="color:var(--primary-blue); margin-bottom:1rem;"></i>
-                                    <h3>Electronics & Communication</h3>
-                                    <p>Advanced circuitry and communication systems.</p>
-                                </div>
-                                <div class="course-card">
-                                    <i class="fas fa-laptop-code fa-3x"
-                                        style="color:var(--primary-blue); margin-bottom:1rem;"></i>
-                                    <h3>Computer Science</h3>
-                                    <p>Software development, coding, and algorithms.</p>
-                                </div>
-                                <div class="course-card">
-                                    <i class="fas fa-cogs fa-3x"
-                                        style="color:var(--primary-blue); margin-bottom:1rem;"></i>
-                                    <h3>Mechanical Engineering</h3>
-                                    <p>Design, manufacturing, and mechanics.</p>
-                                </div>
-                                <div class="course-card">
-                                    <i class="fas fa-bolt fa-3x"
-                                        style="color:var(--primary-blue); margin-bottom:1rem;"></i>
-                                    <h3>Electrical & Electronics</h3>
-                                    <p>Power systems and electrical innovations.</p>
-                                </div>
-                                <div class="course-card">
-                                    <i class="fas fa-building fa-3x"
-                                        style="color:var(--primary-blue); margin-bottom:1rem;"></i>
-                                    <h3>Civil Engineering</h3>
-                                    <p>Infrastructure, construction, and design.</p>
-                                </div>
-                                <div class="course-card">
-                                    <i class="fas fa-hammer fa-3x"
-                                        style="color:var(--primary-blue); margin-bottom:1rem;"></i>
-                                    <h3>Metallurgy</h3>
-                                    <p>Material science and metal processing.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="content-card">
-                            <h2 class="section-title">Training & Placements</h2>
-                            <p>SGP has a strong placement record with students placed in reputed MNCs across Karnataka.
-                                Career guidance and placement training are provided to all students.</p>
-                            <div
-                                style="background: #f8fafc; padding: 25px; border-radius: 15px; margin-top: 20px; border-left: 5px solid var(--primary-blue);">
-                                <h3 style="color: var(--text-dark); margin-bottom: 15px;"><i
-                                        class="fas fa-briefcase"></i> Training & Placement Cell</h3>
-                                <p style="margin-bottom: 10px;">The Centre provides pre-placement training in soft
-                                    skills, CV Writing, Aptitude Assessment, Mock interviews, and Group Discussion.</p>
-                                <p style="margin-bottom: 10px;"><strong>Top Recruiters:</strong> JSW, L&T, TATA Motors,
-                                    TVS Upasana etc.</p>
-                                <p><strong>Impact:</strong> Over 250+ students placed every year in successful careers.
-                                </p>
-                                <div style="margin-top: 20px; font-weight: 500; color: #1e293b;">
-                                    <p><i class="fas fa-user-tie"></i> Mr. K. Nayeem Basha (Placement Officer)</p>
-                                    <p><i class="fas fa-envelope"></i> sgpplacement@gmail.com | <i
-                                            class="fas fa-phone"></i> 9742815857</p>
-                                </div>
-                            </div>
-                        </div>
-
-
 
                     </main>
                 </div>

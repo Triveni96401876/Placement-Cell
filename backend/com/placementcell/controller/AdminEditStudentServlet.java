@@ -18,8 +18,18 @@ import javax.servlet.http.HttpSession;
  * Updates all student fields across: students, academic_details, and users
  * tables.
  */
-@WebServlet("/AdminEditStudentServlet")
+@WebServlet({ "/AdminEditStudentServlet", "/admin/AdminEditStudentServlet" })
 public class AdminEditStudentServlet extends HttpServlet {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String id = request.getParameter("id");
+        if (id != null) {
+            response.sendRedirect(request.getContextPath() + "/admin/admin-edit-student.jsp?id=" + id);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/admin/AdminDashboardServlet");
+        }
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -27,19 +37,19 @@ public class AdminEditStudentServlet extends HttpServlet {
         // --- Security Check ---
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect("login.html");
+            response.sendRedirect(request.getContextPath() + "/student/login.jsp");
             return;
         }
         User user = (User) session.getAttribute("user");
         if (!"ADMIN".equals(user.getRole())) {
-            response.sendRedirect("AdminDashboardServlet");
+            response.sendRedirect(request.getContextPath() + "/admin/AdminDashboardServlet");
             return;
         }
 
         // --- Parse parameters ---
         String studentIdStr = request.getParameter("studentId");
         if (studentIdStr == null || studentIdStr.isEmpty()) {
-            response.sendRedirect("AdminDashboardServlet?error=invalid");
+            response.sendRedirect(request.getContextPath() + "/admin/AdminDashboardServlet?error=invalid");
             return;
         }
         long studentId = Long.parseLong(studentIdStr);
@@ -205,16 +215,16 @@ public class AdminEditStudentServlet extends HttpServlet {
                 }
 
                 conn.commit();
-                response.sendRedirect("AdminDashboardServlet?msg=updated");
+                response.sendRedirect(request.getContextPath() + "/admin/AdminDashboardServlet?msg=updated");
 
             } catch (Exception e) {
                 conn.rollback();
                 e.printStackTrace();
-                response.sendRedirect("admin-edit-student.jsp?id=" + studentId + "&error=1");
+                response.sendRedirect(request.getContextPath() + "/admin/admin-edit-student.jsp?id=" + studentId + "&error=1");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("AdminDashboardServlet?error=db");
+            response.sendRedirect(request.getContextPath() + "/admin/AdminDashboardServlet?error=db");
         }
     }
 

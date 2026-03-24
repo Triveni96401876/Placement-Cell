@@ -181,6 +181,9 @@
                         <div class="avatar-large">
                             <%= student.getFullName().substring(0, 1) %>
                         </div>
+                        <div
+                            style="color: red; font-size: 2rem; font-weight: 800; position: absolute; top: 10px; right: 20px;">
+                            v4</div>
                         <div class="header-info">
                             <h1>
                                 <%= student.getFullName() %>
@@ -189,6 +192,12 @@
                                 <%= student.getRegisterNumber() %> • <%= student.getBranch() %>
                             </p>
                             <span class="badge">Student Profile</span>
+                            <div style="margin-top: 15px;">
+                                <a href="<%= request.getContextPath() %>/student/profile.jsp" class="btn"
+                                    style="text-decoration: none; background: var(--primary); color: white; padding: 10px 25px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 168, 255, 0.2); transition: 0.3s; display: inline-flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-edit"></i> Edit Profile
+                                </a>
+                            </div>
                         </div>
                     </div>
 
@@ -253,139 +262,11 @@
                             </div>
                         </div>
 
-                        <div class="details-section full-width">
-                            <h3 class="section-title"><i class="fas fa-file-alt"></i> Documents</h3>
-                            <div
-                                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
-                                <!-- SSLC Document -->
-                                <div
-                                    style="padding: 20px; border: 1px solid #eee; border-radius: 20px; background: #fcfdfe; display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                                    <i class="fas fa-file-contract" style="font-size: 2rem; color: var(--primary);"></i>
-                                    <span style="font-weight: 700;">SSLC Marks Card</span>
-                                    <% if (student.getSslcCardPath() !=null && !student.getSslcCardPath().isEmpty()) {
-                                        %>
-                                        <button onclick="viewDocument('sslc', '<%= student.getId() %>')"
-                                            style="width: 100%; border: none; background: var(--primary); color: white; padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer;">
-                                            <i class="fas fa-eye"></i> View
-                                        </button>
-                                        <% } else { %>
-                                            <span style="color: var(--text-muted); font-size: 0.9rem;">Not
-                                                Uploaded</span>
-                                            <% } %>
-                                </div>
 
-                                <!-- Diploma Document -->
-                                <div
-                                    style="padding: 20px; border: 1px solid #eee; border-radius: 20px; background: #fcfdfe; display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                                    <i class="fas fa-certificate" style="font-size: 2rem; color: #6c5ce7;"></i>
-                                    <span style="font-weight: 700;">Diploma Marks Card</span>
-                                    <% if (student.getDiplomaCardPath() !=null &&
-                                        !student.getDiplomaCardPath().isEmpty()) { %>
-                                        <button onclick="viewDocument('diploma', '<%= student.getId() %>')"
-                                            style="width: 100%; border: none; background: #6c5ce7; color: white; padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer;">
-                                            <i class="fas fa-eye"></i> View
-                                        </button>
-                                        <% } else { %>
-                                            <span style="color: var(--text-muted); font-size: 0.9rem;">Not
-                                                Uploaded</span>
-                                            <% } %>
-                                </div>
-
-                                <!-- Resume Document -->
-                                <div
-                                    style="padding: 20px; border: 1px solid #eee; border-radius: 20px; background: #fcfdfe; display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                                    <i class="fas fa-file-pdf" style="font-size: 2rem; color: #e74c3c;"></i>
-                                    <span style="font-weight: 700;">Resume / CV</span>
-                                    <% if (student.getResumePath() !=null && !student.getResumePath().isEmpty()) { %>
-                                        <button onclick="viewDocument('resume', '<%= student.getId() %>')"
-                                            style="width: 100%; border: none; background: #e74c3c; color: white; padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer;">
-                                            <i class="fas fa-eye"></i> View
-                                        </button>
-                                        <% } else { %>
-                                            <span style="color: var(--text-muted); font-size: 0.9rem;">Not
-                                                Uploaded</span>
-                                            <% } %>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="details-section full-width">
-                            <h3 class="section-title"><i class="fas fa-code"></i> Technical Skills</h3>
-                            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                                <% if(student.getSkills() !=null && !student.getSkills().isEmpty()) { for(String skill :
-                                    student.getSkills().split(",")) { %>
-                                    <span
-                                        style="background: #f0f3f6; padding: 8px 15px; border-radius: 12px; font-weight: 600; font-size: 0.9rem;">
-                                        <%= skill.trim() %>
-                                    </span>
-                                    <% } } else { %>
-                                        <p style="color: var(--text-muted);">No skills added yet.</p>
-                                        <% } %>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Viewer Modal -->
-                <div id="viewerModal"
-                    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; align-items: center; justify-content: center; backdrop-filter: blur(5px);">
-                    <div
-                        style="background: white; width: 90%; height: 90%; border-radius: 20px; display: flex; flex-direction: column; overflow: hidden; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.5);">
-                        <div
-                            style="padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: #f8f9fa;">
-                            <h3 id="viewerTitle" style="margin: 0; color: #2d3436; font-weight: 700;">Document Viewer
-                            </h3>
-                            <button onclick="closeViewer()"
-                                style="border: none; background: #dfe6e9; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-times" style="color: #636e72;"></i>
-                            </button>
-                        </div>
-                        <div style="flex: 1; position: relative; background: #dfe6e9;">
-                            <div id="viewerLoader"
-                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                                <i class="fas fa-spinner fa-spin"
-                                    style="font-size: 3rem; color: #00a8ff; margin-bottom: 10px;"></i>
-                                <p style="color: #636e72; font-weight: 500;">Loading Document...</p>
-                            </div>
-                            <iframe id="viewerFrame"
-                                style="width: 100%; height: 100%; border: none; display: none;"></iframe>
-                        </div>
-                    </div>
                 </div>
-
-                <script>
-                    function viewDocument(type, id) {
-                        const modal = document.getElementById('viewerModal');
-                        const frame = document.getElementById('viewerFrame');
-                        const loader = document.getElementById('viewerLoader');
-                        const title = document.getElementById('viewerTitle');
-
-                        const titles = {
-                            'sslc': 'SSLC Marks Card',
-                            'diploma': 'Diploma Marks Card',
-                            'resume': 'Resume / CV'
-                        };
-
-                        title.innerText = titles[type] || 'Document Viewer';
-                        modal.style.display = 'flex';
-                        loader.style.display = 'block';
-                        frame.style.display = 'none';
-
-                        frame.src = `DocumentViewerServlet?type=${type}&id=${id}`;
-
-                        frame.onload = function () {
-                            loader.style.display = 'none';
-                            frame.style.display = 'block';
-                        };
-                    }
-
-                    function closeViewer() {
-                        const modal = document.getElementById('viewerModal');
-                        const frame = document.getElementById('viewerFrame');
-                        modal.style.display = 'none';
-                        frame.src = 'about:blank';
-                    }
-                </script>
             </body>
 
             </html>

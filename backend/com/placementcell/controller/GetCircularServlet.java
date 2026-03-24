@@ -32,36 +32,43 @@ public class GetCircularServlet extends HttpServlet {
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
-            // Get latest active circular for this role or ALL
-            String sql = "SELECT title, message, file_path FROM circulars " +
+            String sql = "SELECT title, message, file_path, created_at FROM circulars " +
                     "WHERE is_active = TRUE AND (send_to = ? OR send_to = 'ALL') " +
-                    "ORDER BY created_at DESC LIMIT 1";
+                    "ORDER BY created_at DESC";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, userRole);
             ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                String title = rs.getString("title");
-                String message = rs.getString("message");
-                String filePath = rs.getString("file_path");
+            StringBuilder json = new StringBuilder("{\"status\":\"success\", \"circulars\":[");
+            boolean first = true;
+            while (rs.next()) {
+                if (!first)
+                    json.append(",");
+                first = false;
 
-                // Basic cleaning for JSON
-                if (title == null)
-                    title = "Important Update";
-                if (message == null)
-                    message = "";
-                if (filePath == null)
-                    filePath = "";
+                String title = rs.getString("title") != null ? rs.getString("title") : "Important Update";
+                String message = rs.getString("message") != null ? rs.getString("message") : "";
+                String filePath = rs.getString("file_path") != null ? rs.getString("file_path") : "";
+                String createdAt = rs.getTimestamp("created_at") != null ? rs.getTimestamp("created_at").toString() : "";
 
                 // Escape for JSON
-                title = title.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", " ").replace("\r", "");
-                message = message.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "");
+                title = title.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", " ");
+                message = message.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n");
                 filePath = filePath.replace("\\", "\\\\").replace("\"", "\\\"");
 
-                out.print("{\"status\":\"success\", \"title\":\"" + title + "\", \"message\":\"" + message
-                        + "\", \"filePath\":\"" + filePath + "\"}");
-            } else {
+                json.append("{")
+                        .append("\"title\":\"").append(title).append("\",")
+                        .append("\"message\":\"").append(message).append("\",")
+                        .append("\"filePath\":\"").append(filePath).append("\",")
+                        .append("\"date\":\"").append(createdAt).append("\"")
+                        .append("}");
+            }
+            json.append("]}");
+
+            if (first) {
                 out.print("{\"status\":\"none\"}");
+            } else {
+                out.print(json.toString());
             }
         } catch (Exception e) {
             e.printStackTrace();

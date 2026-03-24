@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 
-@WebServlet("/RegisterServlet")
+@WebServlet({ "/RegisterServlet", "/student/RegisterServlet" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
         maxRequestSize = 1024 * 1024 * 50) // 50MB
@@ -27,6 +27,11 @@ public class RegisterServlet extends HttpServlet {
 
     private UserDAO userDAO = new UserDAO();
     private StudentDAO studentDAO = new StudentDAO();
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.sendRedirect(request.getContextPath() + "/student/register.jsp");
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -171,14 +176,14 @@ public class RegisterServlet extends HttpServlet {
                 conn.commit();
 
                 // Redirect back to register page with success flag
-                response.sendRedirect("register.html?status=success");
+                response.sendRedirect(request.getContextPath() + "/student/register.jsp?status=success");
             } else {
-                response.sendRedirect("register.html?error=registration_failed");
+                response.sendRedirect(request.getContextPath() + "/student/register.jsp?error=registration_failed");
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("register.html?error=exception");
+            response.sendRedirect(request.getContextPath() + "/student/register.jsp?error=exception");
         }
     }
 

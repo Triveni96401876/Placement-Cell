@@ -1,346 +1,267 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ page import="java.util.List" %>
-        <% List<String[]> activeJobs = (List<String[]>) request.getAttribute("activeJobs"); %>
+        <% List<String[]> activeJobs = (List<String[]>) request.getAttribute("activeJobs");
+                int totalJobs = (activeJobs != null) ? activeJobs.size() : 0;
+                %>
                 <!DOCTYPE html>
                 <html lang="en">
 
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Career Portal | SGP Placement Cell</title>
-                    <link
-                        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+                    <title>Student Job Portal | SGP Placement Cell</title>
+                    <!-- Bootstrap 5 CSS -->
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
                         rel="stylesheet">
                     <link rel="stylesheet"
                         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+                        rel="stylesheet">
                     <style>
                         :root {
-                            --primary: #4834d4;
-                            --primary-light: #686de0;
-                            --secondary: #30336b;
-                            --bg: #f5f6fa;
-                            --surface: #ffffff;
-                            --text: #2f3542;
-                            --text-muted: #747d8c;
-                            --border: #dcdde1;
-                            --radius: 20px;
-                            --shadow: 0 10px 30px rgba(72, 52, 212, 0.08);
-                        }
-
-                        * {
-                            margin: 0;
-                            padding: 0;
-                            box-sizing: border-box;
-                            font-family: 'Outfit', sans-serif;
+                            --primary: #4361ee;
+                            --bg: #f8f9fe;
                         }
 
                         body {
-                            background: var(--bg);
-                            color: var(--text);
-                            min-height: 100vh;
-                            padding: 40px 20px;
-                            background-image:
-                                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.03) 0px, transparent 50%),
-                                radial-gradient(at 100% 100%, rgba(79, 70, 229, 0.03) 0px, transparent 50%);
+                            background-color: var(--bg);
+                            font-family: 'Plus Jakarta Sans', sans-serif;
+                            color: #1a1c2d;
+                            padding-bottom: 50px;
                         }
 
-                        .container {
-                            max-width: 1200px;
-                            margin: 0 auto;
-                        }
-
-                        .header {
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            margin-bottom: 40px;
-                            background: rgba(255, 255, 255, 0.8);
-                            backdrop-filter: blur(10px);
-                            padding: 25px 35px;
-                            border-radius: 24px;
-                            border: 1px solid rgba(255, 255, 255, 0.5);
-                            box-shadow: var(--shadow);
-                            animation: fadeInDown 0.8s ease;
-                        }
-
-                        @keyframes fadeInDown {
-                            from {
-                                opacity: 0;
-                                transform: translateY(-20px);
-                            }
-
-                            to {
-                                opacity: 1;
-                                transform: translateY(0);
-                            }
-                        }
-
-                        .header-title h1 {
-                            font-size: 1.8rem;
-                            font-weight: 800;
-                            background: linear-gradient(135deg, #1e293b 0%, #4f46e5 100%);
-                            -webkit-background-clip: text;
-                            background-clip: text;
-                            -webkit-text-fill-color: transparent;
-                            display: flex;
-                            align-items: center;
-                            gap: 12px;
-                        }
-
-                        .btn-back {
-                            padding: 12px 24px;
-                            background: #fff;
-                            color: var(--text);
-                            text-decoration: none;
-                            border-radius: 12px;
-                            font-weight: 600;
-                            border: 1px solid var(--border);
-                            transition: 0.3s;
-                            display: flex;
-                            align-items: center;
-                            gap: 8px;
-                        }
-
-                        .btn-back:hover {
-                            background: #f1f5f9;
-                            transform: translateX(-5px);
-                        }
-
-                        .search-area {
-                            margin-bottom: 30px;
-                            display: flex;
-                            gap: 15px;
-                        }
-
-                        .search-input {
-                            flex: 1;
-                            padding: 15px 25px;
-                            border-radius: 15px;
-                            border: 1px solid var(--border);
-                            outline: none;
-                            font-size: 1rem;
-                            background: white;
-                            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-                            transition: 0.3s;
-                        }
-
-                        .search-input:focus {
-                            border-color: var(--primary);
-                            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-                        }
-
-                        .job-grid {
-                            display: grid;
-                            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-                            gap: 25px;
+                        .header-section {
+                            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+                            color: white;
+                            padding: 60px 0;
+                            margin-bottom: 50px;
+                            border-radius: 0 0 50px 50px;
+                            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
                         }
 
                         .job-card {
-                            background: white;
+                            background: #fff;
                             border-radius: 24px;
                             padding: 30px;
-                            border-left: 5px solid var(--primary);
-                            box-shadow: var(--shadow);
-                            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                            height: 100%;
+                            border: 1px solid #f1f5f9;
+                            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+                            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                             position: relative;
                             overflow: hidden;
-                            display: flex;
-                            flex-direction: column;
-                            animation: scaleIn 0.5s ease backwards;
-                        }
-
-                        @keyframes scaleIn {
-                            from {
-                                opacity: 0;
-                                transform: scale(0.95);
-                            }
-
-                            to {
-                                opacity: 1;
-                                transform: scale(1);
-                            }
                         }
 
                         .job-card:hover {
                             transform: translateY(-10px);
-                            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-                            border-color: var(--primary-light);
+                            box-shadow: 0 20px 40px rgba(67, 97, 238, 0.1);
+                            border-color: rgba(67, 97, 238, 0.2);
                         }
 
-                        .job-card::after {
-                            content: '';
-                            position: absolute;
-                            top: 0;
-                            right: 0;
-                            width: 80px;
-                            height: 80px;
-                            background: linear-gradient(135deg, transparent 50%, rgba(99, 102, 241, 0.05) 50%);
-                            border-radius: 0 0 0 100%;
+                        .company-logo {
+                            width: 70px;
+                            height: 70px;
+                            background: #f8fafc;
+                            border-radius: 20px;
+                            padding: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin-bottom: 20px;
+                            border: 1px solid #f1f5f9;
                         }
 
-                        .type-badge {
-                            position: absolute;
-                            top: 30px;
-                            right: 30px;
-                            padding: 6px 14px;
-                            background: #ebedff;
-                            color: var(--primary);
-                            border-radius: 50px;
-                            font-size: 0.7rem;
-                            font-weight: 800;
-                            text-transform: uppercase;
-                            letter-spacing: 1px;
+                        .company-logo img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: contain;
                         }
 
                         .job-title {
-                            font-size: 1.4rem;
                             font-weight: 800;
+                            font-size: 1.35rem;
                             color: #1e293b;
-                            margin-bottom: 12px;
-                            line-height: 1.3;
+                            margin-bottom: 5px;
+                            letter-spacing: -0.5px;
                         }
 
-                        .job-desc {
-                            color: var(--text-muted);
-                            font-size: 0.95rem;
-                            line-height: 1.6;
-                            margin-bottom: 20px;
-                            display: -webkit-box;
-                            -webkit-line-clamp: 3;
-                            line-clamp: 3;
-                            -webkit-box-orient: vertical;
-                            overflow: hidden;
-                            flex-grow: 1;
+                        .company-name {
+                            font-weight: 700;
+                            color: var(--primary);
+                            font-size: 1rem;
+                            margin-bottom: 15px;
                         }
 
                         .job-meta {
                             display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            padding-top: 20px;
-                            border-top: 1px solid #f1f5f9;
+                            flex-wrap: wrap;
+                            gap: 12px;
+                            margin-bottom: 20px;
                         }
 
-                        .post-date {
+                        .meta-item {
+                            background: #f8fafc;
+                            padding: 6px 14px;
+                            border-radius: 100px;
                             font-size: 0.8rem;
-                            color: #94a3b8;
-                            font-weight: 500;
+                            font-weight: 700;
+                            color: #64748b;
                             display: flex;
                             align-items: center;
                             gap: 6px;
                         }
 
                         .btn-apply {
-                            padding: 12px 28px;
                             background: var(--primary);
                             color: white;
-                            text-decoration: none;
-                            border-radius: 12px;
-                            font-weight: 700;
-                            font-size: 0.95rem;
+                            border: none;
+                            padding: 12px 24px;
+                            border-radius: 16px;
+                            font-weight: 800;
+                            width: 100%;
                             transition: 0.3s;
-                            box-shadow: 0 4px 15px rgba(72, 52, 212, 0.2);
+                            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
                         }
 
                         .btn-apply:hover {
-                            background: var(--secondary);
-                            transform: scale(1.05);
-                            box-shadow: 0 6px 20px rgba(72, 52, 212, 0.3);
+                            background: #3f37c9;
+                            transform: scale(1.02);
+                            color: white;
                         }
 
-                        .empty-state {
+                        .last-date {
+                            font-size: 0.75rem;
                             text-align: center;
-                            padding: 80px 20px;
-                            background: white;
-                            border-radius: 30px;
-                            border: 2px dashed #e2e8f0;
+                            margin-top: 15px;
+                            color: #94a3b8;
+                            font-weight: 600;
                         }
 
-                        .empty-state i {
-                            font-size: 4rem;
-                            color: #e2e8f0;
-                            margin-bottom: 20px;
+                        .navbar-brand {
+                            font-weight: 800;
+                            font-size: 1.5rem;
+                            letter-spacing: -1px;
                         }
 
+                        .nav-link {
+                            font-weight: 700;
+                            margin-left: 15px;
+                            color: #64748b;
+                        }
 
-                        @media (max-width: 768px) {
-                            .header {
-                                flex-direction: column;
-                                gap: 20px;
-                                text-align: center;
-                            }
-
-                            .job-grid {
-                                grid-template-columns: 1fr;
-                            }
+                        .nav-link:hover {
+                            color: var(--primary);
                         }
                     </style>
                 </head>
 
                 <body>
-                    <div class="container">
-                        <header class="header">
-                            <div class="header-title">
-                                <h1><i class="fas fa-rocket"></i> Career Opportunities</h1>
+
+                    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3 sticky-top">
+                        <div class="container">
+                            <a class="navbar-brand text-primary" href="DashboardServlet">SGP Portal</a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarNav">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul class="navbar-nav ms-auto ps-4 fw-bold">
+                                    <li class="nav-item ps-4"><a class="nav-link" href="DashboardServlet">Dashboard</a>
+                                    </li>
+                                    <li class="nav-item ps-4"><a class="nav-link active text-primary"
+                                            href="JobPortalServlet">Jobs</a></li>
+                                    <li class="nav-item ps-4"><a class="nav-link" href="LogoutServlet">Logout</a></li>
+                                </ul>
                             </div>
-                            <a href="DashboardServlet" class="btn-back"><i class="fas fa-home"></i> Back to
-                                Dashboard</a>
-                        </header>
-
-
-
-                        <div class="search-area">
-                            <input type="text" id="jobSearch" class="search-input"
-                                placeholder="Search by job title, company or skills...">
                         </div>
+                    </nav>
 
-                        <% if (activeJobs !=null && !activeJobs.isEmpty()) { %>
-                            <div class="job-grid" id="jobGrid">
-                                <% for (int i=0; i < activeJobs.size(); i++) { String[] job=activeJobs.get(i); String
-                                    timeStr=job[4].length()>= 10 ? job[4].substring(0, 10) : job[4];
-                                    %>
-                                    <div class="job-card" style="animation-delay: <%= i * 0.1 %>s">
-                                        <span class="type-badge">
-                                            <%= job[3] !=null ? job[3] : "JOB UPDATE" %>
-                                        </span>
-                                        <h2 class="job-title">
-                                            <%= job[1] %>
-                                        </h2>
-                                        <p class="job-desc">
-                                            <%= job[2].replace("<b>", "").replace("</b>", "").replace("\n", " ")
-                                                %>
-                                        </p>
-                                        <div class="job-meta">
-                                            <span class="post-date"><i class="far fa-calendar-alt"></i> Posted
-                                                <%= timeStr %>
-                                            </span>
-                                            <a href="JobRegistrationServlet?id=<%= job[0] %>" class="btn-apply">View &
-                                                Apply</a>
-                                        </div>
-                                    </div>
-                                    <% } %>
+                    <header class="header-section text-center">
+                        <div class="container">
+                            <span
+                                class="badge bg-primary bg-opacity-25 text-primary fw-bold px-3 py-2 rounded-pill mb-3">Sanjay
+                                Gandhi Polytechnic, Ballari</span>
+                            <h1 class="display-5 fw-bold mb-3">Student Placement Portal</h1>
+                            <p class="lead opacity-75 fw-medium mx-auto" style="max-width: 600px;">Discover elite career
+                                opportunities and take the first step towards your professional journey.</p>
+                        </div>
+                    </header>
+
+                    <div class="container">
+                        <% if (request.getParameter("msg") !=null) { %>
+                            <div class="alert alert-success alert-dismissible fade show rounded-4 fw-bold mb-5 shadow-sm border-0 py-3"
+                                role="alert">
+                                <i class="fas fa-check-circle me-2"></i> Your application has been submitted
+                                successfully.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
-                            <% } else { %>
-                                <div class="empty-state">
-                                    <i class="fas fa-briefcase"></i>
-                                    <h2>No active openings</h2>
-                                    <p>We are consistently working with top recruiters. Check back soon for new
-                                        opportunities!</p>
+                            <% } %>
+
+                                <div class="row g-4 justify-content-center">
+                                    <% if (activeJobs !=null) { for (String[] job : activeJobs) { %>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="job-card">
+                                                <div class="company-logo">
+                                                    <% if (job[8] !=null && !job[8].isEmpty()) { %>
+                                                        <img src="<%= job[8] %>" alt="Company Logo">
+                                                        <% } else { %>
+                                                            <i class="fas fa-building text-muted fs-2"></i>
+                                                            <% } %>
+                                                </div>
+                                                <div class="company-name text-uppercase small letter-spacing-1">
+                                                    <%= job[1] %> / PLACEMENT
+                                                </div>
+                                                <h2 class="job-title">
+                                                    <%= job[2] %>
+                                                </h2>
+
+                                                <div class="job-meta">
+                                                    <div class="meta-item"><i class="fas fa-wallet"></i>
+                                                        <%= job[4] %>
+                                                    </div>
+                                                    <div class="meta-item"><i class="fas fa-map-marker-alt"></i>
+                                                        <%= job[5] %>
+                                                    </div>
+                                                    <div class="meta-item"><i class="fas fa-graduation-cap"></i>
+                                                        <%= job[6] %> Branch
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-4 text-muted small fw-medium"
+                                                    style="display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.6;">
+                                                    <%= job[3].replaceAll("<[^>]*>", " ") %>
+                                                </div>
+
+                                                <a href="<%= request.getContextPath() %>/student/student-job-details.jsp?id=<%= job[0] %>"
+                                                    class="btn btn-apply">
+                                                    View Details & Apply
+                                                </a>
+
+                                                <div class="last-date">
+                                                    <i class="far fa-clock me-1"></i> Apply before: <span
+                                                        class="text-danger fw-bold">
+                                                        <%= job[7] %>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% } } %>
+
+                                            <% if (totalJobs==0) { %>
+                                                <div class="col-12 text-center py-5">
+                                                    <div class="bg-white p-5 rounded-5 shadow-sm border border-dashed">
+                                                        <i class="fas fa-briefcase text-muted fs-1 mb-3"></i>
+                                                        <h2 class="fw-bold">No jobs posted yet</h2>
+                                                        <p class="text-muted fw-medium">Check back soon for new
+                                                            opportunities</p>
+                                                    </div>
+                                                </div>
+                                                <% } %>
                                 </div>
-                                <% } %>
                     </div>
 
-                    <script>
-                        document.getElementById('jobSearch').addEventListener('input', function (e) {
-                            const query = e.target.value.toLowerCase();
-                            const cards = document.querySelectorAll('.job-card');
-
-                            cards.forEach(card => {
-                                const text = card.innerText.toLowerCase();
-                                card.style.display = text.includes(query) ? 'flex' : 'none';
-                            });
-                        });
-                    </script>
+                    <!-- Bootstrap 5 JS -->
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
                 </body>
 
                 </html>

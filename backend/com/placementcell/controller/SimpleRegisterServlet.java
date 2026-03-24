@@ -20,6 +20,11 @@ public class SimpleRegisterServlet extends HttpServlet {
     private UserDAO userDAO = new UserDAO();
     private StudentDAO studentDAO = new StudentDAO();
 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.sendRedirect(request.getContextPath() + "/student/student-registration.jsp");
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

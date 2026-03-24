@@ -25,7 +25,7 @@ public class DoclockerServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect("login.html");
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
         }
 
@@ -48,9 +48,9 @@ public class DoclockerServlet extends HttpServlet {
             System.out.println("Resume Path: " + student.getResumePath());
 
             request.setAttribute("studentData", student);
-            request.getRequestDispatcher("doclocker.jsp").forward(request, response);
+            request.getRequestDispatcher("/doclocker.jsp").forward(request, response);
         } else {
-            response.sendRedirect("DashboardServlet?error=student_not_found");
+            response.sendRedirect(request.getContextPath() + "/DashboardServlet?error=student_not_found");
         }
     }
 

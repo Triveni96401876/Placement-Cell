@@ -20,14 +20,17 @@ public class DashboardServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect("login.html");
+            response.sendRedirect(request.getContextPath() + "/student/login.jsp");
             return;
         }
 
         User user = (User) session.getAttribute("user");
         Student student = studentDAO.getStudentByUserId(user.getId());
+        if (student != null) {
+            session.setAttribute("student", student);
+        }
 
         request.setAttribute("studentData", student);
-        request.getRequestDispatcher("login-dashboard.jsp").forward(request, response);
+        request.getRequestDispatcher("/student/login-dashboard.jsp").forward(request, response);
     }
 }

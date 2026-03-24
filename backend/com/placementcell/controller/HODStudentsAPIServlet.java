@@ -43,8 +43,23 @@ public class HODStudentsAPIServlet extends HttpServlet {
                 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
                 String branch = request.getParameter("branch");
-                if (branch != null)
+                if (branch != null) {
                         branch = branch.trim();
+                }
+
+                // Enforce branch filtering for HODs
+                if ("HOD".equals(user.getRole())) {
+                        if (user.getBranch() != null && !user.getBranch().isEmpty()) {
+                                // HOD can only see their own branch
+                                branch = user.getBranch();
+                        }
+                }
+
+                // Normalize branch to match DB codes
+                branch = normalizeBranch(branch);
+
+                String eligibility = request.getParameter("eligibility");
+                String backlogs = request.getParameter("backlogs");
 
                 StringBuilder sql = new StringBuilder(
                                 "SELECT s.id, s.register_number, s.full_name, s.branch, s.gender, s.date_of_birth, " +
@@ -64,13 +79,21 @@ public class HODStudentsAPIServlet extends HttpServlet {
                                                 "WHERE 1=1 ");
 
                 if (branch != null && !branch.isEmpty()) {
-                        String bLow = branch.toLowerCase();
-                        if (bLow.contains("electrical") || bLow.contains("electronics") || bLow.contains("eee")) {
-                                sql.append(" AND (LOWER(s.branch) LIKE '%electrical%' OR LOWER(s.branch) LIKE '%electronics%' OR LOWER(s.branch) LIKE '%eee%') ");
+                        sql.append(" AND s.branch = ? ");
+                }
+
+                if ("eligible".equals(eligibility)) {
+                        sql.append(" AND ad.sslc_percentage > 60 AND ad.diploma_percentage > 60 ");
+                }
+
+                if (backlogs != null && !backlogs.isEmpty()) {
+                        if ("0".equals(backlogs)) {
+                                sql.append(" AND (ad.current_backlog_count = 0 OR ad.current_backlog_count IS NULL) ");
                         } else {
-                                sql.append(" AND s.branch = ? ");
+                                sql.append(" AND ad.current_backlog_count > 0 ");
                         }
                 }
+
                 sql.append(" ORDER BY s.id DESC");
 
                 PrintWriter out = response.getWriter();
@@ -80,11 +103,7 @@ public class HODStudentsAPIServlet extends HttpServlet {
                                 PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
 
                         if (branch != null && !branch.isEmpty()) {
-                                String bLow = branch.toLowerCase();
-                                if (!(bLow.contains("electrical") || bLow.contains("electronics")
-                                                || bLow.contains("eee"))) {
-                                        stmt.setString(1, branch);
-                                }
+                                stmt.setString(1, branch);
                         }
 
                         ResultSet rs = stmt.executeQuery();
@@ -222,6 +241,26 @@ public class HODStudentsAPIServlet extends HttpServlet {
                 }
 
                 out.write(json.toString());
+        }
+
+        private String normalizeBranch(String branch) {
+                if (branch == null || branch.isEmpty())
+                        return branch;
+                String b = branch.toUpperCase().trim();
+                if (b.contains("COMPUTER") || b.equals("CSE"))
+                        return "CSE";
+                if (b.contains("MECHANICAL") || b.equals("MECH"))
+                        return "MECH";
+                if (b.contains("CIVIL"))
+                        return "CIVIL";
+                if (b.contains("METALLURGY") || b.equals("MT"))
+                        return "MT";
+                if (b.contains("ELECTRICAL") || b.equals("EEE")
+                                || (b.contains("ELECTRONICS") && b.contains("ELECTRICAL")))
+                        return "EEE";
+                if (b.contains("INFORMATION") || b.equals("IT"))
+                        return "IT";
+                return branch;
         }
 
         private String escJson(String s) {

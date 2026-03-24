@@ -1,17 +1,18 @@
-/* Global Variables */
 :root {
     --primary-color: #003366;
-    /* Academic Blue */
+    /* Matching Navy from Image */
     --secondary-color: #0056b3;
-    /* Lighter Blue */
-    --accent-color: #e63946;
-    /* For buttons/highlights */
-    --text-color: #2c3e50;
-    --light-bg: #f0f4f8;
-    /* Softer Premium Blue-Grey */
+    --accent-color: #ffd700;
+    /* Gold */
+    --text-color: #1a202c;
+    --light-bg: #f7fafc;
     --white: #ffffff;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --blue-btn: #003366;
+    /* Exact Navy */
+    --dark-btn: #2c3e50;
+    /* Exact Dark */
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --transition: all 0.2s ease;
 }
 
 /* Reset & Base Styles */
@@ -40,14 +41,13 @@ ul {
     list-style: none;
 }
 
-/* Header & Navigation */
 header {
     background: var(--white);
-    box-shadow: var(--shadow);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     position: sticky;
     top: 0;
     z-index: 1000;
-    padding: 0.5rem 2rem;
+    padding: 0.8rem 5%;
 }
 
 .navbar {
@@ -100,25 +100,42 @@ header {
 }
 
 .btn-outline {
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
-    background: transparent;
+    border: 2px solid var(--blue-btn);
+    color: var(--blue-btn);
+    background: white;
+    padding: 0.6rem 1.8rem;
+    border-radius: 4px;
+    font-weight: 700;
 }
 
 .btn-outline:hover {
-    background: var(--primary-color);
-    color: var(--white);
+    background: #f0f7ff;
 }
 
 .btn-primary {
-    background: var(--primary-color);
+    background: var(--blue-btn);
     color: var(--white);
-    border: 2px solid var(--primary-color);
+    border: none;
+    padding: 0.6rem 1.8rem;
+    border-radius: 4px;
+    font-weight: 700;
 }
 
 .btn-primary:hover {
-    background: var(--secondary-color);
-    border-color: var(--secondary-color);
+    opacity: 0.9;
+}
+
+.btn-dark {
+    background: var(--dark-btn);
+    color: var(--white);
+    border: none;
+    padding: 0.6rem 1.8rem;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+.btn-dark:hover {
+    opacity: 0.9;
 }
 
 /* Mobile Menu Toggle */
@@ -136,21 +153,18 @@ header {
     transition: var(--transition);
 }
 
-/* Hero Section */
 .hero {
-    background: linear-gradient(rgba(0, 51, 102, 0.7), rgba(0, 51, 102, 0.7)), url('../images/sgp2.jpeg');
+    background: linear-gradient(rgba(0, 46, 91, 0.5), rgba(0, 46, 91, 0.5)), url('../images/college_background.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    /* Parallax effect */
-    height: 85vh;
+    height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: var(--white);
     padding: 2rem;
-    margin-bottom: 2rem;
 }
 
 .hero-logo {
